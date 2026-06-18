@@ -6,7 +6,7 @@ Strategie: V4 momentum (bull/neutraal) + MR mean reversion (bear).
 Regime:    percentile p33/p67 per crypto, berekend op 2024 trainingsdata.
 State:     Supabase (portfolio_state + trades + signals tabellen).
 Schedule:  GitHub Actions cron 0 */4 * * * (elke 4 uur).
-Notificaties: Discord webhook.
+Notificaties: Slack Incoming Webhook.
 
 Stack: Python 3.11, anthropic, supabase-py, ta, pandas, requests, feedparser.
 """
@@ -733,97 +733,127 @@ def generate_entries(state: dict, indicators: dict,
     return state, signals
 
 
-# ── Discord notificatie ───────────────────────────────────────────────────────
+# ── Slack notificatie ─────────────────────────────────────────────────────────
 def _emoji(pnl: float) -> str:
-    return "📈" if pnl >= 0 else "📉"
+    return ":chart_with_upwards_trend:" if pnl >= 0 else ":chart_with_downwards_trend:"
 
 
-def send_discord(state: dict, exits: list, signals: list, fng: dict):
-    url = os.environ.get("DISCORD_WEBHOOK_URL", "")
+def send_slack(state: dict, exits: list, signals: list, fng: dict):
+    """
+    Stuurt een Slack bericht via Incoming Webhook.
+    Secret: SLACK_WEBHOOK_URL (repo Settings → Secrets → Actions).
+    Webhook aanmaken: Slack → Apps → Incoming Webhooks → Add to Slack.
+    """
+    url = os.environ.get("SLACK_WEBHOOK_URL", "")
     if not url:
-        print("  [INFO] Geen DISCORD_WEBHOOK_URL — geen notificatie.")
+        print("  [INFO] Geen SLACK_WEBHOOK_URL — geen notificatie.")
         return
 
-    now_cet  = datetime.now(timezone.utc) + timedelta(hours=2)
-    now_str  = now_cet.strftime("%d-%m-%Y %H:%M")
-    gw       = state["gross_win"]; gl = state["gross_loss"]
-    pf       = gw / gl if gl > 0 else 0.0
-    wr       = state["win_rate"]
+    now_cet   = datetime.now(timezone.utc) + timedelta(hours=2)
+    now_str   = now_cet.strftime("%d-%m-%Y %H:%M")
+    gw        = state["gross_win"]; gl = state["gross_loss"]
+    pf        = gw / gl if gl > 0 else 0.0
+    wr        = state["win_rate"]
     total_val = state["capital_eur"] + sum(
         float(p.get("current_val", p.get("invest", 0)))
         for p in state["open_positions"].values())
     ret_pct   = (total_val - START_CAP) / START_CAP * 100
+    ret_icon  = ":arrow_up_small:" if ret_pct >= 0 else ":arrow_down_small:"
 
-    # Open posities
-    pos_lines = []
-    for t, p in state["open_positions"].items():
-        cv   = float(p.get("current_val", float(p["units"]) * float(p["entry_px"])))
-        inv  = float(p["invest"])
-        upnl = cv - inv
-        pos_lines.append(
-            f"  {_name(t):<6} {p['strategy'].upper():<4} "
-            f"entry €{float(p['entry_px']):.4f}  "
-            f"stop €{float(p['stop_px']):.4f}  "
-            f"uPnL {upnl:>+.2f}€")
-
-    # Exits deze run
-    exit_lines = [
-        f"  {_emoji(e['pnl_eur'])} {_name(e['ticker'])} SELL "
-        f"€{e['exit_price']:.4f}  PnL {e['pnl_pct']:>+.1f}% ({e['pnl_eur']:>+.2f}€)  "
-        f"{e['exit_reason']}"
-        for e in exits]
-
-    # Signalen
-    sig_lines = []
-    for s in signals:
-        llm   = s.get("llm", {})
-        blk   = s.get("entry_blocked", False)
-        icon  = "🚫" if blk else "✅"
-        sig_lines.append(
-            f"  {icon} {_name(s['ticker']):<6} {s['signal_type'].upper():<4} "
-            f"regime={s['regime']}  "
-            f"LLM {llm.get('beslissing','?')} "
-            f"conf={llm.get('confidence',0):.2f}  "
-            f"{llm.get('nieuws_sentiment','?')}")
-        if llm.get("reden"):
-            sig_lines.append(f"     → {llm['reden'][:80]}")
-
-    parts = [
-        f"🤖 **Hybrid Trading Bot** — {now_str} CET",
-        "",
-        f"💼 Portfolio: **€{total_val:.2f}** ({ret_pct:>+.1f}% sinds start)",
-        f"💰 Vrij kapitaal: €{state['capital_eur']:.2f}",
-        f"📊 Trades: {state['total_trades']} | "
-        f"Win rate: {wr:.1f}% | PF: {pf:.2f}",
-        f"😱 Fear & Greed: {fng['score']} — {fng['label']}",
+    # Header blok
+    blocks = [
+        {
+            "type": "header",
+            "text": {"type": "plain_text",
+                     "text": f"Hybrid Trading Bot — {now_str} CET"}
+        },
+        {
+            "type": "section",
+            "fields": [
+                {"type": "mrkdwn",
+                 "text": f"*Portfolio*\n€{total_val:.2f}  {ret_icon} {ret_pct:>+.1f}%"},
+                {"type": "mrkdwn",
+                 "text": f"*Vrij kapitaal*\n€{state['capital_eur']:.2f}"},
+                {"type": "mrkdwn",
+                 "text": f"*Trades*\n{state['total_trades']}  |  WR {wr:.1f}%  |  PF {pf:.2f}"},
+                {"type": "mrkdwn",
+                 "text": f"*Fear & Greed*\n{fng['score']} — {fng['label']}"},
+            ]
+        },
+        {"type": "divider"},
     ]
 
-    if pos_lines:
-        parts += ["", f"📂 **Open posities ({len(state['open_positions'])}):**"]
-        parts += pos_lines
+    # Open posities
+    if state["open_positions"]:
+        pos_text = ""
+        for t, p in state["open_positions"].items():
+            cv   = float(p.get("current_val", float(p["units"]) * float(p["entry_px"])))
+            upnl = cv - float(p["invest"])
+            sign = "+" if upnl >= 0 else ""
+            pos_text += (f"`{_name(t):<5}` {p['strategy'].upper()}  "
+                         f"entry €{float(p['entry_px']):.4f}  "
+                         f"stop €{float(p['stop_px']):.4f}  "
+                         f"uPnL {sign}{upnl:.2f}€\n")
+        blocks.append({
+            "type": "section",
+            "text": {"type": "mrkdwn",
+                     "text": f":file_folder: *Open posities ({len(state['open_positions'])})*\n{pos_text.strip()}"}
+        })
     else:
-        parts += ["", "📂 Geen open posities"]
+        blocks.append({
+            "type": "section",
+            "text": {"type": "mrkdwn", "text": ":file_folder: Geen open posities"}
+        })
 
-    if exit_lines:
-        parts += ["", "🔒 **Exits deze candle:**"]
-        parts += exit_lines
+    # Exits
+    if exits:
+        exit_text = ""
+        for e in exits:
+            icon = ":white_check_mark:" if e["pnl_eur"] >= 0 else ":x:"
+            exit_text += (f"{icon} `{_name(e['ticker'])}` SELL "
+                          f"€{e['exit_price']:.4f}  "
+                          f"PnL {e['pnl_pct']:>+.1f}% ({e['pnl_eur']:>+.2f}€)  "
+                          f"_{e['exit_reason']}_\n")
+        blocks.append({"type": "divider"})
+        blocks.append({
+            "type": "section",
+            "text": {"type": "mrkdwn",
+                     "text": f":closed_lock_with_key: *Exits deze candle*\n{exit_text.strip()}"}
+        })
 
-    if sig_lines:
-        parts += ["", "🔔 **Signalen deze candle:**"]
-        parts += sig_lines
+    # Signalen
+    if signals:
+        sig_text = ""
+        for s in signals:
+            llm  = s.get("llm", {})
+            blk  = s.get("entry_blocked", False)
+            icon = ":no_entry_sign:" if blk else ":white_check_mark:"
+            sig_text += (f"{icon} `{_name(s['ticker']):<5}` "
+                         f"{s['signal_type'].upper()}  regime={s['regime']}  "
+                         f"LLM *{llm.get('beslissing','?')}*  "
+                         f"conf={llm.get('confidence',0):.2f}  "
+                         f"{llm.get('nieuws_sentiment','?')}\n")
+            if llm.get("reden"):
+                sig_text += f"  _{llm['reden'][:100]}_\n"
+        blocks.append({"type": "divider"})
+        blocks.append({
+            "type": "section",
+            "text": {"type": "mrkdwn",
+                     "text": f":bell: *Signalen deze candle*\n{sig_text.strip()}"}
+        })
     else:
-        parts += ["", "🔔 Geen nieuwe signalen"]
-
-    content = "\n".join(parts)
-    if len(content) > 1900:
-        content = content[:1900] + "\n…"
+        blocks.append({"type": "divider"})
+        blocks.append({
+            "type": "section",
+            "text": {"type": "mrkdwn", "text": ":bell: Geen nieuwe signalen"}
+        })
 
     try:
-        r = requests.post(url, json={"content": content}, timeout=10)
-        if r.status_code not in (200, 204):
-            print(f"  [WARN] Discord HTTP {r.status_code}: {r.text[:200]}")
+        r = requests.post(url, json={"blocks": blocks}, timeout=10)
+        if r.status_code != 200:
+            print(f"  [WARN] Slack HTTP {r.status_code}: {r.text[:200]}")
     except Exception as e:
-        print(f"  [WARN] Discord fout: {e}")
+        print(f"  [WARN] Slack fout: {e}")
 
 
 # ── Main ──────────────────────────────────────────────────────────────────────
@@ -904,9 +934,9 @@ def main():
     print("\n  7. State opslaan in Supabase …")
     save_state(state)
 
-    # 9. Discord notificatie
-    print("\n  8. Discord notificatie …")
-    send_discord(state, exits, signals, fng)
+    # 9. Slack notificatie
+    print("\n  8. Slack notificatie …")
+    send_slack(state, exits, signals, fng)
 
     # Samenvatting
     total_val = state["capital_eur"] + sum(
