@@ -1,0 +1,45 @@
+name: Hybrid Trading Bot
+
+on:
+  schedule:
+    # Elke 4 uur op het hele uur: 00:00, 04:00, 08:00, 12:00, 16:00, 20:00 UTC
+    - cron: '0 */4 * * *'
+  # Handmatig triggeren voor testen via GitHub Actions UI
+  workflow_dispatch:
+
+jobs:
+  run_bot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Python 3.11 instellen
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Dependencies installeren
+        run: |
+          pip install --upgrade pip
+          pip install anthropic "supabase>=2.0" ta pandas requests feedparser
+
+      - name: Trading bot uitvoeren
+        run: python bot.py
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          SUPABASE_URL:      ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY:      ${{ secrets.SUPABASE_KEY }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+
+      - name: Upload run log als artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: bot-log-${{ github.run_id }}
+          path: bot_run.log
+          if-no-files-found: ignore
+          retention-days: 14

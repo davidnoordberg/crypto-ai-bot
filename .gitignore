@@ -1,0 +1,17 @@
+# Secrets — nooit committen
+.env
+*.env
+secrets.json
+
+# Caches
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# Nieuws & LLM caches (lokaal, niet nodig in repo)
+nieuws_cache.json
+llm_news_cache.json
+
+# macOS
+.DS_Store
