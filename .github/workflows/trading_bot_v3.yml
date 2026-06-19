@@ -1,0 +1,39 @@
+name: Aggressive Trading Bot V3
+
+on:
+  schedule:
+    # 30 minuten na bot.py (0 */4) zodat ze niet tegelijk draaien
+    - cron: '30 */4 * * *'
+  workflow_dispatch:
+
+# Nodig om state_v3.json terug te schrijven naar de repo
+permissions:
+  contents: write
+
+jobs:
+  run_bot_v3:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Python 3.11 instellen
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Dependencies installeren
+        run: pip install -r requirements.txt
+
+      - name: Agressieve bot V3 uitvoeren
+        run: python bot_v3.py
+        env:
+          # Automatisch beschikbaar in Actions — geen handmatig secret nodig
+          GITHUB_TOKEN:       ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY:  ${{ github.repository }}
+          # Zelfde secrets als bot.py — geen extra secrets nodig
+          ANTHROPIC_API_KEY:  ${{ secrets.ANTHROPIC_API_KEY }}
+          SLACK_WEBHOOK_URL:  ${{ secrets.SLACK_WEBHOOK_URL }}

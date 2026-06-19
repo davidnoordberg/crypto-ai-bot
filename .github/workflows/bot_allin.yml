@@ -1,0 +1,40 @@
+name: All-In C Trading Bot (DOGE+SOL)
+
+on:
+  schedule:
+    # 30 minuten na Bot 1 (0 */4) en Bot V3 (30 */4 al bezet) — eigenlijk 35 na Bot 1
+    # Gebruik 35 */4 om te voorkomen dat allin en v3 tegelijk draaien
+    - cron: '35 */4 * * *'
+  workflow_dispatch:
+
+# Nodig om state_allin.json terug te schrijven naar de repo
+permissions:
+  contents: write
+
+jobs:
+  run_bot_allin:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Python 3.11 instellen
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Dependencies installeren
+        run: pip install -r requirements.txt
+
+      - name: All-In C bot uitvoeren
+        run: python3 bot_allin.py
+        env:
+          # Automatisch beschikbaar in Actions — geen handmatig secret nodig
+          GITHUB_TOKEN:       ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY:  ${{ github.repository }}
+          # Zelfde secrets als de andere bots
+          ANTHROPIC_API_KEY:  ${{ secrets.ANTHROPIC_API_KEY }}
+          SLACK_WEBHOOK_URL:  ${{ secrets.SLACK_WEBHOOK_URL }}

@@ -1,0 +1,38 @@
+name: Fear Contrarian Bot (BTC+ETH+SOL+DOGE)
+
+on:
+  schedule:
+    # 45 minuten na Bot 1 (0 */4 *), 15 na Bot V3 (30), 10 na Bot All-in (35)
+    - cron: '45 */4 * * *'
+  workflow_dispatch:
+
+# Nodig om state_fear.json terug te schrijven naar de repo
+permissions:
+  contents: write
+
+jobs:
+  run_bot_fear:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Python 3.11 instellen
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Dependencies installeren
+        run: pip install -r requirements.txt
+
+      - name: Fear Contrarian bot uitvoeren
+        run: python3 bot_fear.py
+        env:
+          # Automatisch beschikbaar in Actions
+          GITHUB_TOKEN:       ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY:  ${{ github.repository }}
+          ANTHROPIC_API_KEY:  ${{ secrets.ANTHROPIC_API_KEY }}
+          SLACK_WEBHOOK_URL:  ${{ secrets.SLACK_WEBHOOK_URL }}
