@@ -1,0 +1,6 @@
+anthropic
+ta
+pandas
+requests
+feedparser
+numpy

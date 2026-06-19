@@ -27,7 +27,7 @@ jobs:
           cache: 'pip'
 
       - name: Dependencies installeren
-        run: pip install anthropic ta pandas requests feedparser
+        run: pip install -r requirements.txt
 
       - name: Trading bot uitvoeren
         run: python bot.py
