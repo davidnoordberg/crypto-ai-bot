@@ -4,15 +4,16 @@ Hybrid V4+MR Paper Trading Bot
 Portfolio: DOGE, SOL, ETH, AVAX, ADA via Bitvavo publieke API (EUR pairs).
 Strategie: V4 momentum (bull/neutraal) + MR mean reversion (bear).
 Regime:    percentile p33/p67 per crypto, berekend op 2024 trainingsdata.
-State:     Supabase (portfolio_state + trades + signals tabellen).
+State:     state.json in GitHub repo (lezen/schrijven via GitHub Contents API).
+           GITHUB_TOKEN is automatisch beschikbaar in Actions — geen extra secret.
 Schedule:  GitHub Actions cron 0 */4 * * * (elke 4 uur).
 Notificaties: Slack Incoming Webhook.
 
-Stack: Python 3.11, anthropic, supabase-py, ta, pandas, requests, feedparser.
+Stack: Python 3.11, anthropic, ta, pandas, requests, feedparser.
 """
 
 from __future__ import annotations
-import os, json, re, sys, warnings, traceback
+import os, json, re, sys, warnings, traceback, base64
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 from typing import Optional
@@ -35,18 +36,16 @@ except ImportError:
     _anthropic = None
     _ANTHR_CLIENT = None
 
-try:
-    from supabase import create_client as _sb_create
-    _SB_CLIENT = None
-except ImportError:
-    _sb_create = None
-    _SB_CLIENT = None
-
 # ── Config ────────────────────────────────────────────────────────────────────
 TICKERS   = ["DOGE-EUR", "SOL-EUR", "ETH-EUR", "AVAX-EUR", "ADA-EUR"]
 START_CAP = 500.0
 FEE_RT    = 0.004
 MIN_POS   = 3.0
+
+# GitHub state bestanden
+GH_API        = "https://api.github.com"
+GH_REPO       = os.environ.get("GITHUB_REPOSITORY", "davidnoordberg/crypto-ai-bot")
+GH_STATE_FILE = "state.json"   # portfolio state + trades + signals history
 
 V4_RSI_LO    = 45; V4_RSI_HI = 75
 V4_ATR_ENTRY = 4.0
@@ -74,15 +73,10 @@ CANDLE_LIMIT = 250
 
 # ── Client setup ──────────────────────────────────────────────────────────────
 def _init_clients():
-    global _ANTHR_CLIENT, _SB_CLIENT
+    global _ANTHR_CLIENT
     api_key = os.environ.get("ANTHROPIC_API_KEY", "")
     if _anthropic and api_key:
         _ANTHR_CLIENT = _anthropic.Anthropic(api_key=api_key)
-
-    sb_url = os.environ.get("SUPABASE_URL", "")
-    sb_key = os.environ.get("SUPABASE_KEY", "")
-    if _sb_create and sb_url and sb_key:
-        _SB_CLIENT = _sb_create(sb_url, sb_key)
 
 
 def _name(ticker: str) -> str:
@@ -384,7 +378,7 @@ Geef je antwoord UITSLUITEND als geldig JSON (geen tekst erbuiten):
         return fallback
 
 
-# ── Supabase state ─────────────────────────────────────────────────────────────
+# ── GitHub state (Contents API) ────────────────────────────────────────────────
 _INITIAL_STATE = {
     "capital_eur":       START_CAP,
     "open_positions":    {},
@@ -395,102 +389,131 @@ _INITIAL_STATE = {
     "win_rate":          0.0,
     "profit_factor":     0.0,
     "total_return_pct":  0.0,
+    "trades":            [],   # volledige trade history
+    "signals":           [],   # volledige signal history
 }
+
+# SHA van het huidige state.json bestand — nodig voor de PUT call
+_state_sha: Optional[str] = None
+
+
+def _gh_headers() -> dict:
+    token = os.environ.get("GITHUB_TOKEN", "")
+    h = {"Accept": "application/vnd.github+json",
+         "X-GitHub-Api-Version": "2022-11-28"}
+    if token:
+        h["Authorization"] = f"Bearer {token}"
+    return h
+
+
+def _gh_read(path: str) -> tuple[Optional[dict], Optional[str]]:
+    """
+    Leest een JSON-bestand uit de repo.
+    Retourneert (inhoud_dict, sha) of (None, None) als het bestand niet bestaat.
+    """
+    url = f"{GH_API}/repos/{GH_REPO}/contents/{path}"
+    try:
+        r = requests.get(url, headers=_gh_headers(), timeout=15)
+        if r.status_code == 404:
+            return None, None
+        r.raise_for_status()
+        data = r.json()
+        content = json.loads(base64.b64decode(data["content"]).decode())
+        return content, data["sha"]
+    except Exception as e:
+        print(f"  [WARN] GitHub read {path}: {e}")
+        return None, None
+
+
+def _gh_write(path: str, content: dict, sha: Optional[str], message: str):
+    """
+    Schrijft een JSON-bestand naar de repo via de Contents API.
+    sha is None bij een nieuw bestand, anders de SHA van de huidige versie.
+    """
+    url = f"{GH_API}/repos/{GH_REPO}/contents/{path}"
+    encoded = base64.b64encode(
+        json.dumps(content, indent=2, ensure_ascii=False).encode()
+    ).decode()
+    body: dict = {"message": message, "content": encoded}
+    if sha:
+        body["sha"] = sha
+    try:
+        r = requests.put(url, headers=_gh_headers(), json=body, timeout=15)
+        r.raise_for_status()
+    except Exception as e:
+        print(f"  [WARN] GitHub write {path}: {e}")
 
 
 def load_state() -> dict:
-    if _SB_CLIENT is None:
-        print("  [INFO] Geen Supabase — gebruik initiële state.")
+    global _state_sha
+    content, sha = _gh_read(GH_STATE_FILE)
+    if content is None:
+        print("  [INFO] state.json bestaat nog niet — initialiseer met startkapitaal.")
+        _state_sha = None
         return _INITIAL_STATE.copy()
-    try:
-        res = (_SB_CLIENT.table("portfolio_state")
-               .select("*").order("timestamp", desc=True).limit(1).execute())
-        if res.data:
-            row = res.data[0]
-            pos = row.get("open_positions") or {}
-            if isinstance(pos, str):
-                pos = json.loads(pos)
-            return {
-                "capital_eur":      float(row.get("capital_eur",  START_CAP)),
-                "open_positions":   pos,
-                "total_trades":     int(row.get("total_trades",   0)),
-                "wins":             int(row.get("wins",            0)),
-                "gross_win":        float(row.get("gross_win",     0.0)),
-                "gross_loss":       float(row.get("gross_loss",    0.0)),
-                "win_rate":         float(row.get("win_rate",      0.0)),
-                "profit_factor":    float(row.get("profit_factor", 0.0)),
-                "total_return_pct": float(row.get("total_return_pct", 0.0)),
-            }
-    except Exception as e:
-        print(f"  [WARN] Supabase load_state fout: {e}")
-    return _INITIAL_STATE.copy()
+    _state_sha = sha
+    # Zorg dat alle verwachte sleutels aanwezig zijn (backwards compat)
+    state = _INITIAL_STATE.copy()
+    state.update(content)
+    return state
 
 
 def save_state(state: dict):
+    global _state_sha
     total_val = state["capital_eur"] + sum(
-        p.get("current_val", p.get("invest", 0))
+        float(p.get("current_val", p.get("invest", 0)))
         for p in state["open_positions"].values())
     ret_pct = (total_val - START_CAP) / START_CAP * 100
 
     gw = state["gross_win"]; gl = state["gross_loss"]
-    pf = gw / gl if gl > 0 else (999.99 if gw > 0 else 0.0)
+    pf = gw / gl if gl > 0 else (0.0)
     wr = state["wins"] / state["total_trades"] * 100 \
          if state["total_trades"] > 0 else 0.0
 
-    state["win_rate"]         = wr
-    state["profit_factor"]    = pf
-    state["total_return_pct"] = ret_pct
+    state["win_rate"]         = round(wr, 4)
+    state["profit_factor"]    = round(pf, 4)
+    state["total_return_pct"] = round(ret_pct, 4)
 
-    row = {
-        "capital_eur":      round(state["capital_eur"], 4),
-        "open_positions":   state["open_positions"],
-        "total_trades":     state["total_trades"],
-        "wins":             state["wins"],
-        "gross_win":        round(gw, 4),
-        "gross_loss":       round(gl, 4),
-        "win_rate":         round(wr, 4),
-        "profit_factor":    round(pf, 4),
-        "total_return_pct": round(ret_pct, 4),
-    }
-    if _SB_CLIENT is None:
-        print(f"  [LOCAL] State: €{row['capital_eur']:.2f}  "
-              f"ret {ret_pct:+.1f}%  trades {state['total_trades']}")
-        return
+    # Verwijder runtime-only velden uit open_positions voor opslag
+    clean_positions = {}
+    for t, p in state["open_positions"].items():
+        clean_positions[t] = {k: v for k, v in p.items() if k != "current_val"}
+    state["open_positions"] = clean_positions
 
-    try:
-        _SB_CLIENT.table("portfolio_state").insert(row).execute()
-    except Exception as e:
-        print(f"  [WARN] Supabase save_state fout: {e}")
+    now_str = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
+    n_pos   = len(state["open_positions"])
+    message = (f"bot: {now_str} — "
+               f"€{state['capital_eur']:.2f} vrij, "
+               f"{n_pos} pos open, "
+               f"{state['total_trades']} trades")
+
+    _gh_write(GH_STATE_FILE, state, _state_sha, message)
+    # SHA wordt bij de volgende run opnieuw opgehaald via load_state()
+    print(f"  [GitHub] state.json opgeslagen  "
+          f"(ret {ret_pct:+.1f}%  trades {state['total_trades']})")
 
 
-def log_trade(trade: dict):
-    if _SB_CLIENT is None:
-        print(f"  [TRADE] {trade['action']} {trade['ticker']}  "
-              f"€{trade.get('pnl_eur', 0):+.2f}  {trade.get('exit_reason', '')}")
-        return
-    try:
-        _SB_CLIENT.table("trades").insert({
-            k: (round(v, 6) if isinstance(v, float) else v)
-            for k, v in trade.items()
-        }).execute()
-    except Exception as e:
-        print(f"  [WARN] Supabase log_trade fout: {e}")
+def log_trade(trade: dict, state: dict):
+    """Voeg trade toe aan state['trades'] lijst (wordt meegeschreven in save_state)."""
+    clean = {k: (round(v, 6) if isinstance(v, float) else v)
+             for k, v in trade.items() if v is not None}
+    state.setdefault("trades", []).append(clean)
+    action = trade.get("action", "?")
+    ticker = trade.get("ticker", "?")
+    pnl    = trade.get("pnl_eur") or 0.0
+    reason = trade.get("exit_reason", "")
+    print(f"  [TRADE] {action} {ticker:<12}  pnl {pnl:>+.2f}€  {reason}")
 
 
-def log_signal(sig: dict):
-    if _SB_CLIENT is None:
-        blk = sig.get("entry_blocked", False)
-        print(f"  [SIGNAL] {sig['ticker']}  {sig['signal_type']}  "
-              f"regime={sig['regime']}  "
-              f"{'GEBLOKKEERD' if blk else 'KOOP'}")
-        return
-    try:
-        _SB_CLIENT.table("signals").insert({
-            k: (round(v, 6) if isinstance(v, float) else v)
-            for k, v in sig.items()
-        }).execute()
-    except Exception as e:
-        print(f"  [WARN] Supabase log_signal fout: {e}")
+def log_signal(sig: dict, state: dict):
+    """Voeg signaal toe aan state['signals'] lijst."""
+    clean = {k: (round(v, 6) if isinstance(v, float) else v)
+             for k, v in sig.items()}
+    state.setdefault("signals", []).append(clean)
+    blk = sig.get("entry_blocked", False)
+    print(f"  [SIGNAL] {sig['ticker']:<12}  {sig['signal_type']}  "
+          f"regime={sig['regime']}  "
+          f"{'GEBLOKKEERD' if blk else 'KOOP'}")
 
 
 # ── Positie helpers ────────────────────────────────────────────────────────────
@@ -575,7 +598,7 @@ def check_exits(state: dict, indicators: dict) -> tuple[dict, list]:
                 "llm_nieuws_sentiment": pos.get("llm_nieuws_sentiment", ""),
                 "llm_reden":           pos.get("llm_reden", ""),
             }
-            log_trade(trade)
+            log_trade(trade, state)
             exits.append(trade)
             to_del.append(ticker)
             print(f"  EXIT  {ticker:<12}  {reason:<12}  "
@@ -667,7 +690,7 @@ def generate_entries(state: dict, indicators: dict,
             "entry_blocked":  llm["beslissing"] == "NIETS",
             "block_reason":   llm["reden"] if llm["beslissing"] == "NIETS" else "",
         }
-        log_signal(sig_row)
+        log_signal(sig_row, state)
         signals.append({**sig_row, "llm": llm, "row": row,
                          "close": close, "atr": atr, "frac": frac})
 
@@ -725,7 +748,7 @@ def generate_entries(state: dict, indicators: dict,
             "llm_nieuws_sentiment": llm["nieuws_sentiment"],
             "llm_reden":          llm["reden"],
         }
-        log_trade(trade)
+        log_trade(trade, state)
         print(f"  BUY   {ticker:<12}  {strategy:<4}  {t_reg:<9}  "
               f"€{close:.4f}  {eff_frac*100:.0f}%  "
               f"(LLM conf {llm['confidence']:.2f})")
@@ -931,7 +954,7 @@ def main():
         print("     Geen entry signalen.")
 
     # 8. Portfolio state opslaan
-    print("\n  7. State opslaan in Supabase …")
+    print("\n  7. State opslaan in GitHub (state.json) …")
     save_state(state)
 
     # 9. Slack notificatie
