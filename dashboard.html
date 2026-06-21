@@ -426,11 +426,12 @@ async function fetchCurrentPrice(market) {
 async function fetchStartPrice(market) {
     try {
         const ts = new Date(CFG.BENCHMARK_START_DATE).getTime();
-        const url = `https://api.bitvavo.com/v2/${market}/candles?interval=1d&limit=1&start=${ts}`;
+        const end = ts + 86400000; // +1 dag: alleen de startdag
+        const url = `https://api.bitvavo.com/v2/${market}/candles?interval=1d&start=${ts}&end=${end}&limit=1`;
         const r = await fetch(url);
         const d = await r.json();
         if (!Array.isArray(d) || !d[0]) return null;
-        return parseFloat(d[0][1]);
+        return parseFloat(d[0][1]); // open prijs van de startdag
     } catch(e) { return null; }
 }
 
