@@ -426,7 +426,7 @@ async function fetchCurrentPrice(market) {
 async function fetchStartPrice(market) {
     try {
         const ts = new Date(CFG.BENCHMARK_START_DATE).getTime();
-        const url = `https://api.bitvavo.com/v2/candles?market=${market}&interval=1d&limit=1&start=${ts}`;
+        const url = `https://api.bitvavo.com/v2/${market}/candles?interval=1d&limit=1&start=${ts}`;
         const r = await fetch(url);
         const d = await r.json();
         if (!Array.isArray(d) || !d[0]) return null;
@@ -441,7 +441,7 @@ async function fetchCandleHistory(market, startMs, endMs) {
     const key = `${market}-${startMs}`;
     if (candleCache[key]) return candleCache[key];
     try {
-        const url = `https://api.bitvavo.com/v2/candles?market=${market}&interval=1h&start=${startMs}&end=${endMs}&limit=1440`;
+        const url = `https://api.bitvavo.com/v2/${market}/candles?interval=1h&start=${startMs}&end=${endMs}&limit=1440`;
         const d = await fetch(url).then(r => r.json());
         if (!Array.isArray(d)) return [];
         // Bitvavo candles: [timestamp_ms, open, high, low, close, volume]
