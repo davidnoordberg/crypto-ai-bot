@@ -771,7 +771,7 @@ function renderScorebordTable() {
 
     rows.forEach((r, i) => {
         const greyed = !r.state ? ' greyed-out' : '';
-        const wrPct = r.wr !== undefined && r.wr !== null ? (r.wr * 100).toFixed(1) + '%' : '—';
+        const wrPct = r.wr !== undefined && r.wr !== null ? r.wr.toFixed(1) + '%' : '—';
         html += `<tr class="clickable${greyed}" onclick="switchToDetailTab('${r.key}')">
             <td><span class="rank-num">#${i+1}</span></td>
             <td><div class="bot-cell"><span class="bot-icon">${r.meta.icon}</span><span class="bot-name">${r.meta.label}</span></div></td>
