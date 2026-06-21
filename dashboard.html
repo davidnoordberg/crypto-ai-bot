@@ -330,6 +330,7 @@ const BOT_COLORS = ['#2979ff','#00c853','#ff9800','#e040fb','#ff1744','#00bcd4',
 let CFG = {};
 let botStates = {};
 let benchmarks = {};
+let livePrices = {};
 let activeBot = 'fear';
 let chartInstances = {};
 let portfolioHistoryCache = {};
@@ -489,6 +490,16 @@ async function refreshAll() {
 
     await Promise.all([...statePromises, ...benchPromises]);
 
+    // Fetch live prices for all open positions across all bots
+    const allTickers = new Set();
+    Object.values(botStates).forEach(state => {
+        Object.keys(state?.open_positions || {}).forEach(t => allTickers.add(t));
+    });
+    await Promise.all([...allTickers].map(async (market) => {
+        const price = await fetchCurrentPrice(market);
+        if (price) livePrices[market] = price;
+    }));
+
     if (lr) {
         const now = new Date();
         lr.textContent = `Bijgewerkt: ${now.toLocaleTimeString('nl-NL')}`;
@@ -539,18 +550,16 @@ function badgeClass(v) {
 
 function getPortfolioTotal(state) {
     if (!state) return null;
-    if (state.portfolio_total) return state.portfolio_total;
-    // Fallback: capital + open positions at entry price (approximation)
     const positions = state.open_positions || {};
-    const invested = Object.values(positions).reduce((sum, p) => {
-        return sum + (p.invest || (parseFloat(p.units || 0) * parseFloat(p.entry_px || 0)));
+    const posValue = Object.entries(positions).reduce((sum, [ticker, p]) => {
+        const price = livePrices[ticker] || p.entry_px || 0;
+        return sum + (parseFloat(p.units || 0) * parseFloat(price));
     }, 0);
-    return (state.capital_eur || 0) + invested;
+    return (state.capital_eur || 0) + posValue;
 }
 
 function getReturnPct(state) {
     if (!state) return null;
-    if (state.total_return_pct !== undefined) return state.total_return_pct;
     const total = getPortfolioTotal(state);
     if (total) return (total - 500) / 500 * 100;
     return null;
