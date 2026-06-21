@@ -1,6 +1,6 @@
 {
   "bot_id": "fear",
-  "capital_eur": 171.5,
+  "capital_eur": 283.94282478336885,
   "open_positions": {
     "BTC-EUR": {
       "units": 0.00272216,
@@ -11,17 +11,6 @@
       "entry_ts": "2026-06-19T21:52:16.590526+00:00",
       "entry_fng": 14,
       "entry_rsi": 43.81,
-      "size_pct": 30.0
-    },
-    "SOL-EUR": {
-      "units": 1.74295599,
-      "entry_px": 60.122,
-      "stop_px": 60.16868764070665,
-      "trail_high": 63.93,
-      "invest": 105.0,
-      "entry_ts": "2026-06-19T21:52:16.590526+00:00",
-      "entry_fng": 14,
-      "entry_rsi": 44.12,
       "size_pct": 30.0
     },
     "DOGE-EUR": {
@@ -36,14 +25,16 @@
       "size_pct": 30.0
     }
   },
-  "cooldown_tickers": [],
-  "total_trades": 0,
-  "wins": 0,
-  "gross_win": 0.0,
+  "cooldown_tickers": [
+    "SOL-EUR"
+  ],
+  "total_trades": 1,
+  "wins": 1,
+  "gross_win": 7.44282475258883,
   "gross_loss": 0.0,
-  "win_rate": 0.0,
+  "win_rate": 100.0,
   "profit_factor": 0.0,
-  "total_return_pct": 1.7712,
+  "total_return_pct": 2.0496,
   "trades": [
     {
       "timestamp": "2026-06-19T21:52:16.590526+00:00",
@@ -77,6 +68,21 @@
       "entry_price": 0.072289,
       "entry_fng": 14,
       "entry_rsi": 40.74
+    },
+    {
+      "timestamp": "2026-06-21T15:04:10.146480+00:00",
+      "ticker": "SOL-EUR",
+      "action": "SELL",
+      "price": 64.642,
+      "position_size_pct": 21.0,
+      "position_size_eur": 105.0,
+      "entry_price": 60.122,
+      "exit_price": 64.642,
+      "pnl_pct": 7.0884,
+      "pnl_eur": 7.4428,
+      "exit_reason": "rsi_exit:66",
+      "entry_fng": 14,
+      "exit_fng": 23
     }
   ],
   "signals": [
@@ -110,5 +116,7 @@
       "size_pct": 30.0,
       "stop_px": 0.068973
     }
-  ]
+  ],
+  "portfolio_total": 510.248,
+  "open_positions_value": 226.3051
 }
