@@ -839,7 +839,7 @@ async function renderDetailTab() {
             const name = m.replace('-EUR', '');
             if (!b || b.pct === null) return `<div class="stat-row"><span class="stat-label">${name} B&H</span><span>—</span></div>`;
             const beats = returnPct !== null && returnPct > b.pct;
-            return `<div class="stat-row"><span class="stat-label">vs ${name} (${pct(b.pct)})</span><span>${beats ? '✅' : '❌'} <span class="${colorClass(returnPct - b.pct)}">${pct(returnPct - b.pct)}</span></span></div>`;
+            return `<div class="stat-row"><span class="stat-label">vs ${name} (${pct(b.pct)})</span><span class="${colorClass(returnPct - b.pct)}">${pct(returnPct - b.pct)}</span></div>`;
         }).join('');
 
         leftPanel = `
