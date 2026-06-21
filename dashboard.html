@@ -353,6 +353,8 @@ document.addEventListener('DOMContentLoaded', () => {
 function loadCFG() {
     const saved = JSON.parse(localStorage.getItem('cfg') || '{}');
     CFG = { ...DEFAULTS, ...saved };
+    // Corrigeer verkeerde startdatum die eerder in localStorage opgeslagen kon zijn
+    if (CFG.BENCHMARK_START_DATE === '2026-06-21') CFG.BENCHMARK_START_DATE = '2026-06-19';
 }
 
 function startCountdown() {
@@ -855,7 +857,7 @@ async function renderDetailTab() {
                 <h3>Statistieken</h3>
                 <div class="stat-row"><span class="stat-label">Trades open</span><span class="stat-val">${Object.keys(state.open_positions || {}).length}</span></div>
                 <div class="stat-row"><span class="stat-label">Totaal trades</span><span class="stat-val">${state.total_trades || 0}</span></div>
-                <div class="stat-row"><span class="stat-label">Win rate</span><span class="stat-val">${state.win_rate !== undefined ? (state.win_rate*100).toFixed(1)+'%' : '—'}</span></div>
+                <div class="stat-row"><span class="stat-label">Win rate</span><span class="stat-val">${state.win_rate !== undefined ? state.win_rate.toFixed(1)+'%' : '—'}</span></div>
                 <div class="stat-row"><span class="stat-label">Profit factor</span><span class="stat-val ${pf >= 1 ? 'text-green' : 'text-red'}">${pf !== undefined ? pf.toFixed(2) : '—'}</span></div>
                 <div class="stat-row"><span class="stat-label">Status</span><span>${statusBadge(state)}</span></div>
             </div>
