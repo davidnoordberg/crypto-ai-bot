@@ -539,7 +539,13 @@ function badgeClass(v) {
 
 function getPortfolioTotal(state) {
     if (!state) return null;
-    return state.portfolio_total || state.capital_eur || 500;
+    if (state.portfolio_total) return state.portfolio_total;
+    // Fallback: capital + open positions at entry price (approximation)
+    const positions = state.open_positions || {};
+    const invested = Object.values(positions).reduce((sum, p) => {
+        return sum + (p.invest || (parseFloat(p.units || 0) * parseFloat(p.entry_px || 0)));
+    }, 0);
+    return (state.capital_eur || 0) + invested;
 }
 
 function getReturnPct(state) {
