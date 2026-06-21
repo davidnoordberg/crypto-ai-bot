@@ -370,21 +370,52 @@ def update_cooldowns(state: dict, fng: dict):
 
 
 # ── Entries ────────────────────────────────────────────────────────────────────
-def generate_entries(state: dict, indicators: dict, fng: dict) -> tuple[dict, list]:
+CORR_THRESHOLD  = 0.85
+CORR_CANDLES    = 48
+
+
+def correlation_block(ticker: str, indicators: dict, open_positions: dict) -> Optional[str]:
+    """Geeft reden terug als ticker gecorreleerd is met een open positie, anders None."""
+    if not open_positions:
+        return None
+    df_new = indicators.get(ticker)
+    if df_new is None or len(df_new) < CORR_CANDLES:
+        return None
+    ret_new = df_new["Close"].pct_change().dropna().iloc[-CORR_CANDLES:]
+    for open_ticker in open_positions:
+        if open_ticker == ticker:
+            continue
+        df_open = indicators.get(open_ticker)
+        if df_open is None or len(df_open) < CORR_CANDLES:
+            continue
+        ret_open = df_open["Close"].pct_change().dropna().iloc[-CORR_CANDLES:]
+        aligned = ret_new.align(ret_open, join="inner")[0]
+        aligned_open = ret_new.align(ret_open, join="inner")[1]
+        if len(aligned) < 10:
+            continue
+        corr = float(aligned.corr(aligned_open))
+        if corr >= CORR_THRESHOLD:
+            return (f"{_name(open_ticker)} en {_name(ticker)} correlatie {corr:.2f}")
+    return None
+
+
+def generate_entries(state: dict, indicators: dict, fng: dict) -> tuple[dict, list, list]:
     """
     Entry condities:
     - FNG < 20 (Extreme Fear)
     - RSI < 45
     - Ticker niet in cooldown
     - Max 3 open posities
+    - Correlation agent: blokkeer als correlatie >= 0.85 met open positie
     """
-    signals   = []
-    now_str   = datetime.now(timezone.utc).isoformat()
-    fng_score = fng["score"]
+    signals        = []
+    corr_blocks    = []
+    now_str        = datetime.now(timezone.utc).isoformat()
+    fng_score      = fng["score"]
 
     if fng_score >= FNG_ENTRY_MAX:
         print(f"  FNG={fng_score} >= {FNG_ENTRY_MAX}: geen entry condities.")
-        return state, signals
+        return state, signals, corr_blocks
 
     frac    = fng_size(fng_score)
     cooldown = state.get("cooldown_tickers", [])
@@ -403,6 +434,13 @@ def generate_entries(state: dict, indicators: dict, fng: dict) -> tuple[dict, li
 
         df = indicators.get(ticker)
         if df is None or df.empty:
+            continue
+
+        # Correlation check
+        corr_reason = correlation_block(ticker, indicators, state["open_positions"])
+        if corr_reason:
+            print(f"  {ticker:<12}  geblokkeerd door correlation agent: {corr_reason}")
+            corr_blocks.append({"ticker": _name(ticker), "reden": corr_reason})
             continue
 
         row   = last_row(df)
@@ -473,11 +511,11 @@ def generate_entries(state: dict, indicators: dict, fng: dict) -> tuple[dict, li
         print(f"  BUY   {ticker:<12}  FNG={fng_score}  RSI={rsi:.1f}  "
               f"€{close:.4f}  {frac*100:.0f}%  stop=€{stop:.4f}")
 
-    return state, signals
+    return state, signals, corr_blocks
 
 
 # ── Slack notificatie ──────────────────────────────────────────────────────────
-def send_slack(state: dict, exits: list, signals: list, fng: dict):
+def send_slack(state: dict, exits: list, signals: list, fng: dict, corr_blocks: list = []):
     url = os.environ.get("SLACK_WEBHOOK_URL", "")
     if not url:
         print("  [INFO] Geen SLACK_WEBHOOK_URL — geen notificatie.")
@@ -570,6 +608,18 @@ def send_slack(state: dict, exits: list, signals: list, fng: dict):
         },
     ]
 
+    # Correlation blocks
+    if corr_blocks:
+        corr_lines = [
+            f":link: Trade geblokkeerd door Correlation Agent\nTicker: {b['ticker']}\nReden: {b['reden']}"
+            for b in corr_blocks
+        ]
+        blocks.append({"type": "divider"})
+        blocks.append({
+            "type": "section",
+            "text": {"type": "mrkdwn", "text": "\n\n".join(corr_lines)}
+        })
+
     # Exits
     if exits:
         exit_lines = []
@@ -661,7 +711,7 @@ def main():
         print("     Geen exits.")
 
     print("\n  7. Entry signalen genereren …")
-    state, signals = generate_entries(state, indicators, fng)
+    state, signals, corr_blocks = generate_entries(state, indicators, fng)
     if not signals:
         print("     Geen entries.")
 
@@ -669,7 +719,7 @@ def main():
     save_state(state)
 
     print("\n  9. Slack notificatie …")
-    send_slack(state, exits, signals, fng)
+    send_slack(state, exits, signals, fng, corr_blocks)
 
     print("\n  Klaar.")
 

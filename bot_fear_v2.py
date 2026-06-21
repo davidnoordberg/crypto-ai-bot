@@ -258,6 +258,34 @@ def update_cooldowns(state: dict, fng: dict):
 
 
 # ── Entries ────────────────────────────────────────────────────────────────────
+CORR_THRESHOLD = 0.85
+CORR_CANDLES   = 48
+
+
+def correlation_block(ticker: str, indicators: dict, open_positions: dict) -> Optional[str]:
+    """Geeft reden terug als ticker gecorreleerd is met een open positie, anders None."""
+    if not open_positions:
+        return None
+    df_new = indicators.get(ticker)
+    if df_new is None or len(df_new) < CORR_CANDLES:
+        return None
+    ret_new = df_new["Close"].pct_change().dropna().iloc[-CORR_CANDLES:]
+    for open_ticker in open_positions:
+        if open_ticker == ticker:
+            continue
+        df_open = indicators.get(open_ticker)
+        if df_open is None or len(df_open) < CORR_CANDLES:
+            continue
+        ret_open = df_open["Close"].pct_change().dropna().iloc[-CORR_CANDLES:]
+        aligned, aligned_open = ret_new.align(ret_open, join="inner")
+        if len(aligned) < 10:
+            continue
+        corr = float(aligned.corr(aligned_open))
+        if corr >= CORR_THRESHOLD:
+            return f"{_name(open_ticker)} en {_name(ticker)} correlatie {corr:.2f}"
+    return None
+
+
 def generate_entries(state: dict, indicators: dict,
                      fng: dict) -> tuple[dict, list, list]:
     """
@@ -301,6 +329,21 @@ def generate_entries(state: dict, indicators: dict,
 
         if rsi >= RSI_ENTRY_MAX:
             print(f"  {ticker:<12}  RSI {rsi:.1f} >= {RSI_ENTRY_MAX} — skip")
+            continue
+
+        # Correlation agent check
+        corr_reason = correlation_block(ticker, indicators, state["open_positions"])
+        if corr_reason:
+            print(f"  {ticker:<12}  geblokkeerd door correlation agent: {corr_reason}")
+            all_decisions.append({
+                "beslissing": "NIETS", "reden": f"Correlation agent: {corr_reason}",
+                "confidence": 0.0, "consensus": "geblokkeerd",
+                "doorslaggevende_factor": "correlatie",
+                "positiegrootte_pct": 0, "sentiment_score": 0, "sentiment_label": "",
+                "technische_score": 0, "setup_kwaliteit": "", "risico_score": 0,
+                "risico_label": "", "agents_failed": [], "llm_used": False,
+                "corr_block": True, "corr_reden": corr_reason, "ticker": _name(ticker),
+            })
             continue
 
         # Multi-agent beslissing
@@ -490,6 +533,19 @@ def send_slack(state: dict, exits: list, signals: list,
         "type": "section",
         "text": {"type": "mrkdwn", "text": f":bell: *Signalen*\n{sig_text}"}
     })
+
+    # Correlation blocks
+    corr_blocked = [d for d in all_decisions if d.get("corr_block")]
+    if corr_blocked:
+        corr_lines = [
+            f":link: Trade geblokkeerd door Correlation Agent\nTicker: {d['ticker']}\nReden: {d['corr_reden']}"
+            for d in corr_blocked
+        ]
+        blocks.append({"type": "divider"})
+        blocks.append({
+            "type": "section",
+            "text": {"type": "mrkdwn", "text": "\n\n".join(corr_lines)}
+        })
 
     # Exits
     if exits:
