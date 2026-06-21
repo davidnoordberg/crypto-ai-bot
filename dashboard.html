@@ -415,7 +415,7 @@ async function loadBotState(filename) {
 
 async function fetchCurrentPrice(market) {
     try {
-        const url = `https://api.bitvavo.com/v2/${market}/ticker/price`;
+        const url = `https://api.bitvavo.com/v2/ticker/price?market=${market}`;
         const r = await fetch(url);
         const d = await r.json();
         return parseFloat(d.price);
@@ -425,7 +425,7 @@ async function fetchCurrentPrice(market) {
 async function fetchStartPrice(market) {
     try {
         const ts = new Date(CFG.BENCHMARK_START_DATE).getTime();
-        const url = `https://api.bitvavo.com/v2/${market}/candles?interval=1d&limit=1&start=${ts}`;
+        const url = `https://api.bitvavo.com/v2/candles?market=${market}&interval=1d&limit=1&start=${ts}`;
         const r = await fetch(url);
         const d = await r.json();
         if (!Array.isArray(d) || !d[0]) return null;
@@ -766,8 +766,10 @@ async function renderDetailTab() {
     if (!state) {
         leftPanel = `<div class="detail-section"><p style="color:var(--text2)">Geen data beschikbaar voor ${meta.label}.</p><p style="color:var(--text2);font-size:12px;margin-top:8px;">Controleer je GitHub token in Instellingen.</p></div>`;
     } else {
-        const free = (total || 0) - (state.open_positions_value || 0);
-        const invested = state.open_positions_value || 0;
+        const invested = state.open_positions_value || Object.values(state.open_positions || {}).reduce((sum, p) => {
+            return sum + (p.invest || (parseFloat(p.units || 0) * parseFloat(p.entry_px || 0)));
+        }, 0);
+        const free = state.capital_eur || ((total || 0) - invested);
         const pf = state.profit_factor;
         const enabled = getEnabledBenchmarks();
         const benchRows = enabled.map(m => {
