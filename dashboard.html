@@ -591,8 +591,9 @@ function pct(v) {
 
 function eur(v) {
     if (v === null || v === undefined || isNaN(v)) return '—';
-    if (v < 0.01) return '€' + v.toFixed(6);
-    if (v < 1)    return '€' + v.toFixed(4);
+    if (v === 0) return '€0.00';
+    if (Math.abs(v) < 0.01) return '€' + v.toFixed(6);
+    if (Math.abs(v) < 1)    return '€' + v.toFixed(4);
     return '€' + v.toFixed(2);
 }
 
