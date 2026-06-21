@@ -450,10 +450,14 @@ async function fetchPortfolioHistory(filename) {
                     { headers: { 'Authorization': `token ${CFG.GITHUB_TOKEN}`, 'Accept': 'application/vnd.github.v3+json' }}
                 ).then(r => r.json());
                 const state = JSON.parse(atob(fileAtCommit.content));
-                history.push({
-                    timestamp: commit.commit.author.date,
-                    portfolio_total: state.portfolio_total || state.capital_eur || 500
-                });
+                let total = state.portfolio_total;
+                if (!total) {
+                    const posVal = Object.values(state.open_positions || {}).reduce((sum, p) => {
+                        return sum + (parseFloat(p.units || 0) * parseFloat(p.entry_px || 0));
+                    }, 0);
+                    total = (state.capital_eur || 500) + posVal;
+                }
+                history.push({ timestamp: commit.commit.author.date, portfolio_total: total });
             } catch(e) { /* skip */ }
         }
         return history.reverse();
