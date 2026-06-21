@@ -434,6 +434,34 @@ async function fetchStartPrice(market) {
     } catch(e) { return null; }
 }
 
+// Cache voor historische candles: market -> array van {ts, close}
+const candleCache = {};
+
+async function fetchCandleHistory(market, startMs, endMs) {
+    const key = `${market}-${startMs}`;
+    if (candleCache[key]) return candleCache[key];
+    try {
+        const url = `https://api.bitvavo.com/v2/candles?market=${market}&interval=1h&start=${startMs}&end=${endMs}&limit=1440`;
+        const d = await fetch(url).then(r => r.json());
+        if (!Array.isArray(d)) return [];
+        // Bitvavo candles: [timestamp_ms, open, high, low, close, volume]
+        const result = d.map(c => ({ ts: c[0], close: parseFloat(c[4]) }));
+        candleCache[key] = result;
+        return result;
+    } catch(e) { return []; }
+}
+
+function priceAtTime(candles, ts) {
+    if (!candles.length) return null;
+    // Zoek candle het dichtst bij ts (binnen 2 uur)
+    let best = null, bestDiff = Infinity;
+    for (const c of candles) {
+        const diff = Math.abs(c.ts - ts);
+        if (diff < bestDiff) { bestDiff = diff; best = c.close; }
+    }
+    return bestDiff < 7200000 ? best : null; // max 2 uur verschil
+}
+
 async function fetchPortfolioHistory(filename) {
     if (!CFG.GITHUB_TOKEN) return [];
     try {
@@ -442,7 +470,9 @@ async function fetchPortfolioHistory(filename) {
             headers: { 'Authorization': `token ${CFG.GITHUB_TOKEN}`, 'Accept': 'application/vnd.github.v3+json' }
         }).then(r => r.json());
         if (!Array.isArray(commits)) return [];
-        const history = [];
+
+        // Haal eerst alle states op
+        const snapshots = [];
         for (const commit of commits) {
             try {
                 const fileAtCommit = await fetch(
@@ -450,16 +480,35 @@ async function fetchPortfolioHistory(filename) {
                     { headers: { 'Authorization': `token ${CFG.GITHUB_TOKEN}`, 'Accept': 'application/vnd.github.v3+json' }}
                 ).then(r => r.json());
                 const state = JSON.parse(atob(fileAtCommit.content));
-                let total = state.portfolio_total;
-                if (!total) {
-                    const posVal = Object.values(state.open_positions || {}).reduce((sum, p) => {
-                        return sum + (parseFloat(p.units || 0) * parseFloat(p.entry_px || 0));
-                    }, 0);
-                    total = (state.capital_eur || 500) + posVal;
-                }
-                history.push({ timestamp: commit.commit.author.date, portfolio_total: total });
+                snapshots.push({ ts: new Date(commit.commit.author.date).getTime(), state });
             } catch(e) { /* skip */ }
         }
+        if (!snapshots.length) return [];
+
+        // Verzamel alle tickers die ooit open stonden
+        const tickerSet = new Set();
+        snapshots.forEach(s => Object.keys(s.state.open_positions || {}).forEach(t => tickerSet.add(t)));
+
+        // Haal candle history op voor alle tickers (van oudste tot nu)
+        const startMs = Math.min(...snapshots.map(s => s.ts)) - 3600000;
+        const endMs = Date.now();
+        const candlesByTicker = {};
+        await Promise.all([...tickerSet].map(async (ticker) => {
+            candlesByTicker[ticker] = await fetchCandleHistory(ticker, startMs, endMs);
+        }));
+
+        // Bereken echte portfoliowaarde per snapshot
+        const history = snapshots.map(({ ts, state }) => {
+            const posVal = Object.entries(state.open_positions || {}).reduce((sum, [ticker, p]) => {
+                const price = priceAtTime(candlesByTicker[ticker] || [], ts) || p.entry_px || 0;
+                return sum + (parseFloat(p.units || 0) * parseFloat(price));
+            }, 0);
+            return {
+                timestamp: new Date(ts).toISOString(),
+                portfolio_total: (state.capital_eur || 500) + posVal
+            };
+        });
+
         return history.reverse();
     } catch(e) { return []; }
 }
