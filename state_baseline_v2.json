@@ -1,0 +1,15 @@
+{
+  "capital_eur": 500.0,
+  "open_positions": {},
+  "total_trades": 0,
+  "wins": 0,
+  "gross_win": 0.0,
+  "gross_loss": 0.0,
+  "win_rate": 0.0,
+  "profit_factor": 0.0,
+  "total_return_pct": 0.0,
+  "trades": [],
+  "signals": [],
+  "portfolio_total": 500.0,
+  "open_positions_value": 0
+}
