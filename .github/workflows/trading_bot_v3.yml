@@ -2,8 +2,8 @@ name: Aggressive Trading Bot V3
 
 on:
   schedule:
-    # 30 minuten na bot.py (0 */4) zodat ze niet tegelijk draaien
-    - cron: '30 */4 * * *'
+    # 15 minuten na bot.py (0 */4) — per 8-bots schema
+    - cron: '15 */4 * * *'
   workflow_dispatch:
 
 # Nodig om state_v3.json terug te schrijven naar de repo

@@ -2,9 +2,8 @@ name: All-In C Trading Bot (DOGE+SOL)
 
 on:
   schedule:
-    # 30 minuten na Bot 1 (0 */4) en Bot V3 (30 */4 al bezet) — eigenlijk 35 na Bot 1
-    # Gebruik 35 */4 om te voorkomen dat allin en v3 tegelijk draaien
-    - cron: '35 */4 * * *'
+    # 30 minuten na Bot 1 (0 */4) — per 8-bots schema
+    - cron: '30 */4 * * *'
   workflow_dispatch:
 
 # Nodig om state_allin.json terug te schrijven naar de repo
