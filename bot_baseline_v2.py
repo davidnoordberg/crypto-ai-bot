@@ -35,6 +35,7 @@ from shared import (
     portfolio_blocks,
     agent_decision_block,
     multi_agent_decision,
+    check_meta_config,
 )
 
 # ── Config ────────────────────────────────────────────────────────────────────
@@ -526,6 +527,9 @@ def main():
     print("=" * 65)
 
     init_clients()
+
+    if not check_meta_config("baseline_v2"):
+        return
 
     print("\n  1. Portfolio state laden …")
     state = load_state()

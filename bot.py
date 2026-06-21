@@ -29,6 +29,8 @@ from ta.momentum   import RSIIndicator
 from ta.trend      import MACD as TaMACD
 from ta.volatility import AverageTrueRange, BollingerBands
 
+from shared import check_meta_config
+
 try:
     import anthropic as _anthropic
     _ANTHR_CLIENT: Optional[_anthropic.Anthropic] = None
@@ -894,6 +896,9 @@ def main():
     print("=" * 65)
 
     _init_clients()
+
+    if not check_meta_config("baseline"):
+        return
 
     # 1. Laad portfolio state
     print("\n  1. Portfolio state laden …")

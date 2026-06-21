@@ -31,6 +31,8 @@ warnings.filterwarnings("ignore")
 
 from ta.momentum   import RSIIndicator
 from ta.trend      import MACD as TaMACD
+
+from shared import check_meta_config
 from ta.volatility import AverageTrueRange, BollingerBands
 
 try:
@@ -889,6 +891,9 @@ def main():
     print("=" * 65)
 
     _init_clients()
+
+    if not check_meta_config("allin"):
+        return
 
     print("\n  1. Portfolio state laden …")
     state = load_state()

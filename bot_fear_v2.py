@@ -37,6 +37,7 @@ from shared import (
     gh_read, gh_write,
     log_agent_decision, send_slack_blocks, portfolio_blocks, agent_decision_block,
     multi_agent_decision,
+    check_meta_config,
 )
 
 # ── Config ────────────────────────────────────────────────────────────────────
@@ -590,6 +591,9 @@ def main():
     print("=" * 65)
 
     init_clients()
+
+    if not check_meta_config("fear_v2"):
+        return
 
     print("\n  1. Portfolio state laden …")
     state = load_state()

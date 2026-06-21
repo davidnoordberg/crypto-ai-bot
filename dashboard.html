@@ -159,6 +159,22 @@ tr.greyed-out td { opacity: 0.45; }
 /* Progress bar */
 .progress-bar-wrap { background: rgba(255,255,255,0.06); border-radius: 4px; height: 6px; width: 100%; margin-top: 4px; }
 .progress-bar { height: 6px; border-radius: 4px; background: var(--blue); transition: width 0.3s; }
+
+/* Meta Agent banner */
+.meta-banner { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 20px; margin-bottom: 20px; display: flex; align-items: flex-start; gap: 16px; flex-wrap: wrap; }
+.meta-banner-left { flex: 1; min-width: 220px; }
+.meta-banner-title { font-size: 13px; font-weight: 700; color: var(--text2); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+.meta-banner-market { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+.meta-banner-reason { color: var(--text2); font-size: 12px; font-style: italic; }
+.meta-bot-groups { display: flex; gap: 20px; flex-wrap: wrap; align-items: flex-start; }
+.meta-bot-group { min-width: 160px; }
+.meta-bot-group-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text2); margin-bottom: 6px; }
+.meta-bot-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.meta-bot-chip { font-size: 12px; padding: 3px 10px; border-radius: 20px; font-weight: 500; white-space: nowrap; }
+.meta-bot-chip.active { background: rgba(0,200,83,0.15); color: var(--green); border: 1px solid rgba(0,200,83,0.3); }
+.meta-bot-chip.paused { background: rgba(158,158,158,0.1); color: var(--grey); border: 1px solid rgba(158,158,158,0.2); text-decoration: line-through; }
+.meta-banner-meta { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; margin-top: 4px; }
+.meta-banner-pill { font-size: 12px; padding: 2px 8px; border-radius: 4px; }
 </style>
 </head>
 <body>
@@ -192,6 +208,7 @@ const DEFAULTS = {
 <div class="content">
     <!-- TAB 1: SCOREBORD -->
     <div class="tab-pane active" id="tab-scorebord">
+        <div class="meta-banner" id="metaBanner" style="display:none;"></div>
         <div class="kpi-grid" id="kpiGrid">
             <div class="card"><div class="spinner" style="margin:auto"></div></div>
             <div class="card"><div class="spinner" style="margin:auto"></div></div>
@@ -331,6 +348,7 @@ let CFG = {};
 let botStates = {};
 let benchmarks = {};
 let livePrices = {};
+let metaConfig = null;
 let activeBot = 'fear';
 let chartInstances = {};
 let portfolioHistoryCache = {};
@@ -544,7 +562,10 @@ async function refreshAll() {
         }
     });
 
-    await Promise.all([...statePromises, ...benchPromises]);
+    // Fetch meta config in parallel
+    const metaPromise = loadBotState('bot_config.json').then(cfg => { metaConfig = cfg; });
+
+    await Promise.all([...statePromises, ...benchPromises, metaPromise]);
 
     // Fetch live prices for all open positions across all bots
     const allTickers = new Set();
@@ -650,9 +671,75 @@ function avgBenchmarkPct() {
 }
 
 // ============================================================
+// META AGENT BANNER
+// ============================================================
+function renderMetaBanner() {
+    const el = document.getElementById('metaBanner');
+    if (!el) return;
+    if (!metaConfig) { el.style.display = 'none'; return; }
+
+    const cfg     = metaConfig;
+    const fng     = cfg.fng || {};
+    const actief  = cfg.actieve_bots || [];
+    const gepauz  = cfg.gepauzeerde_bots || [];
+    const bear    = cfg.bear_bescherming_actief;
+    const ts      = cfg.timestamp ? new Date(cfg.timestamp) : null;
+    const tsStr   = ts ? ts.toLocaleString('nl-NL', {day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}) : '—';
+    const wissel  = cfg.wisselingen_deze_maand ?? '—';
+    const markt   = cfg.markt_label || '—';
+    const reden   = cfg.redenering || '';
+    const summary = cfg.regime_summary || {};
+
+    const BOT_ICONS = {
+        baseline:'🛡️', baseline_v2:'🛡️', v3:'🎯', v3_v2:'🎯',
+        allin:'🚀', allin_v2:'🚀', fear:'😱', fear_v2:'💀'
+    };
+    const BOT_LABELS_JS = {
+        baseline:'Baseline', baseline_v2:'Baseline V2', v3:'V3', v3_v2:'V3 V2',
+        allin:'All-in', allin_v2:'All-in V2', fear:'Fear', fear_v2:'Fear V2'
+    };
+
+    const chipHtml = (bots, cls) => bots.map(b =>
+        `<span class="meta-bot-chip ${cls}">${BOT_ICONS[b]||''} ${BOT_LABELS_JS[b]||b}</span>`
+    ).join('');
+
+    const bearPill = bear
+        ? `<span class="meta-banner-pill badge-red">🐻 Bear bescherming actief</span>`
+        : `<span class="meta-banner-pill badge-grey">Bear bescherming inactief</span>`;
+
+    const fngColor = fng.score < 30 ? 'text-red' : fng.score > 65 ? 'text-green' : 'text-orange';
+
+    el.style.display = 'flex';
+    el.innerHTML = `
+        <div class="meta-banner-left">
+            <div class="meta-banner-title">🧠 Meta Agent</div>
+            <div class="meta-banner-market">${markt.charAt(0).toUpperCase() + markt.slice(1)}</div>
+            <div class="meta-banner-meta">
+                <span class="${fngColor}" style="font-size:13px;font-weight:600;">FNG ${fng.score} (${fng.trend||'stable'})</span>
+                ${bearPill}
+                <span style="color:var(--text2);font-size:12px;">🔄 ${wissel}x/maand</span>
+                <span style="color:var(--text2);font-size:12px;">⏱ ${tsStr}</span>
+            </div>
+            <div class="meta-banner-reason" style="margin-top:6px;">${reden}</div>
+        </div>
+        <div class="meta-bot-groups">
+            <div class="meta-bot-group">
+                <div class="meta-bot-group-label">✅ Actief (${actief.length})</div>
+                <div class="meta-bot-chips">${chipHtml(actief, 'active') || '<span style="color:var(--text2)">—</span>'}</div>
+            </div>
+            <div class="meta-bot-group">
+                <div class="meta-bot-group-label">⏸ Gepauzeerd (${gepauz.length})</div>
+                <div class="meta-bot-chips">${chipHtml(gepauz, 'paused') || '<span style="color:var(--text2)">—</span>'}</div>
+            </div>
+        </div>
+    `;
+}
+
+// ============================================================
 // TAB 1: SCOREBORD
 // ============================================================
 function renderScorebord() {
+    renderMetaBanner();
     renderKPIs();
     renderBenchmarkBar();
     renderScorebordTable();

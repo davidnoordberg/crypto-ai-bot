@@ -722,3 +722,43 @@ Geef je antwoord UITSLUITEND als geldig JSON:
         "llm_used":              len(agents_failed) < 4,
         "_llm_fallback":         a4.get("_llm_fallback", False),
     }
+
+
+# ── Meta Agent config check ───────────────────────────────────────────────────
+def check_meta_config(bot_id: str) -> bool:
+    """
+    Controleer of de bot actief is volgens bot_config.json.
+    Geeft True terug (bot mag draaien) als:
+      - bot_config.json niet bestaat
+      - bot_id niet in gepauzeerde_bots staat
+
+    Geeft False terug en stuurt Slack melding als bot gepauzeerd is.
+    """
+    try:
+        config, _ = gh_read("bot_config.json")
+        if config is None:
+            return True
+        gepauzeerd = config.get("gepauzeerde_bots", [])
+        if bot_id in gepauzeerd:
+            redenering = config.get("redenering", "Meta Agent heeft de bot gepauzeerd.")
+            actief     = config.get("actieve_bots", [])
+            actief_str = ", ".join(actief) if actief else "geen"
+            print(f"  [Meta Agent] {bot_id} is gepauzeerd. Reden: {redenering}")
+            send_slack_blocks([
+                {
+                    "type": "header",
+                    "text": {"type": "plain_text",
+                             "text": f":double_vertical_bar: {bot_id} gepauzeerd door Meta Agent"}
+                },
+                {
+                    "type": "section",
+                    "text": {"type": "mrkdwn",
+                             "text": f"*Reden:* {redenering}\n"
+                                     f"*Actieve bots:* {actief_str}"}
+                }
+            ])
+            return False
+        return True
+    except Exception as e:
+        print(f"  [WARN] check_meta_config fout: {e} — bot mag draaien.")
+        return True

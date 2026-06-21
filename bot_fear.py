@@ -40,6 +40,8 @@ warnings.filterwarnings("ignore")
 from ta.momentum   import RSIIndicator
 from ta.volatility import AverageTrueRange
 
+from shared import check_meta_config
+
 # ── Config ────────────────────────────────────────────────────────────────────
 TICKERS   = ["BTC-EUR", "ETH-EUR", "SOL-EUR", "DOGE-EUR"]
 START_CAP = 500.0
@@ -668,6 +670,9 @@ def main():
     print(f"  Fear Contrarian Bot  —  "
           f"{datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M')} UTC")
     print("=" * 65)
+
+    if not check_meta_config("fear"):
+        return
 
     print("\n  1. Portfolio state laden …")
     state = load_state()
