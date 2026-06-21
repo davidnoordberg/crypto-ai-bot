@@ -209,16 +209,21 @@ def load_state() -> dict:
 
 def save_state(state: dict):
     global _state_sha
-    total_val = state["capital_eur"] + sum(
-        float(p.get("current_val", p.get("invest", 0)))
+
+    # Bereken portfolio waarde VOOR het strippen van current_val
+    open_positions_value = sum(
+        float(p.get("current_val", float(p["units"]) * float(p["entry_px"])))
         for p in state["open_positions"].values())
-    ret_pct = (total_val - START_CAP) / START_CAP * 100
+    portfolio_total = state["capital_eur"] + open_positions_value
+    ret_pct = (portfolio_total - START_CAP) / START_CAP * 100
 
     gw = state["gross_win"]; gl = state["gross_loss"]
-    state["win_rate"]         = round(state["wins"] / state["total_trades"] * 100, 4) \
-                                if state["total_trades"] > 0 else 0.0
-    state["profit_factor"]    = round(gw / gl, 4) if gl > 0 else 0.0
-    state["total_return_pct"] = round(ret_pct, 4)
+    state["win_rate"]             = round(state["wins"] / state["total_trades"] * 100, 4) \
+                                    if state["total_trades"] > 0 else 0.0
+    state["profit_factor"]        = round(gw / gl, 4) if gl > 0 else 0.0
+    state["total_return_pct"]     = round(ret_pct, 4)
+    state["portfolio_total"]      = round(portfolio_total, 4)
+    state["open_positions_value"] = round(open_positions_value, 4)
 
     clean_pos = {}
     for t, p in state["open_positions"].items():
@@ -478,16 +483,17 @@ def send_slack(state: dict, exits: list, signals: list, fng: dict):
         print("  [INFO] Geen SLACK_WEBHOOK_URL — geen notificatie.")
         return
 
-    now_cet   = datetime.now(timezone.utc) + timedelta(hours=2)
-    now_str   = now_cet.strftime("%d-%m-%Y %H:%M")
-    gw        = state["gross_win"]; gl = state["gross_loss"]
-    pf        = round(gw / gl, 2) if gl > 0 else 0.0
-    wr        = state["win_rate"]
-    total_val = state["capital_eur"] + sum(
-        float(p.get("current_val", p.get("invest", 0)))
-        for p in state["open_positions"].values())
-    ret_pct   = (total_val - START_CAP) / START_CAP * 100
-    n_pos     = len(state["open_positions"])
+    now_cet              = datetime.now(timezone.utc) + timedelta(hours=2)
+    now_str              = now_cet.strftime("%d-%m-%Y %H:%M")
+    gw                   = state["gross_win"]; gl = state["gross_loss"]
+    pf                   = round(gw / gl, 2) if gl > 0 else 0.0
+    wr                   = state["win_rate"]
+    portfolio_total      = state.get("portfolio_total",
+                               state["capital_eur"] + state.get("open_positions_value", 0.0))
+    open_positions_value = state.get("open_positions_value", 0.0)
+    ret_pct              = state.get("total_return_pct",
+                               (portfolio_total - START_CAP) / START_CAP * 100)
+    n_pos                = len(state["open_positions"])
 
     # Open posities tekst
     if state["open_positions"]:
@@ -531,8 +537,12 @@ def send_slack(state: dict, exits: list, signals: list, fng: dict):
             "type": "section",
             "fields": [
                 {"type": "mrkdwn",
-                 "text": f":briefcase: *Portfolio*\n€{total_val:.2f}  "
+                 "text": f":briefcase: *Portfolio*\n€{portfolio_total:.2f}  "
                          f"({'↑' if ret_pct >= 0 else '↓'} {ret_pct:>+.1f}% sinds start)"},
+                {"type": "mrkdwn",
+                 "text": f":chart_with_upwards_trend: *Belegd*\n€{open_positions_value:.2f}"},
+                {"type": "mrkdwn",
+                 "text": f":moneybag: *Vrij kapitaal*\n€{state['capital_eur']:.2f}"},
                 {"type": "mrkdwn",
                  "text": f":bar_chart: *Trades*\n{state['total_trades']}  |  "
                          f"Win rate: {wr:.1f}%  |  PF: {pf:.2f}"},
