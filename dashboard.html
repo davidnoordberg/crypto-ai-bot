@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crypto Bot Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+    --bg: #0f1117;
+    --card: #1a1d27;
+    --card2: #22263a;
+    --border: #2a2d3e;
+    --green: #00c853;
+    --red: #ff1744;
+    --grey: #9e9e9e;
+    --blue: #2979ff;
+    --orange: #ff9800;
+    --text: #e8eaf6;
+    --text2: #9e9e9e;
+    --radius: 10px;
+    --font: 'Inter', system-ui, sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--text); font-family: var(--font); font-size: 14px; min-height: 100vh; }
+.header { background: var(--card); border-bottom: 1px solid var(--border); padding: 12px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+.header-title { font-size: 18px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+.header-meta { display: flex; align-items: center; gap: 16px; color: var(--text2); font-size: 13px; }
+.refresh-btn { background: var(--card2); border: 1px solid var(--border); color: var(--text); padding: 6px 14px; border-radius: 6px; cursor: pointer; font-size: 13px; transition: background 0.2s; }
+.refresh-btn:hover { background: var(--border); }
+.tabs { background: var(--card); border-bottom: 1px solid var(--border); padding: 0 24px; display: flex; gap: 4px; }
+.tab { padding: 12px 18px; cursor: pointer; border-bottom: 2px solid transparent; color: var(--text2); font-size: 14px; font-weight: 500; transition: all 0.2s; white-space: nowrap; }
+.tab:hover { color: var(--text); }
+.tab.active { color: var(--blue); border-bottom-color: var(--blue); }
+.content { padding: 24px; max-width: 1600px; margin: 0 auto; }
+.tab-pane { display: none; }
+.tab-pane.active { display: block; }
+
+/* Cards */
+.kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+.card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; }
+.card-sm { padding: 14px 18px; }
+.kpi-label { color: var(--text2); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+.kpi-value { font-size: 24px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.kpi-sub { color: var(--text2); font-size: 13px; margin-top: 4px; }
+
+/* Badges */
+.badge { display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 4px; font-size: 12px; font-weight: 600; }
+.badge-green { background: rgba(0,200,83,0.15); color: var(--green); }
+.badge-red { background: rgba(255,23,68,0.15); color: var(--red); }
+.badge-grey { background: rgba(158,158,158,0.15); color: var(--grey); }
+.badge-blue { background: rgba(41,121,255,0.15); color: var(--blue); }
+.badge-orange { background: rgba(255,152,0,0.15); color: var(--orange); }
+.text-green { color: var(--green); }
+.text-red { color: var(--red); }
+.text-grey { color: var(--grey); }
+.text-orange { color: var(--orange); }
+.text-blue { color: var(--blue); }
+.mono { font-family: 'JetBrains Mono', 'Courier New', monospace; }
+
+/* Benchmark bar */
+.benchmark-bar { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 20px; margin-bottom: 24px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+.benchmark-bar-title { color: var(--text2); font-size: 13px; margin-right: 8px; }
+.bench-item { display: flex; align-items: center; gap: 8px; font-size: 14px; }
+.bench-name { font-weight: 600; }
+
+/* Table */
+.table-wrap { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+table { width: 100%; border-collapse: collapse; }
+th { background: var(--card2); color: var(--text2); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--border); cursor: pointer; white-space: nowrap; user-select: none; }
+th:hover { color: var(--text); }
+th .sort-icon { opacity: 0.4; margin-left: 4px; }
+th.sorted .sort-icon { opacity: 1; color: var(--blue); }
+td { padding: 12px 16px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+tr:last-child td { border-bottom: none; }
+tr.clickable { cursor: pointer; transition: background 0.15s; }
+tr.clickable:hover td { background: rgba(41,121,255,0.05); }
+tr.greyed-out td { opacity: 0.45; }
+.rank-num { font-size: 13px; color: var(--text2); font-weight: 600; }
+.bot-cell { display: flex; align-items: center; gap: 8px; }
+.bot-icon { font-size: 18px; }
+.bot-name { font-weight: 600; }
+
+/* Loading spinner */
+.spinner { display: inline-block; width: 18px; height: 18px; border: 2px solid var(--border); border-top-color: var(--blue); border-radius: 50%; animation: spin 0.7s linear infinite; }
+.spinner-lg { width: 36px; height: 36px; border-width: 3px; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.loading-center { display: flex; align-items: center; justify-content: center; padding: 60px; gap: 12px; color: var(--text2); }
+
+/* Detail tab */
+.detail-top { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
+.bot-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+.bot-chip { background: var(--card2); border: 1px solid var(--border); border-radius: 20px; padding: 6px 14px; cursor: pointer; font-size: 13px; font-weight: 500; transition: all 0.2s; white-space: nowrap; }
+.bot-chip:hover { border-color: var(--blue); }
+.bot-chip.active { background: rgba(41,121,255,0.15); border-color: var(--blue); color: var(--blue); }
+.detail-grid { display: grid; grid-template-columns: 280px 1fr; gap: 20px; }
+.detail-left { display: flex; flex-direction: column; gap: 16px; }
+.detail-section { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; }
+.detail-section h3 { font-size: 13px; color: var(--text2); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 14px; }
+.stat-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-size: 13px; }
+.stat-row:last-child { margin-bottom: 0; }
+.stat-label { color: var(--text2); }
+.stat-val { font-weight: 600; font-variant-numeric: tabular-nums; }
+.detail-right { display: flex; flex-direction: column; gap: 20px; }
+.chart-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; }
+.chart-title { font-size: 14px; font-weight: 600; margin-bottom: 16px; }
+.chart-wrap { position: relative; height: 280px; }
+.positions-table-wrap { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+
+/* V1 vs V2 */
+.compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 24px; }
+
+/* Settings */
+.settings-form { max-width: 560px; display: flex; flex-direction: column; gap: 20px; }
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-label { font-size: 13px; font-weight: 500; color: var(--text2); }
+.form-input { background: var(--card2); border: 1px solid var(--border); border-radius: 6px; padding: 10px 14px; color: var(--text); font-size: 14px; font-family: var(--font); transition: border-color 0.2s; }
+.form-input:focus { outline: none; border-color: var(--blue); }
+.form-actions { display: flex; gap: 12px; align-items: center; }
+.btn { padding: 10px 22px; border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer; border: none; transition: all 0.2s; }
+.btn-primary { background: var(--blue); color: #fff; }
+.btn-primary:hover { background: #1565c0; }
+.btn-secondary { background: var(--card2); color: var(--text); border: 1px solid var(--border); }
+.btn-secondary:hover { background: var(--border); }
+.confirm-msg { color: var(--green); font-size: 13px; font-weight: 500; display: none; }
+.confirm-msg.show { display: inline; }
+.checkbox-grid { display: flex; flex-wrap: wrap; gap: 12px; }
+.checkbox-item { display: flex; align-items: center; gap: 6px; cursor: pointer; font-size: 14px; }
+.checkbox-item input { accent-color: var(--blue); width: 16px; height: 16px; }
+
+/* Error card */
+.error-card { display: flex; align-items: center; gap: 12px; padding: 14px 18px; background: rgba(255,23,68,0.08); border: 1px solid rgba(255,23,68,0.3); border-radius: var(--radius); color: var(--red); font-size: 13px; }
+
+/* Misc */
+.section-title { font-size: 16px; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+.divider { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
+.flex { display: flex; }
+.gap-8 { gap: 8px; }
+.gap-16 { gap: 16px; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.wrap { flex-wrap: wrap; }
+.mt-8 { margin-top: 8px; }
+.mt-16 { margin-top: 16px; }
+.mt-24 { margin-top: 24px; }
+.mb-16 { margin-bottom: 16px; }
+.mb-24 { margin-bottom: 24px; }
+.text-sm { font-size: 12px; }
+.text-xs { font-size: 11px; }
+.full-width { width: 100%; }
+
+/* Benchmark analyse */
+.bench-stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+.bench-winner-grid { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
+.bench-winner-row { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 18px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+
+/* Progress bar */
+.progress-bar-wrap { background: rgba(255,255,255,0.06); border-radius: 4px; height: 6px; width: 100%; margin-top: 4px; }
+.progress-bar { height: 6px; border-radius: 4px; background: var(--blue); transition: width 0.3s; }
+</style>
+</head>
+<body>
+
+<script>
+const DEFAULTS = {
+    GITHUB_OWNER: 'davidnoordberg',
+    GITHUB_REPO: 'crypto-ai-bot',
+    GITHUB_TOKEN: '',
+    BENCHMARK_START_DATE: '2026-06-21'
+};
+</script>
+
+<div class="header">
+    <div class="header-title">🤖 Crypto Bot Dashboard</div>
+    <div class="header-meta">
+        <span id="lastRefresh">Laden...</span>
+        <span id="countdown"></span>
+        <button class="refresh-btn" onclick="refreshAll()">⟳ Verversen</button>
+    </div>
+</div>
+
+<div class="tabs">
+    <div class="tab active" data-tab="scorebord">🏆 Scorebord</div>
+    <div class="tab" data-tab="detail">🔍 Bot Detail</div>
+    <div class="tab" data-tab="vergelijking">⚖️ V1 vs V2</div>
+    <div class="tab" data-tab="benchmark">📊 Benchmark</div>
+    <div class="tab" data-tab="instellingen">⚙️ Instellingen</div>
+</div>
+
+<div class="content">
+    <!-- TAB 1: SCOREBORD -->
+    <div class="tab-pane active" id="tab-scorebord">
+        <div class="kpi-grid" id="kpiGrid">
+            <div class="card"><div class="spinner" style="margin:auto"></div></div>
+            <div class="card"><div class="spinner" style="margin:auto"></div></div>
+            <div class="card"><div class="spinner" style="margin:auto"></div></div>
+            <div class="card"><div class="spinner" style="margin:auto"></div></div>
+        </div>
+        <div class="benchmark-bar" id="benchmarkBar">
+            <span class="benchmark-bar-title">📈 Markt benchmarks</span>
+            <div class="spinner"></div>
+        </div>
+        <div class="table-wrap" id="scorebordTable">
+            <div class="loading-center"><div class="spinner"></div> Laden...</div>
+        </div>
+    </div>
+
+    <!-- TAB 2: BOT DETAIL -->
+    <div class="tab-pane" id="tab-detail">
+        <div class="detail-top">
+            <span style="color:var(--text2);font-size:13px;">Bot:</span>
+            <div class="bot-chips" id="botChips"></div>
+        </div>
+        <div id="detailContent">
+            <div class="loading-center"><div class="spinner"></div> Selecteer een bot</div>
+        </div>
+    </div>
+
+    <!-- TAB 3: V1 VS V2 -->
+    <div class="tab-pane" id="tab-vergelijking">
+        <div class="section-title">⚖️ V1 vs V2 Vergelijking</div>
+        <div class="table-wrap" id="compareTable">
+            <div class="loading-center"><div class="spinner"></div> Laden...</div>
+        </div>
+        <div class="compare-grid" id="compareCharts">
+            <div class="chart-card">
+                <div class="chart-title">Rendement V1 vs V2 per strategie</div>
+                <div class="chart-wrap"><canvas id="compareBarChart"></canvas></div>
+            </div>
+            <div class="chart-card">
+                <div class="chart-title">Alle bots vs BTC B&H</div>
+                <div class="chart-wrap"><canvas id="vsBtcChart"></canvas></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 4: BENCHMARK ANALYSE -->
+    <div class="tab-pane" id="tab-benchmark">
+        <div class="section-title">📊 Benchmark Analyse</div>
+        <div class="bench-stats-grid" id="benchStatsGrid">
+            <div class="card"><div class="spinner" style="margin:auto"></div></div>
+            <div class="card"><div class="spinner" style="margin:auto"></div></div>
+            <div class="card"><div class="spinner" style="margin:auto"></div></div>
+            <div class="card"><div class="spinner" style="margin:auto"></div></div>
+        </div>
+        <div class="section-title" style="font-size:14px;">Hoeveel bots verslaan de benchmark?</div>
+        <div class="bench-winner-grid" id="benchWinnerGrid">
+            <div class="loading-center"><div class="spinner"></div> Laden...</div>
+        </div>
+        <div class="chart-card">
+            <div class="chart-title" style="display:flex;align-items:center;justify-content:space-between;">
+                <span>Portfolio curves over tijd</span>
+                <span id="benchChartStatus" style="font-size:12px;color:var(--text2);"></span>
+            </div>
+            <div class="chart-wrap" style="height:380px;"><canvas id="benchLineChart"></canvas></div>
+        </div>
+    </div>
+
+    <!-- TAB 5: INSTELLINGEN -->
+    <div class="tab-pane" id="tab-instellingen">
+        <div class="section-title">⚙️ Instellingen</div>
+        <div class="settings-form">
+            <div class="form-group">
+                <label class="form-label">GitHub Owner</label>
+                <input class="form-input" id="cfg-owner" type="text" placeholder="davidnoordberg">
+            </div>
+            <div class="form-group">
+                <label class="form-label">GitHub Repo</label>
+                <input class="form-input" id="cfg-repo" type="text" placeholder="crypto-ai-bot">
+            </div>
+            <div class="form-group">
+                <label class="form-label">GitHub Token</label>
+                <input class="form-input" id="cfg-token" type="password" placeholder="ghp_...">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Benchmark Startdatum</label>
+                <input class="form-input" id="cfg-startdate" type="date">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Benchmark Assets</label>
+                <div class="checkbox-grid" id="benchmarkAssets">
+                    <label class="checkbox-item"><input type="checkbox" value="BTC-EUR" checked> BTC</label>
+                    <label class="checkbox-item"><input type="checkbox" value="ETH-EUR" checked> ETH</label>
+                    <label class="checkbox-item"><input type="checkbox" value="DOGE-EUR" checked> DOGE</label>
+                    <label class="checkbox-item"><input type="checkbox" value="SOL-EUR" checked> SOL</label>
+                    <label class="checkbox-item"><input type="checkbox" value="AVAX-EUR"> AVAX</label>
+                    <label class="checkbox-item"><input type="checkbox" value="ADA-EUR"> ADA</label>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button class="btn btn-primary" onclick="saveSettings()">Opslaan</button>
+                <button class="btn btn-secondary" onclick="resetSettings()">Reset</button>
+                <span class="confirm-msg" id="saveConfirm">✅ Token is opgeslagen</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// ============================================================
+// CONFIG & STATE
+// ============================================================
+const STATE_FILES = {
+    'baseline':    'state.json',
+    'v3':          'state_v3.json',
+    'allin':       'state_allin.json',
+    'fear':        'state_fear.json',
+    'baseline_v2': 'state_baseline_v2.json',
+    'v3_v2':       'state_v3_v2.json',
+    'allin_v2':    'state_allin_v2.json',
+    'fear_v2':     'state_fear_v2.json'
+};
+
+const BOT_META = {
+    'baseline':    { label: 'Baseline',        icon: '🛡️', strategy: 'Hybrid V4+MR', version: 'v1' },
+    'v3':          { label: 'V3 DOGE+SOL',     icon: '🎯', strategy: 'Agressief',    version: 'v1' },
+    'allin':       { label: 'All-in C',         icon: '🚀', strategy: 'Winner-All',   version: 'v1' },
+    'fear':        { label: 'Fear Contrarian',  icon: '💀', strategy: 'Fear & Greed', version: 'v1' },
+    'baseline_v2': { label: 'Baseline V2',      icon: '🛡️', strategy: 'Hybrid V4+MR', version: 'v2' },
+    'v3_v2':       { label: 'V3 V2',            icon: '🎯', strategy: 'Agressief',    version: 'v2' },
+    'allin_v2':    { label: 'All-in V2',        icon: '🚀', strategy: 'Winner-All',   version: 'v2' },
+    'fear_v2':     { label: 'Fear V2',          icon: '💀', strategy: 'Fear & Greed', version: 'v2' }
+};
+
+const DEFAULT_BENCHMARKS = ['BTC-EUR','ETH-EUR','DOGE-EUR','SOL-EUR'];
+const BOT_COLORS = ['#2979ff','#00c853','#ff9800','#e040fb','#ff1744','#00bcd4','#ffeb3b','#ff6d00'];
+
+let CFG = {};
+let botStates = {};
+let benchmarks = {};
+let activeBot = 'fear';
+let chartInstances = {};
+let portfolioHistoryCache = {};
+let benchHistoryFetched = false;
+let countdownSec = 300;
+let countdownTimer = null;
+
+// ============================================================
+// INIT
+// ============================================================
+document.addEventListener('DOMContentLoaded', () => {
+    loadCFG();
+    setupTabs();
+    buildBotChips();
+    populateSettings();
+    refreshAll();
+    startCountdown();
+});
+
+function loadCFG() {
+    const saved = JSON.parse(localStorage.getItem('cfg') || '{}');
+    CFG = { ...DEFAULTS, ...saved };
+}
+
+function startCountdown() {
+    if (countdownTimer) clearInterval(countdownTimer);
+    countdownSec = 300;
+    countdownTimer = setInterval(() => {
+        countdownSec--;
+        if (countdownSec <= 0) {
+            countdownSec = 300;
+            refreshAll();
+        }
+        const m = Math.floor(countdownSec / 60);
+        const s = (countdownSec % 60).toString().padStart(2, '0');
+        const el = document.getElementById('countdown');
+        if (el) el.textContent = `Verversen in ${m}:${s}`;
+    }, 1000);
+}
+
+function setupTabs() {
+    document.querySelectorAll('.tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+            tab.classList.add('active');
+            const name = tab.dataset.tab;
+            document.getElementById('tab-' + name).classList.add('active');
+            if (name === 'detail') renderDetailTab();
+            if (name === 'vergelijking') renderVergelijkingTab();
+            if (name === 'benchmark') renderBenchmarkTab();
+        });
+    });
+}
+
+function switchToDetailTab(botKey) {
+    activeBot = botKey;
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+    document.querySelector('[data-tab="detail"]').classList.add('active');
+    document.getElementById('tab-detail').classList.add('active');
+    renderDetailTab();
+}
+
+// ============================================================
+// DATA FETCHING
+// ============================================================
+async function loadBotState(filename) {
+    if (!CFG.GITHUB_TOKEN) return null;
+    try {
+        const url = `https://api.github.com/repos/${CFG.GITHUB_OWNER}/${CFG.GITHUB_REPO}/contents/${filename}`;
+        const response = await fetch(url, {
+            headers: {
+                'Authorization': `token ${CFG.GITHUB_TOKEN}`,
+                'Accept': 'application/vnd.github.v3+json'
+            }
+        });
+        if (!response.ok) return null;
+        const data = await response.json();
+        return JSON.parse(atob(data.content));
+    } catch(e) { return null; }
+}
+
+async function fetchCurrentPrice(market) {
+    try {
+        const url = `https://api.bitvavo.com/v2/${market}/ticker/price`;
+        const r = await fetch(url);
+        const d = await r.json();
+        return parseFloat(d.price);
+    } catch(e) { return null; }
+}
+
+async function fetchStartPrice(market) {
+    try {
+        const ts = new Date(CFG.BENCHMARK_START_DATE).getTime();
+        const url = `https://api.bitvavo.com/v2/${market}/candles?interval=1d&limit=1&start=${ts}`;
+        const r = await fetch(url);
+        const d = await r.json();
+        if (!Array.isArray(d) || !d[0]) return null;
+        return parseFloat(d[0][1]);
+    } catch(e) { return null; }
+}
+
+async function fetchPortfolioHistory(filename) {
+    if (!CFG.GITHUB_TOKEN) return [];
+    try {
+        const url = `https://api.github.com/repos/${CFG.GITHUB_OWNER}/${CFG.GITHUB_REPO}/commits?path=${filename}&per_page=100`;
+        const commits = await fetch(url, {
+            headers: { 'Authorization': `token ${CFG.GITHUB_TOKEN}`, 'Accept': 'application/vnd.github.v3+json' }
+        }).then(r => r.json());
+        if (!Array.isArray(commits)) return [];
+        const history = [];
+        for (const commit of commits) {
+            try {
+                const fileAtCommit = await fetch(
+                    `https://api.github.com/repos/${CFG.GITHUB_OWNER}/${CFG.GITHUB_REPO}/contents/${filename}?ref=${commit.sha}`,
+                    { headers: { 'Authorization': `token ${CFG.GITHUB_TOKEN}`, 'Accept': 'application/vnd.github.v3+json' }}
+                ).then(r => r.json());
+                const state = JSON.parse(atob(fileAtCommit.content));
+                history.push({
+                    timestamp: commit.commit.author.date,
+                    portfolio_total: state.portfolio_total || state.capital_eur || 500
+                });
+            } catch(e) { /* skip */ }
+        }
+        return history.reverse();
+    } catch(e) { return []; }
+}
+
+// ============================================================
+// REFRESH ALL
+// ============================================================
+async function refreshAll() {
+    const lr = document.getElementById('lastRefresh');
+    if (lr) lr.textContent = 'Laden...';
+
+    // Fetch all bot states in parallel
+    const statePromises = Object.entries(STATE_FILES).map(async ([key, file]) => {
+        const state = await loadBotState(file);
+        botStates[key] = state;
+    });
+
+    // Fetch benchmark prices in parallel
+    const enabledBenchmarks = getEnabledBenchmarks();
+    const benchPromises = enabledBenchmarks.map(async (market) => {
+        const [current, start] = await Promise.all([fetchCurrentPrice(market), fetchStartPrice(market)]);
+        if (current && start) {
+            benchmarks[market] = {
+                start,
+                current,
+                pct: (current - start) / start * 100
+            };
+        } else {
+            benchmarks[market] = { start: null, current: null, pct: null };
+        }
+    });
+
+    await Promise.all([...statePromises, ...benchPromises]);
+
+    if (lr) {
+        const now = new Date();
+        lr.textContent = `Bijgewerkt: ${now.toLocaleTimeString('nl-NL')}`;
+    }
+
+    // Re-render active tab
+    const activeTab = document.querySelector('.tab.active');
+    if (activeTab) {
+        const name = activeTab.dataset.tab;
+        if (name === 'scorebord') renderScorebord();
+        else if (name === 'detail') renderDetailTab();
+        else if (name === 'vergelijking') renderVergelijkingTab();
+        else if (name === 'benchmark') renderBenchmarkTab();
+    }
+
+    // Always update scorebord in background if it's not active
+    renderScorebord();
+    startCountdown();
+}
+
+function getEnabledBenchmarks() {
+    const saved = JSON.parse(localStorage.getItem('cfg') || '{}');
+    return saved.enabledBenchmarks || DEFAULT_BENCHMARKS;
+}
+
+// ============================================================
+// HELPERS
+// ============================================================
+function pct(v) {
+    if (v === null || v === undefined || isNaN(v)) return '—';
+    return (v >= 0 ? '+' : '') + v.toFixed(2) + '%';
+}
+
+function eur(v) {
+    if (v === null || v === undefined || isNaN(v)) return '—';
+    return '€' + v.toFixed(2);
+}
+
+function colorClass(v) {
+    if (v === null || v === undefined || isNaN(v)) return '';
+    return v >= 0 ? 'text-green' : 'text-red';
+}
+
+function badgeClass(v) {
+    if (v === null || v === undefined || isNaN(v)) return 'badge-grey';
+    return v >= 0 ? 'badge-green' : 'badge-red';
+}
+
+function getPortfolioTotal(state) {
+    if (!state) return null;
+    return state.portfolio_total || state.capital_eur || 500;
+}
+
+function getReturnPct(state) {
+    if (!state) return null;
+    if (state.total_return_pct !== undefined) return state.total_return_pct;
+    const total = getPortfolioTotal(state);
+    if (total) return (total - 500) / 500 * 100;
+    return null;
+}
+
+function getBotStatus(state) {
+    if (!state) return 'offline';
+    const total = getPortfolioTotal(state);
+    if (total < 450) return 'stop';
+    const positions = state.open_positions || {};
+    if (Object.keys(positions).length > 0) return 'active';
+    if ((state.total_trades || 0) === 0) return 'wait';
+    return 'active';
+}
+
+function statusBadge(state) {
+    const s = getBotStatus(state);
+    if (s === 'stop') return '<span class="badge badge-red">🔴 Stop</span>';
+    if (s === 'active') return '<span class="badge badge-green">🟢 Actief</span>';
+    if (s === 'offline') return '<span class="badge badge-grey">⚫ Offline</span>';
+    return '<span class="badge badge-grey">⏳ Wacht</span>';
+}
+
+function avgBenchmarkPct() {
+    const enabled = getEnabledBenchmarks();
+    const vals = enabled.map(m => benchmarks[m]?.pct).filter(v => v !== null && v !== undefined);
+    if (!vals.length) return null;
+    return vals.reduce((a, b) => a + b, 0) / vals.length;
+}
+
+// ============================================================
+// TAB 1: SCOREBORD
+// ============================================================
+function renderScorebord() {
+    renderKPIs();
+    renderBenchmarkBar();
+    renderScorebordTable();
+}
+
+function renderKPIs() {
+    const grid = document.getElementById('kpiGrid');
+    if (!grid) return;
+
+    // Best bot
+    let bestKey = null, bestPct = -Infinity;
+    let mostTradesKey = null, mostTrades = -1;
+    let totalInvested = 0;
+    let beatBTC = 0;
+    const btcPct = benchmarks['BTC-EUR']?.pct;
+
+    for (const [key, state] of Object.entries(botStates)) {
+        if (!state) continue;
+        const rp = getReturnPct(state);
+        if (rp !== null && rp > bestPct) { bestPct = rp; bestKey = key; }
+        const trades = state.total_trades || 0;
+        if (trades > mostTrades) { mostTrades = trades; mostTradesKey = key; }
+        totalInvested += state.open_positions_value || 0;
+        if (btcPct !== undefined && rp !== null && rp > btcPct) beatBTC++;
+    }
+
+    grid.innerHTML = `
+        <div class="card">
+            <div class="kpi-label">Beste Bot</div>
+            <div class="kpi-value">${bestKey ? BOT_META[bestKey].icon : '—'} ${bestKey ? BOT_META[bestKey].label : '—'}</div>
+            <div class="kpi-sub ${colorClass(bestPct)}">${bestKey ? pct(bestPct) : '—'}</div>
+        </div>
+        <div class="card">
+            <div class="kpi-label">Meeste Trades</div>
+            <div class="kpi-value">${mostTradesKey ? BOT_META[mostTradesKey].icon : '—'} ${mostTradesKey ? mostTrades : '—'}</div>
+            <div class="kpi-sub">${mostTradesKey ? BOT_META[mostTradesKey].label : '—'}</div>
+        </div>
+        <div class="card">
+            <div class="kpi-label">Bots die BTC verslaan</div>
+            <div class="kpi-value">${beatBTC} <span style="font-size:16px;color:var(--text2)">van 8</span></div>
+            <div class="kpi-sub">${btcPct !== undefined && btcPct !== null ? 'BTC: ' + pct(btcPct) : 'BTC onbekend'}</div>
+        </div>
+        <div class="card">
+            <div class="kpi-label">Totaal Belegd</div>
+            <div class="kpi-value">${eur(totalInvested)}</div>
+            <div class="kpi-sub">In open posities</div>
+        </div>`;
+}
+
+function renderBenchmarkBar() {
+    const bar = document.getElementById('benchmarkBar');
+    if (!bar) return;
+    const enabled = getEnabledBenchmarks();
+    const items = enabled.map(m => {
+        const b = benchmarks[m];
+        const name = m.replace('-EUR', '');
+        if (!b || b.pct === null) return `<div class="bench-item"><span class="bench-name">${name}</span><span class="badge badge-grey">—</span></div>`;
+        return `<div class="bench-item"><span class="bench-name">${name}</span><span class="badge ${badgeClass(b.pct)}">${pct(b.pct)}</span></div>`;
+    }).join('');
+    bar.innerHTML = `<span class="benchmark-bar-title">📈 Markt benchmarks sinds ${CFG.BENCHMARK_START_DATE}</span>${items}`;
+}
+
+let scorebordSort = { col: 'return', dir: -1 };
+
+function renderScorebordTable() {
+    const wrap = document.getElementById('scorebordTable');
+    if (!wrap) return;
+    const avgBH = avgBenchmarkPct();
+    const btcPct = benchmarks['BTC-EUR']?.pct;
+
+    let rows = Object.keys(BOT_META).map(key => {
+        const state = botStates[key];
+        const meta = BOT_META[key];
+        const total = getPortfolioTotal(state);
+        const returnPct = getReturnPct(state);
+        const vsBTC = (returnPct !== null && btcPct !== null && btcPct !== undefined) ? returnPct - btcPct : null;
+        const vsAvg = (returnPct !== null && avgBH !== null) ? returnPct - avgBH : null;
+        const trades = state?.total_trades || 0;
+        const wr = state?.win_rate;
+        return { key, state, meta, total, returnPct, vsBTC, vsAvg, trades, wr };
+    });
+
+    // Sort
+    rows.sort((a, b) => {
+        let av, bv;
+        if (scorebordSort.col === 'return') { av = a.returnPct ?? -Infinity; bv = b.returnPct ?? -Infinity; }
+        else if (scorebordSort.col === 'capital') { av = a.total ?? 0; bv = b.total ?? 0; }
+        else if (scorebordSort.col === 'trades') { av = a.trades; bv = b.trades; }
+        else if (scorebordSort.col === 'wr') { av = a.wr ?? 0; bv = b.wr ?? 0; }
+        else if (scorebordSort.col === 'vsBTC') { av = a.vsBTC ?? -Infinity; bv = b.vsBTC ?? -Infinity; }
+        else { av = a.returnPct ?? -Infinity; bv = b.returnPct ?? -Infinity; }
+        return scorebordSort.dir * (bv - av);
+    });
+
+    const sortIcon = (col) => {
+        if (scorebordSort.col !== col) return '<span class="sort-icon">↕</span>';
+        return `<span class="sort-icon">${scorebordSort.dir === -1 ? '↓' : '↑'}</span>`;
+    };
+
+    const makeSort = (col) => `onclick="setScorebordSort('${col}')"`;
+
+    let html = `<table>
+        <thead>
+            <tr>
+                <th>Rank</th>
+                <th>Bot</th>
+                <th>Strategie</th>
+                <th>V</th>
+                <th class="${scorebordSort.col==='capital'?'sorted':''}" ${makeSort('capital')}>Kapitaal ${sortIcon('capital')}</th>
+                <th class="${scorebordSort.col==='return'?'sorted':''}" ${makeSort('return')}>Rendement ${sortIcon('return')}</th>
+                <th class="${scorebordSort.col==='vsBTC'?'sorted':''}" ${makeSort('vsBTC')}>vs BTC ${sortIcon('vsBTC')}</th>
+                <th>vs Gem B&H</th>
+                <th class="${scorebordSort.col==='trades'?'sorted':''}" ${makeSort('trades')}>Trades ${sortIcon('trades')}</th>
+                <th class="${scorebordSort.col==='wr'?'sorted':''}" ${makeSort('wr')}>Win% ${sortIcon('wr')}</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>`;
+
+    rows.forEach((r, i) => {
+        const greyed = !r.state ? ' greyed-out' : '';
+        const wrPct = r.wr !== undefined && r.wr !== null ? (r.wr * 100).toFixed(1) + '%' : '—';
+        html += `<tr class="clickable${greyed}" onclick="switchToDetailTab('${r.key}')">
+            <td><span class="rank-num">#${i+1}</span></td>
+            <td><div class="bot-cell"><span class="bot-icon">${r.meta.icon}</span><span class="bot-name">${r.meta.label}</span></div></td>
+            <td style="color:var(--text2)">${r.meta.strategy}</td>
+            <td><span class="badge ${r.meta.version === 'v2' ? 'badge-blue' : 'badge-grey'}">${r.meta.version}</span></td>
+            <td class="mono">${r.total !== null ? eur(r.total) : '—'}</td>
+            <td class="mono ${colorClass(r.returnPct)}">${pct(r.returnPct)}</td>
+            <td class="mono ${colorClass(r.vsBTC)}">${r.vsBTC !== null ? pct(r.vsBTC) : '—'}</td>
+            <td class="mono ${colorClass(r.vsAvg)}">${r.vsAvg !== null ? pct(r.vsAvg) : '—'}</td>
+            <td class="mono">${r.trades}</td>
+            <td class="mono">${wrPct}</td>
+            <td>${statusBadge(r.state)}</td>
+        </tr>`;
+    });
+
+    html += '</tbody></table>';
+    wrap.innerHTML = html;
+}
+
+function setScorebordSort(col) {
+    if (scorebordSort.col === col) scorebordSort.dir *= -1;
+    else { scorebordSort.col = col; scorebordSort.dir = -1; }
+    renderScorebordTable();
+}
+
+// ============================================================
+// TAB 2: BOT DETAIL
+// ============================================================
+function buildBotChips() {
+    const wrap = document.getElementById('botChips');
+    if (!wrap) return;
+    wrap.innerHTML = Object.entries(BOT_META).map(([key, meta]) =>
+        `<div class="bot-chip ${key === activeBot ? 'active' : ''}" onclick="selectBot('${key}')">${meta.icon} ${meta.label}</div>`
+    ).join('');
+}
+
+function selectBot(key) {
+    activeBot = key;
+    document.querySelectorAll('.bot-chip').forEach(c => c.classList.remove('active'));
+    const chips = document.querySelectorAll('.bot-chip');
+    const idx = Object.keys(BOT_META).indexOf(key);
+    if (chips[idx]) chips[idx].classList.add('active');
+    renderDetailTab();
+}
+
+async function renderDetailTab() {
+    buildBotChips();
+    const content = document.getElementById('detailContent');
+    if (!content) return;
+    const state = botStates[activeBot];
+    const meta = BOT_META[activeBot];
+    const total = getPortfolioTotal(state);
+    const returnPct = getReturnPct(state);
+    const btcPct = benchmarks['BTC-EUR']?.pct;
+
+    let leftPanel = '';
+    if (!state) {
+        leftPanel = `<div class="detail-section"><p style="color:var(--text2)">Geen data beschikbaar voor ${meta.label}.</p><p style="color:var(--text2);font-size:12px;margin-top:8px;">Controleer je GitHub token in Instellingen.</p></div>`;
+    } else {
+        const free = (total || 0) - (state.open_positions_value || 0);
+        const invested = state.open_positions_value || 0;
+        const pf = state.profit_factor;
+        const enabled = getEnabledBenchmarks();
+        const benchRows = enabled.map(m => {
+            const b = benchmarks[m];
+            const name = m.replace('-EUR', '');
+            if (!b || b.pct === null) return `<div class="stat-row"><span class="stat-label">${name} B&H</span><span>—</span></div>`;
+            const beats = returnPct !== null && returnPct > b.pct;
+            return `<div class="stat-row"><span class="stat-label">vs ${name} (${pct(b.pct)})</span><span>${beats ? '✅' : '❌'} <span class="${colorClass(returnPct - b.pct)}">${pct(returnPct - b.pct)}</span></span></div>`;
+        }).join('');
+
+        leftPanel = `
+            <div class="detail-section">
+                <h3>Portfolio</h3>
+                <div style="font-size:28px;font-weight:700;margin-bottom:4px;">${meta.icon} ${meta.label}</div>
+                <div style="font-size:22px;font-weight:700;margin-bottom:12px;" class="${colorClass(returnPct)}">${eur(total)} <span style="font-size:16px">${pct(returnPct)}</span></div>
+                <div class="stat-row"><span class="stat-label">Vrij kapitaal</span><span class="stat-val">${eur(free)}</span></div>
+                <div class="stat-row"><span class="stat-label">Belegd</span><span class="stat-val">${eur(invested)}</span></div>
+            </div>
+            <div class="detail-section">
+                <h3>Statistieken</h3>
+                <div class="stat-row"><span class="stat-label">Trades open</span><span class="stat-val">${Object.keys(state.open_positions || {}).length}</span></div>
+                <div class="stat-row"><span class="stat-label">Totaal trades</span><span class="stat-val">${state.total_trades || 0}</span></div>
+                <div class="stat-row"><span class="stat-label">Win rate</span><span class="stat-val">${state.win_rate !== undefined ? (state.win_rate*100).toFixed(1)+'%' : '—'}</span></div>
+                <div class="stat-row"><span class="stat-label">Profit factor</span><span class="stat-val ${pf >= 1 ? 'text-green' : 'text-red'}">${pf !== undefined ? pf.toFixed(2) : '—'}</span></div>
+                <div class="stat-row"><span class="stat-label">Status</span><span>${statusBadge(state)}</span></div>
+            </div>
+            <div class="detail-section">
+                <h3>vs Benchmarks</h3>
+                ${benchRows}
+            </div>`;
+    }
+
+    // Positions
+    let posHtml = '';
+    const positions = state?.open_positions || {};
+    const posKeys = Object.keys(positions);
+    if (posKeys.length > 0) {
+        posHtml = `<div class="positions-table-wrap">
+            <table>
+                <thead><tr>
+                    <th>Crypto</th><th>Entry</th><th>Stop</th><th>Huidig</th><th>uPnL</th><th>uPnL%</th>
+                </tr></thead>
+                <tbody id="positionsBody">
+                    ${posKeys.map(ticker => {
+                        const pos = positions[ticker];
+                        return `<tr>
+                            <td><strong>${ticker.replace('-EUR','')}</strong></td>
+                            <td class="mono">${pos.entry_px !== undefined ? eur(pos.entry_px) : '—'}</td>
+                            <td class="mono text-red">${pos.stop_px !== undefined ? eur(pos.stop_px) : '—'}</td>
+                            <td class="mono" id="cur-${ticker}"><div class="spinner"></div></td>
+                            <td class="mono" id="upnl-${ticker}">—</td>
+                            <td class="mono" id="upnlpct-${ticker}">—</td>
+                        </tr>`;
+                    }).join('')}
+                </tbody>
+            </table>
+        </div>`;
+    } else {
+        posHtml = `<div class="card card-sm" style="color:var(--text2)">Geen open posities</div>`;
+    }
+
+    content.innerHTML = `
+        <div class="detail-grid">
+            <div class="detail-left">${leftPanel}</div>
+            <div class="detail-right">
+                ${posHtml}
+                <div class="chart-card">
+                    <div class="chart-title">Portfolio curve vs BTC B&H</div>
+                    <div id="detailChartStatus" style="font-size:12px;color:var(--text2);margin-bottom:8px;"></div>
+                    <div class="chart-wrap"><canvas id="detailLineChart"></canvas></div>
+                </div>
+            </div>
+        </div>`;
+
+    // Fetch current prices for open positions async
+    if (posKeys.length > 0) {
+        posKeys.forEach(async (ticker) => {
+            const pos = positions[ticker];
+            const curPrice = await fetchCurrentPrice(ticker);
+            const curEl = document.getElementById('cur-' + ticker);
+            const upnlEl = document.getElementById('upnl-' + ticker);
+            const upnlPctEl = document.getElementById('upnlpct-' + ticker);
+            if (!curEl) return;
+            if (curPrice !== null) {
+                curEl.textContent = eur(curPrice);
+                const units = pos.units || (pos.size_eur / pos.entry_px) || 0;
+                const upnl = (curPrice - pos.entry_px) * units;
+                const upnlPct = (curPrice - pos.entry_px) / pos.entry_px * 100;
+                if (upnlEl) { upnlEl.textContent = eur(upnl); upnlEl.className = 'mono ' + colorClass(upnl); }
+                if (upnlPctEl) { upnlPctEl.textContent = pct(upnlPct); upnlPctEl.className = 'mono ' + colorClass(upnlPct); }
+            } else {
+                curEl.textContent = '—';
+            }
+        });
+    }
+
+    // Fetch portfolio history for chart
+    renderDetailChart();
+}
+
+async function renderDetailChart() {
+    const statusEl = document.getElementById('detailChartStatus');
+    const canvas = document.getElementById('detailLineChart');
+    if (!canvas) return;
+
+    if (chartInstances.detailLine) { chartInstances.detailLine.destroy(); delete chartInstances.detailLine; }
+
+    const filename = STATE_FILES[activeBot];
+    if (!CFG.GITHUB_TOKEN) {
+        if (statusEl) statusEl.textContent = 'GitHub token vereist voor historische data.';
+        return;
+    }
+    if (statusEl) statusEl.innerHTML = '<span class="spinner" style="display:inline-block;width:14px;height:14px;border-width:2px;vertical-align:middle"></span> Laden uit GitHub...';
+
+    let history = portfolioHistoryCache[activeBot];
+    if (!history) {
+        history = await fetchPortfolioHistory(filename);
+        portfolioHistoryCache[activeBot] = history;
+    }
+
+    if (statusEl) statusEl.textContent = history.length > 0 ? `${history.length} datapunten` : 'Geen historische data gevonden.';
+
+    if (!history.length) return;
+
+    const startCapital = 500;
+    const labels = history.map(h => new Date(h.timestamp).toLocaleDateString('nl-NL'));
+    const portfolioData = history.map(h => h.portfolio_total);
+
+    // BTC B&H equivalent
+    const btc = benchmarks['BTC-EUR'];
+    let btcData = null;
+    if (btc && btc.start && btc.current && history.length > 1) {
+        const totalDays = history.length;
+        btcData = history.map((_, i) => {
+            const growthFraction = i / Math.max(totalDays - 1, 1);
+            const pctGrowth = btc.pct || 0;
+            return startCapital * (1 + (growthFraction * pctGrowth / 100));
+        });
+    }
+
+    const datasets = [{
+        label: BOT_META[activeBot].label,
+        data: portfolioData,
+        borderColor: '#2979ff',
+        backgroundColor: 'rgba(41,121,255,0.08)',
+        fill: true,
+        tension: 0.3,
+        pointRadius: 2,
+        borderWidth: 2
+    }];
+    if (btcData) {
+        datasets.push({
+            label: 'BTC B&H',
+            data: btcData,
+            borderColor: '#ff9800',
+            borderDash: [6, 3],
+            fill: false,
+            tension: 0.3,
+            pointRadius: 0,
+            borderWidth: 2
+        });
+    }
+
+    chartInstances.detailLine = new Chart(canvas, {
+        type: 'line',
+        data: { labels, datasets },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { labels: { color: '#e8eaf6', font: { family: 'Inter' } } }, tooltip: { mode: 'index' } },
+            scales: {
+                x: { ticks: { color: '#9e9e9e', maxTicksLimit: 8 }, grid: { color: 'rgba(255,255,255,0.05)' } },
+                y: { ticks: { color: '#9e9e9e', callback: v => '€' + v.toFixed(0) }, grid: { color: 'rgba(255,255,255,0.05)' } }
+            }
+        }
+    });
+}
+
+// ============================================================
+// TAB 3: V1 vs V2 VERGELIJKING
+// ============================================================
+function renderVergelijkingTab() {
+    renderCompareTable();
+    renderCompareCharts();
+}
+
+function renderCompareTable() {
+    const wrap = document.getElementById('compareTable');
+    if (!wrap) return;
+    const btcPct = benchmarks['BTC-EUR']?.pct;
+    const pairs = [
+        { strategy: 'Hybrid V4+MR', v1: 'baseline', v2: 'baseline_v2' },
+        { strategy: 'Agressief',    v1: 'v3',        v2: 'v3_v2' },
+        { strategy: 'Winner-All',   v1: 'allin',     v2: 'allin_v2' },
+        { strategy: 'Fear & Greed', v1: 'fear',      v2: 'fear_v2' }
+    ];
+
+    let html = `<table><thead><tr>
+        <th>Strategie</th>
+        <th>V1 Kapitaal</th><th>V1 Rendement</th>
+        <th>V2 Kapitaal</th><th>V2 Rendement</th>
+        <th>Verschil</th>
+        <th>vs BTC B&H</th>
+    </tr></thead><tbody>`;
+
+    for (const p of pairs) {
+        const s1 = botStates[p.v1], s2 = botStates[p.v2];
+        const t1 = getPortfolioTotal(s1), t2 = getPortfolioTotal(s2);
+        const r1 = getReturnPct(s1), r2 = getReturnPct(s2);
+        const diff = (r1 !== null && r2 !== null) ? r2 - r1 : null;
+        const best = (r1 !== null && r2 !== null) ? Math.max(r1, r2) : (r1 ?? r2);
+        const vsBtc = (best !== null && btcPct !== null && btcPct !== undefined) ? best - btcPct : null;
+        html += `<tr>
+            <td><strong>${p.strategy}</strong></td>
+            <td class="mono">${t1 ? eur(t1) : '—'}</td>
+            <td class="mono ${colorClass(r1)}">${pct(r1)}</td>
+            <td class="mono">${t2 ? eur(t2) : '—'}</td>
+            <td class="mono ${colorClass(r2)}">${pct(r2)}</td>
+            <td class="mono ${colorClass(diff)}">${diff !== null ? pct(diff) : '—'}</td>
+            <td class="mono ${colorClass(vsBtc)}">${vsBtc !== null ? pct(vsBtc) : '—'}</td>
+        </tr>`;
+    }
+    html += '</tbody></table>';
+    wrap.innerHTML = html;
+}
+
+function renderCompareCharts() {
+    // Bar chart: v1 vs v2 per strategy
+    const barCanvas = document.getElementById('compareBarChart');
+    if (barCanvas) {
+        if (chartInstances.compareBar) { chartInstances.compareBar.destroy(); delete chartInstances.compareBar; }
+        const pairs = [
+            { label: 'Hybrid V4+MR', v1: 'baseline', v2: 'baseline_v2' },
+            { label: 'Agressief',    v1: 'v3',        v2: 'v3_v2' },
+            { label: 'Winner-All',   v1: 'allin',     v2: 'allin_v2' },
+            { label: 'Fear & Greed', v1: 'fear',      v2: 'fear_v2' }
+        ];
+        chartInstances.compareBar = new Chart(barCanvas, {
+            type: 'bar',
+            data: {
+                labels: pairs.map(p => p.label),
+                datasets: [
+                    { label: 'V1', data: pairs.map(p => getReturnPct(botStates[p.v1]) ?? 0), backgroundColor: 'rgba(158,158,158,0.6)', borderColor: '#9e9e9e', borderWidth: 1 },
+                    { label: 'V2', data: pairs.map(p => getReturnPct(botStates[p.v2]) ?? 0), backgroundColor: 'rgba(41,121,255,0.6)', borderColor: '#2979ff', borderWidth: 1 }
+                ]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                plugins: { legend: { labels: { color: '#e8eaf6' } } },
+                scales: {
+                    x: { ticks: { color: '#9e9e9e' }, grid: { color: 'rgba(255,255,255,0.05)' } },
+                    y: { ticks: { color: '#9e9e9e', callback: v => v.toFixed(1) + '%' }, grid: { color: 'rgba(255,255,255,0.05)' } }
+                }
+            }
+        });
+    }
+
+    // Horizontal bar: all bots vs BTC
+    const hBarCanvas = document.getElementById('vsBtcChart');
+    if (hBarCanvas) {
+        if (chartInstances.vsBtc) { chartInstances.vsBtc.destroy(); delete chartInstances.vsBtc; }
+        const btcPct = benchmarks['BTC-EUR']?.pct ?? 0;
+        const labels = Object.keys(BOT_META).map(k => BOT_META[k].label);
+        const data = Object.keys(BOT_META).map(k => getReturnPct(botStates[k]) ?? 0);
+        const colors = data.map(v => v > btcPct ? 'rgba(0,200,83,0.6)' : 'rgba(255,23,68,0.6)');
+        chartInstances.vsBtc = new Chart(hBarCanvas, {
+            type: 'bar',
+            data: {
+                labels,
+                datasets: [
+                    { label: 'Bot rendement', data, backgroundColor: colors, borderColor: colors.map(c => c.replace('0.6','1')), borderWidth: 1 },
+                    { label: 'BTC B&H', data: labels.map(() => btcPct), type: 'line', borderColor: '#ff9800', borderDash: [6,3], borderWidth: 2, pointRadius: 0, fill: false }
+                ]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true, maintainAspectRatio: false,
+                plugins: { legend: { labels: { color: '#e8eaf6' } } },
+                scales: {
+                    x: { ticks: { color: '#9e9e9e', callback: v => v.toFixed(1) + '%' }, grid: { color: 'rgba(255,255,255,0.05)' } },
+                    y: { ticks: { color: '#9e9e9e' }, grid: { color: 'rgba(255,255,255,0.05)' } }
+                }
+            }
+        });
+    }
+}
+
+// ============================================================
+// TAB 4: BENCHMARK ANALYSE
+// ============================================================
+function renderBenchmarkTab() {
+    renderBenchStats();
+    renderBenchWinners();
+    if (!benchHistoryFetched) {
+        benchHistoryFetched = true;
+        fetchAndRenderBenchChart();
+    }
+}
+
+function renderBenchStats() {
+    const grid = document.getElementById('benchStatsGrid');
+    if (!grid) return;
+    const enabled = getEnabledBenchmarks();
+    // Always show 4 cards, fill with enabled markets
+    const markets = [...enabled];
+    while (markets.length < 4) markets.push(null);
+    grid.innerHTML = markets.slice(0, 4).map(m => {
+        if (!m) return `<div class="card"><div class="kpi-label">—</div><div class="kpi-value">—</div></div>`;
+        const b = benchmarks[m];
+        const name = m.replace('-EUR', '');
+        if (!b || b.pct === null) return `<div class="card"><div class="kpi-label">${name}</div><div class="kpi-value">—</div><div class="kpi-sub">Laden...</div></div>`;
+        return `<div class="card">
+            <div class="kpi-label">${name} B&H</div>
+            <div class="kpi-value ${colorClass(b.pct)}">${pct(b.pct)}</div>
+            <div class="kpi-sub">Huidige prijs: ${eur(b.current)}</div>
+        </div>`;
+    }).join('');
+}
+
+function renderBenchWinners() {
+    const wrap = document.getElementById('benchWinnerGrid');
+    if (!wrap) return;
+    const enabled = getEnabledBenchmarks();
+    wrap.innerHTML = enabled.map(m => {
+        const b = benchmarks[m];
+        const name = m.replace('-EUR', '');
+        if (!b || b.pct === null) return `<div class="bench-winner-row"><strong>${name}</strong><span class="text-grey">Geen data</span></div>`;
+        let winners = 0, bestKey = null, bestDiff = -Infinity;
+        for (const [key, state] of Object.entries(botStates)) {
+            const rp = getReturnPct(state);
+            if (rp !== null && rp > b.pct) { winners++; if (rp - b.pct > bestDiff) { bestDiff = rp - b.pct; bestKey = key; } }
+        }
+        return `<div class="bench-winner-row">
+            <div><strong>${name} B&H</strong> <span class="badge ${badgeClass(b.pct)}">${pct(b.pct)}</span></div>
+            <div>${winners}/8 bots winnen</div>
+            <div>${bestKey ? `Beste: ${BOT_META[bestKey].icon} ${BOT_META[bestKey].label} <span class="text-green">(+${(bestDiff).toFixed(2)}%)</span>` : '—'}</div>
+        </div>`;
+    }).join('');
+}
+
+async function fetchAndRenderBenchChart() {
+    const statusEl = document.getElementById('benchChartStatus');
+    const canvas = document.getElementById('benchLineChart');
+    if (!canvas) return;
+    if (chartInstances.benchLine) { chartInstances.benchLine.destroy(); delete chartInstances.benchLine; }
+
+    if (!CFG.GITHUB_TOKEN) {
+        if (statusEl) statusEl.textContent = 'GitHub token vereist.';
+        return;
+    }
+
+    if (statusEl) statusEl.innerHTML = '<span class="spinner" style="display:inline-block;width:14px;height:14px;border-width:2px;vertical-align:middle"></span> Historische data laden...';
+
+    const botKeys = Object.keys(BOT_META);
+    let loaded = 0;
+    const allHistories = {};
+
+    for (const key of botKeys) {
+        if (!portfolioHistoryCache[key]) {
+            portfolioHistoryCache[key] = await fetchPortfolioHistory(STATE_FILES[key]);
+        }
+        allHistories[key] = portfolioHistoryCache[key];
+        loaded++;
+        if (statusEl) statusEl.textContent = `Laden ${loaded}/${botKeys.length} bots...`;
+    }
+
+    // Build unified timeline
+    const allDates = new Set();
+    for (const history of Object.values(allHistories)) {
+        history.forEach(h => allDates.add(h.timestamp.slice(0, 10)));
+    }
+    const sortedDates = [...allDates].sort();
+
+    if (!sortedDates.length) {
+        if (statusEl) statusEl.textContent = 'Geen historische data gevonden.';
+        return;
+    }
+
+    const datasets = botKeys.map((key, i) => {
+        const history = allHistories[key];
+        const dateMap = {};
+        history.forEach(h => { dateMap[h.timestamp.slice(0, 10)] = h.portfolio_total; });
+        let last = 500;
+        const data = sortedDates.map(d => { if (dateMap[d] !== undefined) last = dateMap[d]; return last; });
+        return {
+            label: BOT_META[key].label,
+            data,
+            borderColor: BOT_COLORS[i % BOT_COLORS.length],
+            borderWidth: 2,
+            pointRadius: 0,
+            fill: false,
+            tension: 0.3
+        };
+    });
+
+    // Add benchmark lines
+    const enabled = getEnabledBenchmarks();
+    const benchColors = ['#ff9800','#00bcd4','#e040fb','#ffeb3b'];
+    enabled.forEach((m, i) => {
+        const b = benchmarks[m];
+        if (!b || !b.start || !b.pct) return;
+        const n = sortedDates.length;
+        const data = sortedDates.map((_, j) => 500 * (1 + (j / Math.max(n-1,1)) * b.pct / 100));
+        datasets.push({
+            label: m.replace('-EUR','') + ' B&H',
+            data,
+            borderColor: benchColors[i % benchColors.length],
+            borderDash: [8, 4],
+            borderWidth: 2,
+            pointRadius: 0,
+            fill: false,
+            tension: 0.3
+        });
+    });
+
+    chartInstances.benchLine = new Chart(canvas, {
+        type: 'line',
+        data: { labels: sortedDates, datasets },
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            plugins: { legend: { labels: { color: '#e8eaf6', font: { size: 11 } }, position: 'bottom' }, tooltip: { mode: 'index' } },
+            scales: {
+                x: { ticks: { color: '#9e9e9e', maxTicksLimit: 10 }, grid: { color: 'rgba(255,255,255,0.05)' } },
+                y: { ticks: { color: '#9e9e9e', callback: v => '€' + v.toFixed(0) }, grid: { color: 'rgba(255,255,255,0.05)' } }
+            }
+        }
+    });
+
+    if (statusEl) statusEl.textContent = `${sortedDates.length} datapunten geladen`;
+}
+
+// ============================================================
+// TAB 5: INSTELLINGEN
+// ============================================================
+function populateSettings() {
+    document.getElementById('cfg-owner').value = CFG.GITHUB_OWNER || '';
+    document.getElementById('cfg-repo').value = CFG.GITHUB_REPO || '';
+    document.getElementById('cfg-token').value = CFG.GITHUB_TOKEN || '';
+    document.getElementById('cfg-startdate').value = CFG.BENCHMARK_START_DATE || '';
+
+    const saved = JSON.parse(localStorage.getItem('cfg') || '{}');
+    const enabled = saved.enabledBenchmarks || DEFAULT_BENCHMARKS;
+    document.querySelectorAll('#benchmarkAssets input[type="checkbox"]').forEach(cb => {
+        cb.checked = enabled.includes(cb.value);
+    });
+}
+
+function saveSettings() {
+    const enabledBenchmarks = [];
+    document.querySelectorAll('#benchmarkAssets input[type="checkbox"]:checked').forEach(cb => {
+        enabledBenchmarks.push(cb.value);
+    });
+
+    const newCfg = {
+        GITHUB_OWNER: document.getElementById('cfg-owner').value.trim(),
+        GITHUB_REPO: document.getElementById('cfg-repo').value.trim(),
+        GITHUB_TOKEN: document.getElementById('cfg-token').value.trim(),
+        BENCHMARK_START_DATE: document.getElementById('cfg-startdate').value,
+        enabledBenchmarks
+    };
+    localStorage.setItem('cfg', JSON.stringify(newCfg));
+    loadCFG();
+    const msg = document.getElementById('saveConfirm');
+    msg.classList.add('show');
+    setTimeout(() => msg.classList.remove('show'), 3000);
+    benchHistoryFetched = false;
+    portfolioHistoryCache = {};
+    refreshAll();
+}
+
+function resetSettings() {
+    localStorage.removeItem('cfg');
+    loadCFG();
+    populateSettings();
+    benchHistoryFetched = false;
+    portfolioHistoryCache = {};
+    refreshAll();
+}
+</script>
+</body>
+</html>
