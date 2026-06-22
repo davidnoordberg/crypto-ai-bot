@@ -1,15 +1,64 @@
 {
-  "capital_eur": 500.0,
-  "open_positions": {},
+  "capital_eur": 450.0,
+  "open_positions": {
+    "ETH-EUR": {
+      "strategy": "v4",
+      "units": 0.03291209,
+      "entry_px": 1516.16,
+      "stop_px": 1428.969601,
+      "trail_high": 1516.16,
+      "invest": 50.0,
+      "entry_ts": "2026-06-22T02:13:25.318785+00:00",
+      "strength": 0,
+      "regime_at_entry": "neutraal",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.5,
+      "llm_nieuws_sentiment": "neutraal",
+      "llm_reden": "LLM niet beschikbaar"
+    }
+  },
   "total_trades": 0,
   "wins": 0,
   "gross_win": 0.0,
   "gross_loss": 0.0,
   "win_rate": 0.0,
   "profit_factor": 0.0,
-  "total_return_pct": 0.0,
-  "trades": [],
-  "signals": [],
-  "portfolio_total": 500.0,
-  "open_positions_value": 0
+  "total_return_pct": -0.02,
+  "trades": [
+    {
+      "timestamp": "2026-06-22T02:13:25.318785+00:00",
+      "ticker": "ETH-EUR",
+      "action": "BUY",
+      "price": 1516.16,
+      "position_size_pct": 10.0,
+      "position_size_eur": 50.0,
+      "entry_price": 1516.16,
+      "regime": "neutraal",
+      "strategy": "v4",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.5,
+      "llm_nieuws_sentiment": "neutraal",
+      "llm_reden": "LLM niet beschikbaar"
+    }
+  ],
+  "signals": [
+    {
+      "timestamp": "2026-06-22T02:13:25.318785+00:00",
+      "ticker": "ETH-EUR",
+      "regime": "neutraal",
+      "rsi": 54.39,
+      "macd_hist": 0.525597,
+      "atr_ratio": 1.4377,
+      "volume_ratio": 1.0916,
+      "ma200_slope": -0.974,
+      "trailing_stop": 0.0,
+      "signal_type": "v4",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.5,
+      "entry_blocked": false,
+      "block_reason": ""
+    }
+  ],
+  "portfolio_total": 499.9,
+  "open_positions_value": 49.9
 }
