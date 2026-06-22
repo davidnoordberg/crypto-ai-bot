@@ -1,17 +1,8 @@
 {
-  "timestamp": "2026-06-22T06:22:59Z",
-  "markt_label": "angst",
-  "fng": {
-    "score": 20,
-    "label": "Extreme Fear",
-    "trend": "stable"
-  },
-  "redenering": "FNG 20 stable, 3 bull regimes.",
+  "gepauzeerde_bots": [],
   "actieve_bots": [
     "baseline",
-    "baseline_v2"
-  ],
-  "gepauzeerde_bots": [
+    "baseline_v2",
     "v3",
     "v3_v2",
     "allin",
@@ -19,59 +10,5 @@
     "fear",
     "fear_v2"
   ],
-  "actieve_bots_base": [
-    "baseline"
-  ],
-  "laatste_wissel": "2026-06-22T06:22:59Z",
-  "wisselingen_deze_maand": 2,
-  "laatste_wissel_maand": "2026-06",
-  "bear_bescherming_actief": false,
-  "regime_details": {
-    "BTC-EUR": "bull",
-    "ETH-EUR": "bull",
-    "SOL-EUR": "bull",
-    "DOGE-EUR": "neutraal",
-    "AVAX-EUR": "bear",
-    "ADA-EUR": "bear"
-  },
-  "regime_summary": {
-    "bull_count": 3,
-    "bear_count": 2,
-    "atr_ratio": 0.921,
-    "bear_pct_7d": 0.0
-  },
-  "regime_history": [
-    {
-      "ts": "2026-06-21T18:06:21Z",
-      "recommended_active": [
-        "fear",
-        "baseline"
-      ],
-      "bear_regimes": 3,
-      "bull_regimes": 1,
-      "fng": 23,
-      "atr_ratio": 0.793
-    },
-    {
-      "ts": "2026-06-21T22:08:55Z",
-      "recommended_active": [
-        "fear",
-        "baseline"
-      ],
-      "bear_regimes": 5,
-      "bull_regimes": 1,
-      "fng": 23,
-      "atr_ratio": 0.838
-    },
-    {
-      "ts": "2026-06-22T06:22:59Z",
-      "recommended_active": [
-        "baseline"
-      ],
-      "bear_regimes": 2,
-      "bull_regimes": 3,
-      "fng": 20,
-      "atr_ratio": 0.921
-    }
-  ]
+  "redenering": "Meta agent uitgeschakeld \u2014 alle bots draaien vrij."
 }
