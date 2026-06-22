@@ -1,44 +1,43 @@
 {
-  "timestamp": "2026-06-21T22:08:55Z",
+  "timestamp": "2026-06-22T06:22:59Z",
   "markt_label": "angst",
   "fng": {
-    "score": 23,
+    "score": 20,
     "label": "Extreme Fear",
-    "trend": "stijgend"
+    "trend": "stable"
   },
-  "redenering": "FNG 23 stijgend, 5 bear regimes.",
+  "redenering": "FNG 20 stable, 3 bull regimes.",
   "actieve_bots": [
     "baseline",
-    "baseline_v2",
-    "fear",
-    "fear_v2"
+    "baseline_v2"
   ],
   "gepauzeerde_bots": [
     "v3",
     "v3_v2",
     "allin",
-    "allin_v2"
+    "allin_v2",
+    "fear",
+    "fear_v2"
   ],
   "actieve_bots_base": [
-    "fear",
     "baseline"
   ],
-  "laatste_wissel": "2026-06-21T18:06:21Z",
-  "wisselingen_deze_maand": 1,
+  "laatste_wissel": "2026-06-22T06:22:59Z",
+  "wisselingen_deze_maand": 2,
   "laatste_wissel_maand": "2026-06",
   "bear_bescherming_actief": false,
   "regime_details": {
-    "BTC-EUR": "bear",
-    "ETH-EUR": "bear",
+    "BTC-EUR": "bull",
+    "ETH-EUR": "bull",
     "SOL-EUR": "bull",
-    "DOGE-EUR": "bear",
+    "DOGE-EUR": "neutraal",
     "AVAX-EUR": "bear",
     "ADA-EUR": "bear"
   },
   "regime_summary": {
-    "bull_count": 1,
-    "bear_count": 5,
-    "atr_ratio": 0.838,
+    "bull_count": 3,
+    "bear_count": 2,
+    "atr_ratio": 0.921,
     "bear_pct_7d": 0.0
   },
   "regime_history": [
@@ -63,6 +62,16 @@
       "bull_regimes": 1,
       "fng": 23,
       "atr_ratio": 0.838
+    },
+    {
+      "ts": "2026-06-22T06:22:59Z",
+      "recommended_active": [
+        "baseline"
+      ],
+      "bear_regimes": 2,
+      "bull_regimes": 3,
+      "fng": 20,
+      "atr_ratio": 0.921
     }
   ]
 }
