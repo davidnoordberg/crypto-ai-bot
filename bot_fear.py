@@ -518,6 +518,8 @@ def generate_entries(state: dict, indicators: dict, fng: dict) -> tuple[dict, li
 
 # ── Slack notificatie ──────────────────────────────────────────────────────────
 def send_slack(state: dict, exits: list, signals: list, fng: dict, corr_blocks: list = []):
+    if not exits and not signals and not state.get("open_positions"):
+        return
     url = os.environ.get("SLACK_WEBHOOK_URL", "")
     if not url:
         print("  [INFO] Geen SLACK_WEBHOOK_URL — geen notificatie.")

@@ -457,6 +457,8 @@ def generate_entries(state: dict, indicators: dict,
 
 # ── Slack notificatie ─────────────────────────────────────────────────────────
 def send_slack(state: dict, exits: list, signals: list, fng: dict):
+    if not exits and not signals and not state.get("open_positions"):
+        return
     blocks = portfolio_blocks("Bot V3 V2 (multi-agent, DOGE+SOL)", state, fng, START_CAP)
 
     # Open posities

@@ -476,6 +476,8 @@ def generate_entries(state: dict, indicators: dict,
 # ── Slack ──────────────────────────────────────────────────────────────────────
 def send_slack(state: dict, exits: list, signals: list,
                fng: dict, last_decision: Optional[dict]):
+    if not exits and not signals and not state.get("open_positions"):
+        return
     blocks = portfolio_blocks("Bot ALL-IN V2 (multi-agent, winner-takes-all)",
                               state, fng, START_CAP)
 

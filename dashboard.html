@@ -130,6 +130,17 @@ tr.greyed-out td { opacity: 0.45; }
 .checkbox-item { display: flex; align-items: center; gap: 6px; cursor: pointer; font-size: 14px; }
 .checkbox-item input { accent-color: var(--blue); width: 16px; height: 16px; }
 
+/* Trades table */
+.trades-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.trades-table th { background: var(--card2); color: var(--text2); font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border); white-space: nowrap; }
+.trades-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); color: var(--text); white-space: nowrap; }
+.trades-table tr:last-child td { border-bottom: none; }
+.trades-table tr:hover td { background: rgba(255,255,255,0.02); }
+.trade-win { color: var(--green); font-weight: 600; }
+.trade-loss { color: var(--red); font-weight: 600; }
+.trade-buy { background: rgba(41,121,255,0.12); color: var(--blue); padding: 2px 8px; border-radius: 4px; font-weight: 600; font-size: 11px; }
+.trade-sell { background: rgba(0,200,83,0.12); color: var(--green); padding: 2px 8px; border-radius: 4px; font-weight: 600; font-size: 11px; }
+
 /* Error card */
 .error-card { display: flex; align-items: center; gap: 12px; padding: 14px 18px; background: rgba(255,23,68,0.08); border: 1px solid rgba(255,23,68,0.3); border-radius: var(--radius); color: var(--red); font-size: 13px; }
 
@@ -199,6 +210,7 @@ const DEFAULTS = {
 
 <div class="tabs">
     <div class="tab active" data-tab="scorebord">🏆 Scorebord</div>
+    <div class="tab" data-tab="trades">📋 Trades</div>
     <div class="tab" data-tab="detail">🔍 Bot Detail</div>
     <div class="tab" data-tab="vergelijking">⚖️ V1 vs V2</div>
     <div class="tab" data-tab="benchmark">📊 Benchmark</div>
@@ -276,6 +288,31 @@ const DEFAULTS = {
     </div>
 
     <!-- TAB 5: INSTELLINGEN -->
+    <div class="tab-pane" id="tab-trades">
+        <div class="section-title">📋 Recente Trades</div>
+        <div class="card" style="padding:0;overflow:hidden;">
+            <table class="trades-table" id="tradesTable">
+                <thead>
+                    <tr>
+                        <th>Tijd</th>
+                        <th>Bot</th>
+                        <th>Ticker</th>
+                        <th>Actie</th>
+                        <th>Prijs</th>
+                        <th>Instaprijs</th>
+                        <th>PnL (€)</th>
+                        <th>PnL (%)</th>
+                        <th>Reden</th>
+                        <th>Strategie</th>
+                    </tr>
+                </thead>
+                <tbody id="tradesBody">
+                    <tr><td colspan="10" style="text-align:center;color:var(--text2);padding:32px;">Laden...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
     <div class="tab-pane" id="tab-instellingen">
         <div class="section-title">⚙️ Instellingen</div>
         <div class="settings-form">
@@ -399,6 +436,7 @@ function setupTabs() {
             tab.classList.add('active');
             const name = tab.dataset.tab;
             document.getElementById('tab-' + name).classList.add('active');
+            if (name === 'trades') renderTrades();
             if (name === 'detail') renderDetailTab();
             if (name === 'vergelijking') renderVergelijkingTab();
             if (name === 'benchmark') renderBenchmarkTab();
@@ -587,6 +625,7 @@ async function refreshAll() {
     if (activeTab) {
         const name = activeTab.dataset.tab;
         if (name === 'scorebord') renderScorebord();
+        else if (name === 'trades') renderTrades();
         else if (name === 'detail') renderDetailTab();
         else if (name === 'vergelijking') renderVergelijkingTab();
         else if (name === 'benchmark') renderBenchmarkTab();
@@ -738,6 +777,56 @@ function renderMetaBanner() {
 // ============================================================
 // TAB 1: SCOREBORD
 // ============================================================
+function formatExitReason(r) {
+    if (!r) return '—';
+    if (r.startsWith('rsi_exit:')) return `RSI exit (${r.split(':')[1]})`;
+    if (r.startsWith('fng_recovery:')) return `FNG herstel (${r.split(':')[1]})`;
+    if (r === 'trail_stop') return 'Trailing stop';
+    if (r === 'atr_stop') return 'ATR stop-loss';
+    if (r === 'mr_signal') return 'MR signaal';
+    return r;
+}
+
+function renderTrades() {
+    const tbody = document.getElementById('tradesBody');
+    const allTrades = [];
+    for (const [key, state] of Object.entries(botStates)) {
+        if (!state || !Array.isArray(state.trades)) continue;
+        const meta = BOT_META[key] || {};
+        for (const t of state.trades) {
+            allTrades.push({ ...t, _bot: key, _botLabel: meta.name || key });
+        }
+    }
+    if (allTrades.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="10" style="text-align:center;color:var(--text2);padding:32px;">Geen trades gevonden</td></tr>';
+        return;
+    }
+    allTrades.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+    tbody.innerHTML = allTrades.slice(0, 200).map(t => {
+        const isBuy = (t.action || '').toUpperCase() === 'BUY';
+        const pnl = t.pnl_eur;
+        const pnlPct = t.pnl_pct;
+        const pnlClass = pnl == null ? '' : pnl >= 0 ? 'trade-win' : 'trade-loss';
+        const pnlStr = pnl == null ? '—' : `<span class="${pnlClass}">${pnl >= 0 ? '+' : ''}€${pnl.toFixed(2)}</span>`;
+        const pnlPctStr = pnlPct == null ? '—' : `<span class="${pnlClass}">${pnlPct >= 0 ? '+' : ''}${pnlPct.toFixed(1)}%</span>`;
+        const ts = t.timestamp ? new Date(t.timestamp).toLocaleString('nl-NL', { dateStyle: 'short', timeStyle: 'short' }) : '—';
+        const entryPrice = t.entry_price != null ? `€${(+t.entry_price).toLocaleString('nl-NL', {maximumFractionDigits:2})}` : '—';
+        const price = t.price != null ? `€${(+t.price).toLocaleString('nl-NL', {maximumFractionDigits:2})}` : '—';
+        return `<tr>
+            <td>${ts}</td>
+            <td><span style="font-size:13px;">${BOT_META[t._bot]?.icon || ''} ${BOT_META[t._bot]?.label || t._botLabel}</span></td>
+            <td><strong>${t.ticker || '—'}</strong></td>
+            <td><span class="${isBuy ? 'trade-buy' : 'trade-sell'}">${(t.action || '—').toUpperCase()}</span></td>
+            <td>${price}</td>
+            <td>${entryPrice}</td>
+            <td>${pnlStr}</td>
+            <td>${pnlPctStr}</td>
+            <td style="color:var(--text2);font-size:12px;">${formatExitReason(t.exit_reason)}</td>
+            <td style="color:var(--text2);font-size:12px;">${t.strategy || '—'}</td>
+        </tr>`;
+    }).join('');
+}
+
 function renderScorebord() {
     renderMetaBanner();
     renderKPIs();

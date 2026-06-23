@@ -774,6 +774,8 @@ def send_slack(state: dict, exits: list, signals: list, fng: dict):
     Secret: SLACK_WEBHOOK_URL (repo Settings → Secrets → Actions).
     Webhook aanmaken: Slack → Apps → Incoming Webhooks → Add to Slack.
     """
+    if not exits and not signals and not state.get("open_positions"):
+        return
     url = os.environ.get("SLACK_WEBHOOK_URL", "")
     if not url:
         print("  [INFO] Geen SLACK_WEBHOOK_URL — geen notificatie.")
