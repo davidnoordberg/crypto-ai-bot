@@ -6,7 +6,7 @@
       "units": 1.33693506,
       "entry_px": 60.156,
       "stop_px": 56.408423,
-      "trail_high": 60.156,
+      "trail_high": 60.208,
       "invest": 80.5858,
       "entry_ts": "2026-06-24T15:26:49.762555+00:00",
       "entry_fng": 17,
@@ -14,16 +14,14 @@
       "size_pct": 20.0
     }
   },
-  "cooldown_tickers": [
-    "BTC-EUR"
-  ],
+  "cooldown_tickers": [],
   "total_trades": 4,
   "wins": 1,
   "gross_win": 7.44282475258883,
   "gross_loss": 8.903548131401823,
   "win_rate": 25.0,
   "profit_factor": 0.8359,
-  "total_return_pct": -0.8528,
+  "total_return_pct": -0.3106,
   "trades": [
     {
       "timestamp": "2026-06-19T21:52:16.590526+00:00",
@@ -193,6 +191,6 @@
       "stop_px": 56.408423
     }
   ],
-  "portfolio_total": 495.7358,
-  "open_positions_value": 77.7829
+  "portfolio_total": 498.4471,
+  "open_positions_value": 80.4942
 }
