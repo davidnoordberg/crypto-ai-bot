@@ -1,35 +1,7 @@
 {
   "bot_id": "fear_v2",
-  "capital_eur": 171.5,
+  "capital_eur": 289.062153326926,
   "open_positions": {
-    "BTC-EUR": {
-      "units": 0.00271333,
-      "entry_px": 55172.0,
-      "stop_px": 53316.584982,
-      "trail_high": 55172.0,
-      "invest": 150.0,
-      "entry_ts": "2026-06-24T04:55:29.843779+00:00",
-      "entry_fng": 17,
-      "entry_rsi": 44.52,
-      "size_pct": 30.0,
-      "llm_beslissing": "KOOP",
-      "llm_confidence": 0.3,
-      "llm_reden": "Rule-based fallback: alle LLM agents gefaald."
-    },
-    "ETH-EUR": {
-      "units": 0.07142614,
-      "entry_px": 1467.11,
-      "stop_px": 1401.328775,
-      "trail_high": 1467.11,
-      "invest": 105.0,
-      "entry_ts": "2026-06-24T04:55:29.843779+00:00",
-      "entry_fng": 17,
-      "entry_rsi": 40.55,
-      "size_pct": 30.0,
-      "llm_beslissing": "KOOP",
-      "llm_confidence": 0.3,
-      "llm_reden": "Rule-based fallback: alle LLM agents gefaald."
-    },
     "SOL-EUR": {
       "units": 1.20036329,
       "entry_px": 61.109,
@@ -43,18 +15,35 @@
       "llm_beslissing": "KOOP",
       "llm_confidence": 0.3,
       "llm_reden": "Rule-based fallback: alle LLM agents gefaald."
+    },
+    "DOGE-EUR": {
+      "units": 1895.12427286,
+      "entry_px": 0.065239,
+      "stop_px": 0.06128,
+      "trail_high": 0.065239,
+      "invest": 123.8838,
+      "entry_ts": "2026-06-24T18:24:21.095899+00:00",
+      "entry_fng": 17,
+      "entry_rsi": 20.42,
+      "size_pct": 30.0,
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.3,
+      "llm_reden": "Rule-based fallback: alle LLM agents gefaald."
     }
   },
-  "cooldown_tickers": [],
-  "total_trades": 0,
+  "cooldown_tickers": [
+    "BTC-EUR",
+    "ETH-EUR"
+  ],
+  "total_trades": 2,
   "wins": 0,
   "gross_win": 0.0,
-  "gross_loss": 0.0,
+  "gross_loss": 13.553913691219984,
   "win_rate": 0.0,
   "profit_factor": 0.0,
-  "total_return_pct": -1.5613,
-  "portfolio_total": 492.1935,
-  "open_positions_value": 320.6935,
+  "total_return_pct": -3.4929,
+  "portfolio_total": 482.5353,
+  "open_positions_value": 193.4731,
   "trades": [
     {
       "timestamp": "2026-06-24T04:55:29.843779+00:00",
@@ -97,6 +86,50 @@
       "llm_beslissing": "KOOP",
       "llm_confidence": 0.3,
       "llm_reden": "Rule-based fallback: alle LLM agents gefaald."
+    },
+    {
+      "timestamp": "2026-06-24T18:24:21.095605+00:00",
+      "ticker": "BTC-EUR",
+      "action": "SELL",
+      "price": 52586.0,
+      "position_size_pct": 30.0,
+      "position_size_eur": 150.0,
+      "entry_price": 55172.0,
+      "exit_price": 52586.0,
+      "pnl_pct": -5.068,
+      "pnl_eur": -7.602,
+      "exit_reason": "trail_stop",
+      "entry_fng": 17,
+      "exit_fng": 17
+    },
+    {
+      "timestamp": "2026-06-24T18:24:21.095605+00:00",
+      "ticker": "ETH-EUR",
+      "action": "SELL",
+      "price": 1389.5,
+      "position_size_pct": 21.0,
+      "position_size_eur": 105.0,
+      "entry_price": 1467.11,
+      "exit_price": 1389.5,
+      "pnl_pct": -5.6685,
+      "pnl_eur": -5.9519,
+      "exit_reason": "trail_stop",
+      "entry_fng": 17,
+      "exit_fng": 17
+    },
+    {
+      "timestamp": "2026-06-24T18:24:21.095899+00:00",
+      "ticker": "DOGE-EUR",
+      "action": "BUY",
+      "price": 0.065239,
+      "position_size_pct": 30.0,
+      "position_size_eur": 123.8838,
+      "entry_price": 0.065239,
+      "entry_fng": 17,
+      "entry_rsi": 20.42,
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.3,
+      "llm_reden": "Rule-based fallback: alle LLM agents gefaald."
     }
   ],
   "signals": [
@@ -135,6 +168,19 @@
       "invest": 73.5,
       "size_pct": 30.0,
       "stop_px": 57.576856,
+      "entry_blocked": false,
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.3
+    },
+    {
+      "timestamp": "2026-06-24T18:24:21.095899+00:00",
+      "ticker": "DOGE-EUR",
+      "fng": 17,
+      "rsi": 20.42,
+      "atr": 0.00132,
+      "invest": 123.8838,
+      "size_pct": 30.0,
+      "stop_px": 0.06128,
       "entry_blocked": false,
       "llm_beslissing": "KOOP",
       "llm_confidence": 0.3
