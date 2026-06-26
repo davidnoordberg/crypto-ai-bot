@@ -1,17 +1,28 @@
 {
   "bot_id": "fear",
-  "capital_eur": 417.9529204707333,
+  "capital_eur": 292.56704432951335,
   "open_positions": {
     "SOL-EUR": {
       "units": 1.33693506,
       "entry_px": 60.156,
       "stop_px": 56.408423,
-      "trail_high": 60.208,
+      "trail_high": 62.116,
       "invest": 80.5858,
       "entry_ts": "2026-06-24T15:26:49.762555+00:00",
       "entry_fng": 17,
       "entry_rsi": 37.66,
       "size_pct": 20.0
+    },
+    "BTC-EUR": {
+      "units": 0.00238557,
+      "entry_px": 52455.0,
+      "stop_px": 49294.466879,
+      "trail_high": 52455.0,
+      "invest": 125.3859,
+      "entry_ts": "2026-06-26T15:17:30.711044+00:00",
+      "entry_fng": 13,
+      "entry_rsi": 39.37,
+      "size_pct": 30.0
     }
   },
   "cooldown_tickers": [],
@@ -21,7 +32,7 @@
   "gross_loss": 8.903548131401823,
   "win_rate": 25.0,
   "profit_factor": 0.8359,
-  "total_return_pct": -0.3309,
+  "total_return_pct": 0.1494,
   "trades": [
     {
       "timestamp": "2026-06-19T21:52:16.590526+00:00",
@@ -137,6 +148,17 @@
       "exit_reason": "trail_stop",
       "entry_fng": 17,
       "exit_fng": 17
+    },
+    {
+      "timestamp": "2026-06-26T15:17:30.711044+00:00",
+      "ticker": "BTC-EUR",
+      "action": "BUY",
+      "price": 52455.0,
+      "position_size_pct": 30.0,
+      "position_size_eur": 125.3859,
+      "entry_price": 52455.0,
+      "entry_fng": 13,
+      "entry_rsi": 39.37
     }
   ],
   "signals": [
@@ -189,8 +211,18 @@
       "invest": 80.5858,
       "size_pct": 20.0,
       "stop_px": 56.408423
+    },
+    {
+      "timestamp": "2026-06-26T15:17:30.711044+00:00",
+      "ticker": "BTC-EUR",
+      "fng": 13,
+      "rsi": 39.37,
+      "atr": 1053.51104,
+      "invest": 125.3859,
+      "size_pct": 30.0,
+      "stop_px": 49294.466879
     }
   ],
-  "portfolio_total": 498.3455,
-  "open_positions_value": 80.3926
+  "portfolio_total": 500.7472,
+  "open_positions_value": 208.1801
 }
