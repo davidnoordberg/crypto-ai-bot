@@ -5,8 +5,8 @@
     "SOL-EUR": {
       "units": 1.20036329,
       "entry_px": 61.109,
-      "stop_px": 57.576856,
-      "trail_high": 62.219,
+      "stop_px": 58.10507090714641,
+      "trail_high": 63.789,
       "invest": 73.5,
       "entry_ts": "2026-06-24T04:55:29.843779+00:00",
       "entry_fng": 17,
@@ -52,9 +52,9 @@
   "gross_loss": 13.553913691219984,
   "win_rate": 0.0,
   "profit_factor": 0.0,
-  "total_return_pct": -3.0933,
-  "portfolio_total": 484.5335,
-  "open_positions_value": 282.19,
+  "total_return_pct": -2.1898,
+  "portfolio_total": 489.051,
+  "open_positions_value": 286.7075,
   "trades": [
     {
       "timestamp": "2026-06-24T04:55:29.843779+00:00",
