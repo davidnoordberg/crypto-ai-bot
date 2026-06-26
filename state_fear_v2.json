@@ -6,7 +6,7 @@
       "units": 1.20036329,
       "entry_px": 61.109,
       "stop_px": 57.576856,
-      "trail_high": 61.109,
+      "trail_high": 62.219,
       "invest": 73.5,
       "entry_ts": "2026-06-24T04:55:29.843779+00:00",
       "entry_fng": 17,
@@ -52,9 +52,9 @@
   "gross_loss": 13.553913691219984,
   "win_rate": 0.0,
   "profit_factor": 0.0,
-  "total_return_pct": -3.8972,
-  "portfolio_total": 480.5139,
-  "open_positions_value": 278.1704,
+  "total_return_pct": -3.0933,
+  "portfolio_total": 484.5335,
+  "open_positions_value": 282.19,
   "trades": [
     {
       "timestamp": "2026-06-24T04:55:29.843779+00:00",
