@@ -33,8 +33,8 @@
     "DOGE-EUR": {
       "units": 1374.94157856,
       "entry_px": 0.061513,
-      "stop_px": 0.05935644913002848,
-      "trail_high": 0.063049,
+      "stop_px": 0.059720988480562016,
+      "trail_high": 0.063228,
       "invest": 84.7463,
       "entry_ts": "2026-06-30T15:19:56.235325+00:00",
       "entry_fng": 15,
@@ -52,9 +52,9 @@
   "gross_loss": 22.94621714201262,
   "win_rate": 0.0,
   "profit_factor": 0.0,
-  "total_return_pct": -3.3551,
-  "portfolio_total": 483.2244,
-  "open_positions_value": 285.4831,
+  "total_return_pct": -3.2505,
+  "portfolio_total": 483.7473,
+  "open_positions_value": 286.006,
   "trades": [
     {
       "timestamp": "2026-06-24T04:55:29.843779+00:00",
