@@ -1,6 +1,6 @@
 {
   "bot_id": "fear_v2",
-  "capital_eur": 202.3435073288482,
+  "capital_eur": 321.7699029601491,
   "open_positions": {
     "SOL-EUR": {
       "units": 1.20036329,
@@ -11,20 +11,6 @@
       "entry_ts": "2026-06-24T04:55:29.843779+00:00",
       "entry_fng": 17,
       "entry_rsi": 41.87,
-      "size_pct": 30.0,
-      "llm_beslissing": "KOOP",
-      "llm_confidence": 0.3,
-      "llm_reden": "Rule-based fallback: alle LLM agents gefaald."
-    },
-    "DOGE-EUR": {
-      "units": 1895.12427286,
-      "entry_px": 0.065239,
-      "stop_px": 0.06339315811449586,
-      "trail_high": 0.067168,
-      "invest": 123.8838,
-      "entry_ts": "2026-06-24T18:24:21.095899+00:00",
-      "entry_fng": 17,
-      "entry_rsi": 20.42,
       "size_pct": 30.0,
       "llm_beslissing": "KOOP",
       "llm_confidence": 0.3,
@@ -45,16 +31,18 @@
       "llm_reden": "Rule-based fallback: alle LLM agents gefaald."
     }
   },
-  "cooldown_tickers": [],
-  "total_trades": 2,
+  "cooldown_tickers": [
+    "DOGE-EUR"
+  ],
+  "total_trades": 3,
   "wins": 0,
   "gross_win": 0.0,
-  "gross_loss": 13.553913691219984,
+  "gross_loss": 18.011298097032622,
   "win_rate": 0.0,
   "profit_factor": 0.0,
-  "total_return_pct": -2.2016,
-  "portfolio_total": 488.9918,
-  "open_positions_value": 286.6483,
+  "total_return_pct": -3.5365,
+  "portfolio_total": 482.3176,
+  "open_positions_value": 160.5477,
   "trades": [
     {
       "timestamp": "2026-06-24T04:55:29.843779+00:00",
@@ -155,6 +143,21 @@
       "llm_beslissing": "KOOP",
       "llm_confidence": 0.3,
       "llm_reden": "Rule-based fallback: alle LLM agents gefaald."
+    },
+    {
+      "timestamp": "2026-06-30T11:34:34.957288+00:00",
+      "ticker": "DOGE-EUR",
+      "action": "SELL",
+      "price": 0.063144,
+      "position_size_pct": 24.78,
+      "position_size_eur": 123.8838,
+      "entry_price": 0.065239,
+      "exit_price": 0.063144,
+      "pnl_pct": -3.598,
+      "pnl_eur": -4.4574,
+      "exit_reason": "trail_stop",
+      "entry_fng": 17,
+      "exit_fng": 15
     }
   ],
   "signals": [
