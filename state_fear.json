@@ -14,16 +14,14 @@
       "size_pct": 30.0
     }
   },
-  "cooldown_tickers": [
-    "SOL-EUR"
-  ],
+  "cooldown_tickers": [],
   "total_trades": 5,
   "wins": 2,
   "gross_win": 17.60542825172714,
   "gross_loss": 8.903548131401823,
   "win_rate": 40.0,
   "profit_factor": 1.9773,
-  "total_return_pct": 1.902,
+  "total_return_pct": 1.8757,
   "trades": [
     {
       "timestamp": "2026-06-19T21:52:16.590526+00:00",
@@ -229,6 +227,6 @@
       "stop_px": 49294.466879
     }
   ],
-  "portfolio_total": 509.5098,
-  "open_positions_value": 126.1943
+  "portfolio_total": 509.3785,
+  "open_positions_value": 126.0631
 }
