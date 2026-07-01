@@ -31,18 +31,16 @@
       "llm_reden": "Rule-based fallback: alle LLM agents gefaald."
     }
   },
-  "cooldown_tickers": [
-    "SOL-EUR"
-  ],
+  "cooldown_tickers": [],
   "total_trades": 5,
   "wins": 1,
   "gross_win": 7.950672360879221,
   "gross_loss": 22.94621714201262,
   "win_rate": 20.0,
   "profit_factor": 0.3465,
-  "total_return_pct": -1.2148,
-  "portfolio_total": 493.926,
-  "open_positions_value": 214.734,
+  "total_return_pct": -1.3687,
+  "portfolio_total": 493.1567,
+  "open_positions_value": 213.9647,
   "trades": [
     {
       "timestamp": "2026-06-24T04:55:29.843779+00:00",
