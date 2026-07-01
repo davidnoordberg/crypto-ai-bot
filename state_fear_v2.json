@@ -1,26 +1,12 @@
 {
   "bot_id": "fear_v2",
-  "capital_eur": 197.74130569663288,
+  "capital_eur": 279.1919783461221,
   "open_positions": {
-    "SOL-EUR": {
-      "units": 1.20036329,
-      "entry_px": 61.109,
-      "stop_px": 61.633418207185095,
-      "trail_high": 66.035,
-      "invest": 73.5,
-      "entry_ts": "2026-06-24T04:55:29.843779+00:00",
-      "entry_fng": 17,
-      "entry_rsi": 41.87,
-      "size_pct": 30.0,
-      "llm_beslissing": "KOOP",
-      "llm_confidence": 0.3,
-      "llm_reden": "Rule-based fallback: alle LLM agents gefaald."
-    },
     "ETH-EUR": {
       "units": 0.08851638,
       "entry_px": 1364.99,
-      "stop_px": 1327.8563110885982,
-      "trail_high": 1396.95,
+      "stop_px": 1348.0355947390765,
+      "trail_high": 1425.68,
       "invest": 121.0661,
       "entry_ts": "2026-06-30T15:19:56.235325+00:00",
       "entry_fng": 15,
@@ -33,8 +19,8 @@
     "DOGE-EUR": {
       "units": 1374.94157856,
       "entry_px": 0.061513,
-      "stop_px": 0.059993424831337655,
-      "trail_high": 0.06339,
+      "stop_px": 0.06061829706313514,
+      "trail_high": 0.064394,
       "invest": 84.7463,
       "entry_ts": "2026-06-30T15:19:56.235325+00:00",
       "entry_fng": 15,
@@ -45,16 +31,18 @@
       "llm_reden": "Rule-based fallback: alle LLM agents gefaald."
     }
   },
-  "cooldown_tickers": [],
-  "total_trades": 4,
-  "wins": 0,
-  "gross_win": 0.0,
+  "cooldown_tickers": [
+    "SOL-EUR"
+  ],
+  "total_trades": 5,
+  "wins": 1,
+  "gross_win": 7.950672360879221,
   "gross_loss": 22.94621714201262,
-  "win_rate": 0.0,
-  "profit_factor": 0.0,
-  "total_return_pct": -3.0813,
-  "portfolio_total": 484.5934,
-  "open_positions_value": 286.8521,
+  "win_rate": 20.0,
+  "profit_factor": 0.3465,
+  "total_return_pct": -1.2148,
+  "portfolio_total": 493.926,
+  "open_positions_value": 214.734,
   "trades": [
     {
       "timestamp": "2026-06-24T04:55:29.843779+00:00",
@@ -213,6 +201,21 @@
       "llm_beslissing": "KOOP",
       "llm_confidence": 0.3,
       "llm_reden": "Rule-based fallback: alle LLM agents gefaald."
+    },
+    {
+      "timestamp": "2026-07-01T15:31:07.466413+00:00",
+      "ticker": "SOL-EUR",
+      "action": "SELL",
+      "price": 67.991,
+      "position_size_pct": 14.7,
+      "position_size_eur": 73.5,
+      "entry_price": 61.109,
+      "exit_price": 67.991,
+      "pnl_pct": 10.8172,
+      "pnl_eur": 7.9507,
+      "exit_reason": "rsi_exit:68",
+      "entry_fng": 17,
+      "exit_fng": 11
     }
   ],
   "signals": [
