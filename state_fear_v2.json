@@ -5,8 +5,8 @@
     "DOGE-EUR": {
       "units": 1374.94157856,
       "entry_px": 0.061513,
-      "stop_px": 0.06109284067438853,
-      "trail_high": 0.064908,
+      "stop_px": 0.06134170919384755,
+      "trail_high": 0.065053,
       "invest": 84.7463,
       "entry_ts": "2026-06-30T15:19:56.235325+00:00",
       "entry_fng": 15,
@@ -17,18 +17,16 @@
       "llm_reden": "Rule-based fallback: alle LLM agents gefaald."
     }
   },
-  "cooldown_tickers": [
-    "ETH-EUR"
-  ],
+  "cooldown_tickers": [],
   "total_trades": 6,
   "wins": 2,
   "gross_win": 18.01461027426283,
   "gross_loss": 22.94621714201262,
   "win_rate": 33.3333,
   "profit_factor": 0.7851,
-  "total_return_pct": -0.0867,
-  "portfolio_total": 499.5667,
-  "open_positions_value": 89.2447,
+  "total_return_pct": -0.0468,
+  "portfolio_total": 499.7661,
+  "open_positions_value": 89.4441,
   "trades": [
     {
       "timestamp": "2026-06-24T04:55:29.843779+00:00",
