@@ -1,26 +1,12 @@
 {
   "bot_id": "fear_v2",
-  "capital_eur": 279.1919783461221,
+  "capital_eur": 410.3220219957057,
   "open_positions": {
-    "ETH-EUR": {
-      "units": 0.08851638,
-      "entry_px": 1364.99,
-      "stop_px": 1360.253845987905,
-      "trail_high": 1442.23,
-      "invest": 121.0661,
-      "entry_ts": "2026-06-30T15:19:56.235325+00:00",
-      "entry_fng": 15,
-      "entry_rsi": 40.7,
-      "size_pct": 30.0,
-      "llm_beslissing": "KOOP",
-      "llm_confidence": 0.3,
-      "llm_reden": "Rule-based fallback: alle LLM agents gefaald."
-    },
     "DOGE-EUR": {
       "units": 1374.94157856,
       "entry_px": 0.061513,
-      "stop_px": 0.061058663589208514,
-      "trail_high": 0.06487,
+      "stop_px": 0.06109284067438853,
+      "trail_high": 0.064908,
       "invest": 84.7463,
       "entry_ts": "2026-06-30T15:19:56.235325+00:00",
       "entry_fng": 15,
@@ -31,16 +17,18 @@
       "llm_reden": "Rule-based fallback: alle LLM agents gefaald."
     }
   },
-  "cooldown_tickers": [],
-  "total_trades": 5,
-  "wins": 1,
-  "gross_win": 7.950672360879221,
+  "cooldown_tickers": [
+    "ETH-EUR"
+  ],
+  "total_trades": 6,
+  "wins": 2,
+  "gross_win": 18.01461027426283,
   "gross_loss": 22.94621714201262,
-  "win_rate": 20.0,
-  "profit_factor": 0.3465,
-  "total_return_pct": -0.7909,
-  "portfolio_total": 496.0454,
-  "open_positions_value": 216.8534,
+  "win_rate": 33.3333,
+  "profit_factor": 0.7851,
+  "total_return_pct": -0.0867,
+  "portfolio_total": 499.5667,
+  "open_positions_value": 89.2447,
   "trades": [
     {
       "timestamp": "2026-06-24T04:55:29.843779+00:00",
@@ -214,6 +202,21 @@
       "exit_reason": "rsi_exit:68",
       "entry_fng": 17,
       "exit_fng": 11
+    },
+    {
+      "timestamp": "2026-07-02T15:00:06.500744+00:00",
+      "ticker": "ETH-EUR",
+      "action": "SELL",
+      "price": 1484.39,
+      "position_size_pct": 24.21,
+      "position_size_eur": 121.0661,
+      "entry_price": 1364.99,
+      "exit_price": 1484.39,
+      "pnl_pct": 8.3128,
+      "pnl_eur": 10.0639,
+      "exit_reason": "rsi_exit:67",
+      "entry_fng": 15,
+      "exit_fng": 19
     }
   ],
   "signals": [
