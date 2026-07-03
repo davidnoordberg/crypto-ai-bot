@@ -1,32 +1,19 @@
 {
   "bot_id": "fear_v2",
-  "capital_eur": 410.3220219957057,
-  "open_positions": {
-    "DOGE-EUR": {
-      "units": 1374.94157856,
-      "entry_px": 0.061513,
-      "stop_px": 0.06269648485550319,
-      "trail_high": 0.066045,
-      "invest": 84.7463,
-      "entry_ts": "2026-06-30T15:19:56.235325+00:00",
-      "entry_fng": 15,
-      "entry_rsi": 27.02,
-      "size_pct": 30.0,
-      "llm_beslissing": "KOOP",
-      "llm_confidence": 0.3,
-      "llm_reden": "Rule-based fallback: alle LLM agents gefaald."
-    }
-  },
-  "cooldown_tickers": [],
-  "total_trades": 6,
-  "wins": 2,
-  "gross_win": 18.01461027426283,
+  "capital_eur": 502.30140353025615,
+  "open_positions": {},
+  "cooldown_tickers": [
+    "DOGE-EUR"
+  ],
+  "total_trades": 7,
+  "wins": 3,
+  "gross_win": 25.247717886851994,
   "gross_loss": 22.94621714201262,
-  "win_rate": 33.3333,
-  "profit_factor": 0.7851,
-  "total_return_pct": 0.226,
-  "portfolio_total": 501.13,
-  "open_positions_value": 90.808,
+  "win_rate": 42.8571,
+  "profit_factor": 1.1003,
+  "total_return_pct": 0.4603,
+  "portfolio_total": 502.3014,
+  "open_positions_value": 0,
   "trades": [
     {
       "timestamp": "2026-06-24T04:55:29.843779+00:00",
@@ -215,6 +202,21 @@
       "exit_reason": "rsi_exit:67",
       "entry_fng": 15,
       "exit_fng": 19
+    },
+    {
+      "timestamp": "2026-07-03T14:58:34.691331+00:00",
+      "ticker": "DOGE-EUR",
+      "action": "SELL",
+      "price": 0.067031,
+      "position_size_pct": 16.95,
+      "position_size_eur": 84.7463,
+      "entry_price": 0.061513,
+      "exit_price": 0.067031,
+      "pnl_pct": 8.535,
+      "pnl_eur": 7.2331,
+      "exit_reason": "rsi_exit:65",
+      "entry_fng": 15,
+      "exit_fng": 21
     }
   ],
   "signals": [
