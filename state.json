@@ -1,13 +1,29 @@
 {
-  "capital_eur": 498.7984499796206,
-  "open_positions": {},
+  "capital_eur": 448.9186049816585,
+  "open_positions": {
+    "AVAX-EUR": {
+      "strategy": "v4",
+      "units": 8.65605128,
+      "entry_px": 5.7509,
+      "stop_px": 5.373805,
+      "trail_high": 5.7509,
+      "invest": 49.8798,
+      "entry_ts": "2026-07-13T13:52:34.922412+00:00",
+      "strength": 0,
+      "regime_at_entry": "neutraal",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.5,
+      "llm_nieuws_sentiment": "neutraal",
+      "llm_reden": "LLM niet beschikbaar"
+    }
+  },
   "total_trades": 3,
   "wins": 1,
   "gross_win": 4.784483980690106,
   "gross_loss": 5.986028195066077,
   "win_rate": 33.3333,
   "profit_factor": 0.7993,
-  "total_return_pct": -0.2403,
+  "total_return_pct": -0.2603,
   "trades": [
     {
       "timestamp": "2026-06-22T02:13:25.318785+00:00",
@@ -110,6 +126,21 @@
       "llm_confidence": 0.5,
       "llm_nieuws_sentiment": "neutraal",
       "llm_reden": "LLM niet beschikbaar"
+    },
+    {
+      "timestamp": "2026-07-13T13:52:34.922412+00:00",
+      "ticker": "AVAX-EUR",
+      "action": "BUY",
+      "price": 5.7509,
+      "position_size_pct": 10.0,
+      "position_size_eur": 49.8798,
+      "entry_price": 5.7509,
+      "regime": "neutraal",
+      "strategy": "v4",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.5,
+      "llm_nieuws_sentiment": "neutraal",
+      "llm_reden": "LLM niet beschikbaar"
     }
   ],
   "signals": [
@@ -160,8 +191,24 @@
       "llm_confidence": 0.5,
       "entry_blocked": false,
       "block_reason": ""
+    },
+    {
+      "timestamp": "2026-07-13T13:52:34.922412+00:00",
+      "ticker": "AVAX-EUR",
+      "regime": "neutraal",
+      "rsi": 48.12,
+      "macd_hist": 0.003525,
+      "atr_ratio": 1.6393,
+      "volume_ratio": 1.4323,
+      "ma200_slope": -0.0839,
+      "trailing_stop": 0.0,
+      "signal_type": "v4",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.5,
+      "entry_blocked": false,
+      "block_reason": ""
     }
   ],
-  "portfolio_total": 498.7984,
-  "open_positions_value": 0
+  "portfolio_total": 498.6987,
+  "open_positions_value": 49.7801
 }
