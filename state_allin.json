@@ -1,16 +1,84 @@
 {
   "bot_id": "allin",
-  "capital_eur": 500.0,
-  "open_positions": {},
+  "capital_eur": 25.0,
+  "open_positions": {
+    "DOGE-EUR": {
+      "strategy": "v4",
+      "units": 7342.55444379,
+      "entry_px": 0.064562,
+      "stop_px": 0.061237,
+      "trail_high": 0.064562,
+      "invest": 475.0,
+      "entry_ts": "2026-07-14T14:24:20.358110+00:00",
+      "regime_at_entry": "neutraal",
+      "confidence_at_entry": 0.4852,
+      "competitor": "SOL",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.5,
+      "llm_nieuws_sentiment": "neutraal",
+      "llm_reden": "LLM niet beschikbaar"
+    }
+  },
   "total_trades": 0,
   "wins": 0,
   "gross_win": 0.0,
   "gross_loss": 0.0,
   "win_rate": 0.0,
   "profit_factor": 0.0,
-  "total_return_pct": 0.0,
-  "trades": [],
-  "signals": [],
-  "portfolio_total": 500.0,
-  "open_positions_value": 0
+  "total_return_pct": -0.19,
+  "trades": [
+    {
+      "timestamp": "2026-07-14T14:24:20.358110+00:00",
+      "ticker": "DOGE-EUR",
+      "action": "BUY",
+      "price": 0.064562,
+      "position_size_pct": 95.0,
+      "position_size_eur": 475.0,
+      "entry_price": 0.064562,
+      "regime": "neutraal",
+      "strategy": "v4",
+      "confidence_at_entry": 0.4852,
+      "competitor": "SOL",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.5,
+      "llm_nieuws_sentiment": "neutraal",
+      "llm_reden": "LLM niet beschikbaar"
+    }
+  ],
+  "signals": [
+    {
+      "timestamp": "2026-07-14T14:24:20.358110+00:00",
+      "ticker": "DOGE-EUR",
+      "regime": "neutraal",
+      "rsi": 56.8,
+      "macd_hist": 5.2e-05,
+      "atr_ratio": 1.2876,
+      "volume_ratio": 2.0974,
+      "signal_type": "v4",
+      "conf_score": 0.4852,
+      "is_winner": true,
+      "entry_blocked": false,
+      "block_reason": "",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.5
+    },
+    {
+      "timestamp": "2026-07-14T14:24:20.358110+00:00",
+      "ticker": "SOL-EUR",
+      "regime": "neutraal",
+      "rsi": 49.21,
+      "macd_hist": 0.013811,
+      "atr_ratio": 1.5152,
+      "volume_ratio": 3.0871,
+      "signal_type": "v4",
+      "conf_score": 0.3847,
+      "is_winner": false,
+      "entry_blocked": true,
+      "block_reason": "niet_gekozen",
+      "llm_beslissing": "NIETS",
+      "llm_confidence": 0.0
+    }
+  ],
+  "portfolio_total": 499.05,
+  "open_positions_value": 474.05
 }
