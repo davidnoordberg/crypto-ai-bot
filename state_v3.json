@@ -1,16 +1,111 @@
 {
   "bot_id": "v3",
-  "capital_eur": 500.0,
-  "open_positions": {},
+  "capital_eur": 180.0,
+  "open_positions": {
+    "DOGE-EUR": {
+      "strategy": "v4",
+      "units": 3097.83958282,
+      "entry_px": 0.064432,
+      "stop_px": 0.061107,
+      "trail_high": 0.064432,
+      "invest": 200.0,
+      "entry_ts": "2026-07-14T14:12:08.710365+00:00",
+      "strength": 2,
+      "regime_at_entry": "neutraal",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.5,
+      "llm_nieuws_sentiment": "neutraal",
+      "llm_reden": "LLM niet beschikbaar"
+    },
+    "SOL-EUR": {
+      "strategy": "v4",
+      "units": 1.78599657,
+      "entry_px": 67.055,
+      "stop_px": 62.984827,
+      "trail_high": 67.055,
+      "invest": 120.0,
+      "entry_ts": "2026-07-14T14:12:08.710365+00:00",
+      "strength": 2,
+      "regime_at_entry": "neutraal",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.5,
+      "llm_nieuws_sentiment": "neutraal",
+      "llm_reden": "LLM niet beschikbaar"
+    }
+  },
   "total_trades": 0,
   "wins": 0,
   "gross_win": 0.0,
   "gross_loss": 0.0,
   "win_rate": 0.0,
   "profit_factor": 0.0,
-  "total_return_pct": 0.0,
-  "trades": [],
-  "signals": [],
-  "portfolio_total": 500.0,
-  "open_positions_value": 0
+  "total_return_pct": -0.128,
+  "trades": [
+    {
+      "timestamp": "2026-07-14T14:12:08.710365+00:00",
+      "ticker": "DOGE-EUR",
+      "action": "BUY",
+      "price": 0.064432,
+      "position_size_pct": 40.0,
+      "position_size_eur": 200.0,
+      "entry_price": 0.064432,
+      "regime": "neutraal",
+      "strategy": "v4",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.5,
+      "llm_nieuws_sentiment": "neutraal",
+      "llm_reden": "LLM niet beschikbaar"
+    },
+    {
+      "timestamp": "2026-07-14T14:12:08.710365+00:00",
+      "ticker": "SOL-EUR",
+      "action": "BUY",
+      "price": 67.055,
+      "position_size_pct": 40.0,
+      "position_size_eur": 120.0,
+      "entry_price": 67.055,
+      "regime": "neutraal",
+      "strategy": "v4",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.5,
+      "llm_nieuws_sentiment": "neutraal",
+      "llm_reden": "LLM niet beschikbaar"
+    }
+  ],
+  "signals": [
+    {
+      "timestamp": "2026-07-14T14:12:08.710365+00:00",
+      "ticker": "DOGE-EUR",
+      "regime": "neutraal",
+      "rsi": 55.54,
+      "macd_hist": 4.3e-05,
+      "atr_ratio": 1.2902,
+      "volume_ratio": 2.0264,
+      "ma200_slope": -0.6993,
+      "trailing_stop": 0.0,
+      "signal_type": "v4",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.5,
+      "entry_blocked": false,
+      "block_reason": ""
+    },
+    {
+      "timestamp": "2026-07-14T14:12:08.710365+00:00",
+      "ticker": "SOL-EUR",
+      "regime": "neutraal",
+      "rsi": 48.32,
+      "macd_hist": 0.007301,
+      "atr_ratio": 1.5175,
+      "volume_ratio": 2.9912,
+      "ma200_slope": 0.8119,
+      "trailing_stop": 0.0,
+      "signal_type": "v4",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.5,
+      "entry_blocked": false,
+      "block_reason": ""
+    }
+  ],
+  "portfolio_total": 499.36,
+  "open_positions_value": 319.36
 }
