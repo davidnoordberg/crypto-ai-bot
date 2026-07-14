@@ -1,5 +1,5 @@
 {
-  "capital_eur": 451.7360364444292,
+  "capital_eur": 329.31557056798886,
   "open_positions": {
     "AVAX-EUR": {
       "strategy": "v4",
@@ -13,6 +13,45 @@
       "regime_at_entry": "neutraal",
       "llm_beslissing": "KOOP",
       "llm_confidence": 0.3
+    },
+    "DOGE-EUR": {
+      "strategy": "v4",
+      "units": 700.37682829,
+      "entry_px": 0.06437,
+      "stop_px": 0.061045,
+      "trail_high": 0.06437,
+      "invest": 45.1736,
+      "entry_ts": "2026-07-14T14:04:45.319270+00:00",
+      "strength": 1,
+      "regime_at_entry": "neutraal",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.3
+    },
+    "ETH-EUR": {
+      "strategy": "v4",
+      "units": 0.02495859,
+      "entry_px": 1625.69,
+      "stop_px": 1527.992163,
+      "trail_high": 1625.69,
+      "invest": 40.6562,
+      "entry_ts": "2026-07-14T14:04:45.319270+00:00",
+      "strength": 3,
+      "regime_at_entry": "bull",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.3
+    },
+    "ADA-EUR": {
+      "strategy": "v4",
+      "units": 257.05643893,
+      "entry_px": 0.14206,
+      "stop_px": 0.131039,
+      "trail_high": 0.14206,
+      "invest": 36.5906,
+      "entry_ts": "2026-07-14T14:04:45.319270+00:00",
+      "strength": 0,
+      "regime_at_entry": "neutraal",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.3
     }
   },
   "total_trades": 1,
@@ -21,7 +60,7 @@
   "gross_loss": 0.0,
   "win_rate": 100.0,
   "profit_factor": 0.0,
-  "total_return_pct": 0.1233,
+  "total_return_pct": 0.2576,
   "trades": [
     {
       "timestamp": "2026-07-08T03:35:28.682123+00:00",
@@ -65,6 +104,45 @@
       "strategy": "v4",
       "llm_beslissing": "KOOP",
       "llm_confidence": 0.3
+    },
+    {
+      "timestamp": "2026-07-14T14:04:45.319270+00:00",
+      "ticker": "DOGE-EUR",
+      "action": "BUY",
+      "price": 0.06437,
+      "position_size_pct": 10.0,
+      "position_size_eur": 45.1736,
+      "entry_price": 0.06437,
+      "regime": "neutraal",
+      "strategy": "v4",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.3
+    },
+    {
+      "timestamp": "2026-07-14T14:04:45.319270+00:00",
+      "ticker": "ETH-EUR",
+      "action": "BUY",
+      "price": 1625.69,
+      "position_size_pct": 10.0,
+      "position_size_eur": 40.6562,
+      "entry_price": 1625.69,
+      "regime": "bull",
+      "strategy": "v4",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.3
+    },
+    {
+      "timestamp": "2026-07-14T14:04:45.319270+00:00",
+      "ticker": "ADA-EUR",
+      "action": "BUY",
+      "price": 0.14206,
+      "position_size_pct": 10.0,
+      "position_size_eur": 36.5906,
+      "entry_price": 0.14206,
+      "regime": "neutraal",
+      "strategy": "v4",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.3
     }
   ],
   "signals": [
@@ -95,8 +173,50 @@
       "llm_confidence": 0.3,
       "entry_blocked": false,
       "block_reason": ""
+    },
+    {
+      "timestamp": "2026-07-14T14:04:45.319270+00:00",
+      "ticker": "DOGE-EUR",
+      "regime": "neutraal",
+      "rsi": 54.91,
+      "macd_hist": 4e-05,
+      "atr_ratio": 1.2914,
+      "volume_ratio": 1.9462,
+      "signal_type": "v4",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.3,
+      "entry_blocked": false,
+      "block_reason": ""
+    },
+    {
+      "timestamp": "2026-07-14T14:04:45.319270+00:00",
+      "ticker": "ETH-EUR",
+      "regime": "bull",
+      "rsi": 69.72,
+      "macd_hist": 1.707525,
+      "atr_ratio": 1.5024,
+      "volume_ratio": 4.5326,
+      "signal_type": "v4",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.3,
+      "entry_blocked": false,
+      "block_reason": ""
+    },
+    {
+      "timestamp": "2026-07-14T14:04:45.319270+00:00",
+      "ticker": "ADA-EUR",
+      "regime": "neutraal",
+      "rsi": 46.87,
+      "macd_hist": 0.000152,
+      "atr_ratio": 1.9396,
+      "volume_ratio": 1.4301,
+      "signal_type": "v4",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.3,
+      "entry_blocked": false,
+      "block_reason": ""
     }
   ],
-  "portfolio_total": 500.6165,
-  "open_positions_value": 48.8805
+  "portfolio_total": 501.288,
+  "open_positions_value": 171.9724
 }
