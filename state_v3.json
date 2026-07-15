@@ -6,8 +6,8 @@
       "strategy": "v4",
       "units": 3097.83958282,
       "entry_px": 0.064432,
-      "stop_px": 0.06255580824659379,
-      "trail_high": 0.06516,
+      "stop_px": 0.06260325885037364,
+      "trail_high": 0.065339,
       "invest": 200.0,
       "entry_ts": "2026-07-14T14:12:08.710365+00:00",
       "strength": 2,
@@ -21,8 +21,8 @@
       "strategy": "v4",
       "units": 1.78599657,
       "entry_px": 67.055,
-      "stop_px": 65.49178404236824,
-      "trail_high": 68.421,
+      "stop_px": 65.50180941429622,
+      "trail_high": 68.482,
       "invest": 120.0,
       "entry_ts": "2026-07-14T14:12:08.710365+00:00",
       "strength": 2,
@@ -39,7 +39,7 @@
   "gross_loss": 0.0,
   "win_rate": 0.0,
   "profit_factor": 0.0,
-  "total_return_pct": 0.2969,
+  "total_return_pct": 0.9437,
   "trades": [
     {
       "timestamp": "2026-07-14T14:12:08.710365+00:00",
@@ -106,6 +106,6 @@
       "block_reason": ""
     }
   ],
-  "portfolio_total": 501.4846,
-  "open_positions_value": 321.4846
+  "portfolio_total": 504.7184,
+  "open_positions_value": 324.7184
 }
