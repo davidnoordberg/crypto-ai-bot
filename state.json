@@ -1,5 +1,5 @@
 {
-  "capital_eur": 327.26166303162904,
+  "capital_eur": 445.86954747947897,
   "open_positions": {
     "AVAX-EUR": {
       "strategy": "v4",
@@ -15,60 +15,15 @@
       "llm_confidence": 0.5,
       "llm_nieuws_sentiment": "neutraal",
       "llm_reden": "LLM niet beschikbaar"
-    },
-    "DOGE-EUR": {
-      "strategy": "v4",
-      "units": 700.1527884,
-      "entry_px": 0.063989,
-      "stop_px": 0.06267775885037365,
-      "trail_high": 0.065322,
-      "invest": 44.8919,
-      "entry_ts": "2026-07-14T12:57:40.656373+00:00",
-      "strength": 0,
-      "regime_at_entry": "neutraal",
-      "llm_beslissing": "KOOP",
-      "llm_confidence": 0.5,
-      "llm_nieuws_sentiment": "neutraal",
-      "llm_reden": "LLM niet beschikbaar"
-    },
-    "SOL-EUR": {
-      "strategy": "v4",
-      "units": 0.60128048,
-      "entry_px": 67.06,
-      "stop_px": 65.59680941429622,
-      "trail_high": 68.451,
-      "invest": 40.4027,
-      "entry_ts": "2026-07-14T12:57:40.656373+00:00",
-      "strength": 2,
-      "regime_at_entry": "neutraal",
-      "llm_beslissing": "KOOP",
-      "llm_confidence": 0.5,
-      "llm_nieuws_sentiment": "neutraal",
-      "llm_reden": "LLM niet beschikbaar"
-    },
-    "ETH-EUR": {
-      "strategy": "v4",
-      "units": 0.02240643,
-      "entry_px": 1619.61,
-      "stop_px": 1611.9418754118058,
-      "trail_high": 1687.14,
-      "invest": 36.3624,
-      "entry_ts": "2026-07-14T12:57:40.656373+00:00",
-      "strength": 3,
-      "regime_at_entry": "bull",
-      "llm_beslissing": "KOOP",
-      "llm_confidence": 0.5,
-      "llm_nieuws_sentiment": "neutraal",
-      "llm_reden": "LLM niet beschikbaar"
     }
   },
-  "total_trades": 3,
+  "total_trades": 6,
   "wins": 1,
   "gross_win": 4.784483980690106,
-  "gross_loss": 5.986028195066077,
-  "win_rate": 33.3333,
-  "profit_factor": 0.7993,
-  "total_return_pct": -0.5455,
+  "gross_loss": 9.03508160524376,
+  "win_rate": 16.6667,
+  "profit_factor": 0.5295,
+  "total_return_pct": -1.0276,
   "trades": [
     {
       "timestamp": "2026-06-22T02:13:25.318785+00:00",
@@ -231,6 +186,63 @@
       "llm_confidence": 0.5,
       "llm_nieuws_sentiment": "neutraal",
       "llm_reden": "LLM niet beschikbaar"
+    },
+    {
+      "timestamp": "2026-07-17T06:07:06.047436+00:00",
+      "ticker": "DOGE-EUR",
+      "action": "SELL",
+      "price": 0.06267,
+      "position_size_pct": 8.98,
+      "position_size_eur": 44.8919,
+      "entry_price": 0.063989,
+      "exit_price": 0.06267,
+      "pnl_pct": -2.4527,
+      "pnl_eur": -1.101,
+      "exit_reason": "trail_stop",
+      "regime": "neutraal",
+      "strategy": "v4",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.5,
+      "llm_nieuws_sentiment": "neutraal",
+      "llm_reden": "LLM niet beschikbaar"
+    },
+    {
+      "timestamp": "2026-07-17T06:07:06.047436+00:00",
+      "ticker": "SOL-EUR",
+      "action": "SELL",
+      "price": 65.144,
+      "position_size_pct": 8.08,
+      "position_size_eur": 40.4027,
+      "entry_price": 67.06,
+      "exit_price": 65.144,
+      "pnl_pct": -3.2453,
+      "pnl_eur": -1.3112,
+      "exit_reason": "trail_stop",
+      "regime": "neutraal",
+      "strategy": "v4",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.5,
+      "llm_nieuws_sentiment": "neutraal",
+      "llm_reden": "LLM niet beschikbaar"
+    },
+    {
+      "timestamp": "2026-07-17T06:07:06.047436+00:00",
+      "ticker": "ETH-EUR",
+      "action": "SELL",
+      "price": 1597.63,
+      "position_size_pct": 7.27,
+      "position_size_eur": 36.3624,
+      "entry_price": 1619.61,
+      "exit_price": 1597.63,
+      "pnl_pct": -1.7513,
+      "pnl_eur": -0.6368,
+      "exit_reason": "trail_stop",
+      "regime": "bull",
+      "strategy": "v4",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.5,
+      "llm_nieuws_sentiment": "neutraal",
+      "llm_reden": "LLM niet beschikbaar"
     }
   ],
   "signals": [
@@ -347,6 +359,6 @@
       "block_reason": ""
     }
   ],
-  "portfolio_total": 497.2727,
-  "open_positions_value": 170.0111
+  "portfolio_total": 494.8619,
+  "open_positions_value": 48.9924
 }
