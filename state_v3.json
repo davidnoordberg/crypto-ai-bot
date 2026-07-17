@@ -1,6 +1,6 @@
 {
   "bot_id": "v3",
-  "capital_eur": 180.0,
+  "capital_eur": 296.1873460426191,
   "open_positions": {
     "DOGE-EUR": {
       "strategy": "v4",
@@ -16,30 +16,15 @@
       "llm_confidence": 0.5,
       "llm_nieuws_sentiment": "neutraal",
       "llm_reden": "LLM niet beschikbaar"
-    },
-    "SOL-EUR": {
-      "strategy": "v4",
-      "units": 1.78599657,
-      "entry_px": 67.055,
-      "stop_px": 65.50180941429622,
-      "trail_high": 68.482,
-      "invest": 120.0,
-      "entry_ts": "2026-07-14T14:12:08.710365+00:00",
-      "strength": 2,
-      "regime_at_entry": "neutraal",
-      "llm_beslissing": "KOOP",
-      "llm_confidence": 0.5,
-      "llm_nieuws_sentiment": "neutraal",
-      "llm_reden": "LLM niet beschikbaar"
     }
   },
-  "total_trades": 0,
+  "total_trades": 1,
   "wins": 0,
   "gross_win": 0.0,
-  "gross_loss": 0.0,
+  "gross_loss": 3.8126539587309036,
   "win_rate": 0.0,
   "profit_factor": 0.0,
-  "total_return_pct": -1.203,
+  "total_return_pct": -1.8834,
   "trades": [
     {
       "timestamp": "2026-07-14T14:12:08.710365+00:00",
@@ -64,6 +49,25 @@
       "position_size_pct": 40.0,
       "position_size_eur": 120.0,
       "entry_price": 67.055,
+      "regime": "neutraal",
+      "strategy": "v4",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.5,
+      "llm_nieuws_sentiment": "neutraal",
+      "llm_reden": "LLM niet beschikbaar"
+    },
+    {
+      "timestamp": "2026-07-17T06:26:37.253167+00:00",
+      "ticker": "SOL-EUR",
+      "action": "SELL",
+      "price": 65.185,
+      "position_size_pct": 24.0,
+      "position_size_eur": 120.0,
+      "entry_price": 67.055,
+      "exit_price": 65.185,
+      "pnl_pct": -3.1772,
+      "pnl_eur": -3.8127,
+      "exit_reason": "trail_stop",
       "regime": "neutraal",
       "strategy": "v4",
       "llm_beslissing": "KOOP",
@@ -106,6 +110,6 @@
       "block_reason": ""
     }
   ],
-  "portfolio_total": 493.9851,
-  "open_positions_value": 313.9851
+  "portfolio_total": 490.583,
+  "open_positions_value": 194.3956
 }
