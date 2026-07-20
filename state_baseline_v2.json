@@ -1,5 +1,5 @@
 {
-  "capital_eur": 369.1721870339991,
+  "capital_eur": 412.7386667898255,
   "open_positions": {
     "AVAX-EUR": {
       "strategy": "v4",
@@ -9,19 +9,6 @@
       "trail_high": 5.867,
       "invest": 50.1929,
       "entry_ts": "2026-07-13T14:53:59.780805+00:00",
-      "strength": 1,
-      "regime_at_entry": "neutraal",
-      "llm_beslissing": "KOOP",
-      "llm_confidence": 0.3
-    },
-    "DOGE-EUR": {
-      "strategy": "v4",
-      "units": 700.37682829,
-      "entry_px": 0.06437,
-      "stop_px": 0.06255280824659379,
-      "trail_high": 0.065227,
-      "invest": 45.1736,
-      "entry_ts": "2026-07-14T14:04:45.319270+00:00",
       "strength": 1,
       "regime_at_entry": "neutraal",
       "llm_beslissing": "KOOP",
@@ -41,13 +28,13 @@
       "llm_confidence": 0.3
     }
   },
-  "total_trades": 2,
+  "total_trades": 3,
   "wins": 1,
   "gross_win": 1.9289293939101015,
-  "gross_loss": 0.799626111089803,
-  "win_rate": 50.0,
-  "profit_factor": 2.4123,
-  "total_return_pct": 0.0995,
+  "gross_loss": 2.4067499922906617,
+  "win_rate": 33.3333,
+  "profit_factor": 0.8015,
+  "total_return_pct": -0.4647,
   "trades": [
     {
       "timestamp": "2026-07-08T03:35:28.682123+00:00",
@@ -147,6 +134,23 @@
       "strategy": "v4",
       "llm_beslissing": "KOOP",
       "llm_confidence": 0.3
+    },
+    {
+      "timestamp": "2026-07-20T06:56:04.333562+00:00",
+      "ticker": "DOGE-EUR",
+      "action": "SELL",
+      "price": 0.062329,
+      "position_size_pct": 9.03,
+      "position_size_eur": 45.1736,
+      "entry_price": 0.06437,
+      "exit_price": 0.062329,
+      "pnl_pct": -3.5577,
+      "pnl_eur": -1.6071,
+      "exit_reason": "trail_stop",
+      "regime": "neutraal",
+      "strategy": "v4",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.3
     }
   ],
   "signals": [
@@ -221,6 +225,6 @@
       "block_reason": ""
     }
   ],
-  "portfolio_total": 500.4977,
-  "open_positions_value": 131.3256
+  "portfolio_total": 497.6767,
+  "open_positions_value": 84.938
 }
