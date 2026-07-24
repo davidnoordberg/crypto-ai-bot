@@ -1,27 +1,13 @@
 {
-  "capital_eur": 460.3684579502421,
-  "open_positions": {
-    "ADA-EUR": {
-      "strategy": "v4",
-      "units": 257.05643893,
-      "entry_px": 0.14206,
-      "stop_px": 0.1466673374570379,
-      "trail_high": 0.15631,
-      "invest": 36.5906,
-      "entry_ts": "2026-07-14T14:04:45.319270+00:00",
-      "strength": 0,
-      "regime_at_entry": "neutraal",
-      "llm_beslissing": "KOOP",
-      "llm_confidence": 0.3
-    }
-  },
-  "total_trades": 4,
-  "wins": 1,
-  "gross_win": 1.9289293939101015,
+  "capital_eur": 497.94421244709906,
+  "open_positions": {},
+  "total_trades": 5,
+  "wins": 2,
+  "gross_win": 2.9140649763712494,
   "gross_loss": 4.969851782706073,
-  "win_rate": 25.0,
-  "profit_factor": 0.3881,
-  "total_return_pct": -0.3688,
+  "win_rate": 40.0,
+  "profit_factor": 0.5863,
+  "total_return_pct": -0.4112,
   "trades": [
     {
       "timestamp": "2026-07-08T03:35:28.682123+00:00",
@@ -155,6 +141,23 @@
       "strategy": "v4",
       "llm_beslissing": "KOOP",
       "llm_confidence": 0.3
+    },
+    {
+      "timestamp": "2026-07-24T06:35:01.345293+00:00",
+      "ticker": "ADA-EUR",
+      "action": "SELL",
+      "price": 0.14647,
+      "position_size_pct": 7.32,
+      "position_size_eur": 36.5906,
+      "entry_price": 0.14206,
+      "exit_price": 0.14647,
+      "pnl_pct": 2.6923,
+      "pnl_eur": 0.9851,
+      "exit_reason": "trail_stop",
+      "regime": "neutraal",
+      "strategy": "v4",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.3
     }
   ],
   "signals": [
@@ -229,6 +232,6 @@
       "block_reason": ""
     }
   ],
-  "portfolio_total": 498.1558,
-  "open_positions_value": 37.7873
+  "portfolio_total": 497.9442,
+  "open_positions_value": 0
 }
