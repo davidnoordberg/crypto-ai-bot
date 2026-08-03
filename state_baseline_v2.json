@@ -1,5 +1,5 @@
 {
-  "capital_eur": 403.3348120821503,
+  "capital_eur": 363.0013308739352,
   "open_positions": {
     "AVAX-EUR": {
       "strategy": "v4",
@@ -26,6 +26,19 @@
       "regime_at_entry": "neutraal",
       "llm_beslissing": "KOOP",
       "llm_confidence": 0.3
+    },
+    "ETH-EUR": {
+      "strategy": "v4",
+      "units": 0.02485754,
+      "entry_px": 1619.34,
+      "stop_px": 1533.471294,
+      "trail_high": 1619.34,
+      "invest": 40.3335,
+      "entry_ts": "2026-08-03T15:08:40.090494+00:00",
+      "strength": 1,
+      "regime_at_entry": "neutraal",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.3
     }
   },
   "total_trades": 5,
@@ -34,7 +47,7 @@
   "gross_loss": 4.969851782706073,
   "win_rate": 40.0,
   "profit_factor": 0.5863,
-  "total_return_pct": -0.5707,
+  "total_return_pct": -0.3538,
   "trades": [
     {
       "timestamp": "2026-07-08T03:35:28.682123+00:00",
@@ -211,6 +224,19 @@
       "strategy": "v4",
       "llm_beslissing": "KOOP",
       "llm_confidence": 0.3
+    },
+    {
+      "timestamp": "2026-08-03T15:08:40.090494+00:00",
+      "ticker": "ETH-EUR",
+      "action": "BUY",
+      "price": 1619.34,
+      "position_size_pct": 10.0,
+      "position_size_eur": 40.3335,
+      "entry_price": 1619.34,
+      "regime": "neutraal",
+      "strategy": "v4",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.3
     }
   ],
   "signals": [
@@ -311,8 +337,22 @@
       "llm_confidence": 0.3,
       "entry_blocked": false,
       "block_reason": ""
+    },
+    {
+      "timestamp": "2026-08-03T15:08:40.090494+00:00",
+      "ticker": "ETH-EUR",
+      "regime": "neutraal",
+      "rsi": 47.83,
+      "macd_hist": 0.859636,
+      "atr_ratio": 1.3257,
+      "volume_ratio": 1.6137,
+      "signal_type": "v4",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.3,
+      "entry_blocked": false,
+      "block_reason": ""
     }
   ],
-  "portfolio_total": 497.1465,
-  "open_positions_value": 93.8117
+  "portfolio_total": 498.2309,
+  "open_positions_value": 135.2296
 }
