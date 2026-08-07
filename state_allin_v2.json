@@ -1,16 +1,32 @@
 {
   "bot_id": "allin_v2",
-  "capital_eur": 487.0410980378182,
-  "open_positions": {},
+  "capital_eur": 121.76027450945458,
+  "open_positions": {
+    "SOL-EUR": {
+      "strategy": "v4",
+      "units": 5.68836522,
+      "entry_px": 64.087,
+      "stop_px": 61.042111,
+      "trail_high": 64.087,
+      "invest": 365.2808,
+      "entry_ts": "2026-08-07T13:49:15.692128+00:00",
+      "regime_at_entry": "neutraal",
+      "confidence_at_entry": 0.3142,
+      "competitor": "",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.3,
+      "llm_reden": "Rule-based fallback: alle LLM agents gefaald."
+    }
+  },
   "total_trades": 1,
   "wins": 0,
   "gross_win": 0.0,
   "gross_loss": 12.958901962463873,
   "win_rate": 0.0,
   "profit_factor": 0.0,
-  "total_return_pct": -2.5918,
-  "portfolio_total": 487.0411,
-  "open_positions_value": 0,
+  "total_return_pct": -2.7379,
+  "portfolio_total": 486.3105,
+  "open_positions_value": 364.5503,
   "trades": [
     {
       "timestamp": "2026-07-14T14:24:18.943080+00:00",
@@ -46,6 +62,22 @@
       "llm_beslissing": "KOOP",
       "llm_confidence": 0.3,
       "llm_reden": "Rule-based fallback: alle LLM agents gefaald."
+    },
+    {
+      "timestamp": "2026-08-07T13:49:15.692128+00:00",
+      "ticker": "SOL-EUR",
+      "action": "BUY",
+      "price": 64.087,
+      "position_size_pct": 75.0,
+      "position_size_eur": 365.2808,
+      "entry_price": 64.087,
+      "regime": "neutraal",
+      "strategy": "v4",
+      "confidence_at_entry": 0.3142,
+      "competitor": "",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.3,
+      "llm_reden": "Rule-based fallback: alle LLM agents gefaald."
     }
   ],
   "signals": [
@@ -78,6 +110,21 @@
       "entry_blocked": true,
       "llm_beslissing": "NIETS",
       "llm_confidence": 0.0
+    },
+    {
+      "timestamp": "2026-08-07T13:49:15.692128+00:00",
+      "ticker": "SOL-EUR",
+      "regime": "neutraal",
+      "rsi": 55.2,
+      "macd_hist": 0.003677,
+      "atr_ratio": 1.1878,
+      "volume_ratio": 1.1955,
+      "signal_type": "v4",
+      "conf_score": 0.3142,
+      "is_winner": true,
+      "entry_blocked": false,
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.3
     }
   ]
 }
