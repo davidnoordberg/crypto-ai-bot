@@ -1,5 +1,5 @@
 {
-  "capital_eur": 293.70750719130314,
+  "capital_eur": 176.22450431478188,
   "open_positions": {
     "DOGE-EUR": {
       "strategy": "v4",
@@ -13,6 +13,19 @@
       "regime_at_entry": "neutraal",
       "llm_beslissing": "KOOP",
       "llm_confidence": 0.3
+    },
+    "SOL-EUR": {
+      "strategy": "v4",
+      "units": 1.82971343,
+      "entry_px": 64.08,
+      "stop_px": 61.035111,
+      "trail_high": 64.08,
+      "invest": 117.483,
+      "entry_ts": "2026-08-07T13:41:23.226241+00:00",
+      "strength": 1,
+      "regime_at_entry": "neutraal",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.3
     }
   },
   "total_trades": 2,
@@ -21,7 +34,7 @@
   "gross_loss": 10.487488293677966,
   "win_rate": 0.0,
   "profit_factor": 0.0,
-  "total_return_pct": -2.5214,
+  "total_return_pct": -2.3058,
   "trades": [
     {
       "timestamp": "2026-07-14T14:16:18.650405+00:00",
@@ -95,6 +108,19 @@
       "strategy": "v4",
       "llm_beslissing": "KOOP",
       "llm_confidence": 0.3
+    },
+    {
+      "timestamp": "2026-08-07T13:41:23.226241+00:00",
+      "ticker": "SOL-EUR",
+      "action": "BUY",
+      "price": 64.08,
+      "position_size_pct": 40.0,
+      "position_size_eur": 117.483,
+      "entry_price": 64.08,
+      "regime": "neutraal",
+      "strategy": "v4",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.3
     }
   ],
   "signals": [
@@ -139,8 +165,22 @@
       "llm_confidence": 0.3,
       "entry_blocked": false,
       "block_reason": ""
+    },
+    {
+      "timestamp": "2026-08-07T13:41:23.226241+00:00",
+      "ticker": "SOL-EUR",
+      "regime": "neutraal",
+      "rsi": 55.13,
+      "macd_hist": 0.00323,
+      "atr_ratio": 1.1879,
+      "volume_ratio": 1.1697,
+      "signal_type": "v4",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.3,
+      "entry_blocked": false,
+      "block_reason": ""
     }
   ],
-  "portfolio_total": 487.3932,
-  "open_positions_value": 193.6857
+  "portfolio_total": 488.4709,
+  "open_positions_value": 312.2464
 }
