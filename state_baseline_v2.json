@@ -1,27 +1,13 @@
 {
-  "capital_eur": 452.0563118001475,
-  "open_positions": {
-    "DOGE-EUR": {
-      "strategy": "v4",
-      "units": 736.88687968,
-      "entry_px": 0.060695,
-      "stop_px": 0.06053793780451615,
-      "trail_high": 0.062519,
-      "invest": 44.815,
-      "entry_ts": "2026-08-02T03:41:21.761861+00:00",
-      "strength": 0,
-      "regime_at_entry": "neutraal",
-      "llm_beslissing": "KOOP",
-      "llm_confidence": 0.3
-    }
-  },
-  "total_trades": 7,
+  "capital_eur": 496.57380875394756,
+  "open_positions": {},
+  "total_trades": 8,
   "wins": 2,
   "gross_win": 2.9140649763712494,
-  "gross_loss": 6.042767884013783,
-  "win_rate": 28.5714,
-  "profit_factor": 0.4822,
-  "total_return_pct": -0.6453,
+  "gross_loss": 6.340250092391365,
+  "win_rate": 25.0,
+  "profit_factor": 0.4596,
+  "total_return_pct": -0.6852,
   "trades": [
     {
       "timestamp": "2026-07-08T03:35:28.682123+00:00",
@@ -245,6 +231,23 @@
       "strategy": "v4",
       "llm_beslissing": "KOOP",
       "llm_confidence": 0.3
+    },
+    {
+      "timestamp": "2026-08-13T17:04:54.720059+00:00",
+      "ticker": "DOGE-EUR",
+      "action": "SELL",
+      "price": 0.060534,
+      "position_size_pct": 8.96,
+      "position_size_eur": 44.815,
+      "entry_price": 0.060695,
+      "exit_price": 0.060534,
+      "pnl_pct": -0.6638,
+      "pnl_eur": -0.2975,
+      "exit_reason": "trail_stop",
+      "regime": "neutraal",
+      "strategy": "v4",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.3
     }
   ],
   "signals": [
@@ -361,6 +364,6 @@
       "block_reason": ""
     }
   ],
-  "portfolio_total": 496.7736,
-  "open_positions_value": 44.7172
+  "portfolio_total": 496.5738,
+  "open_positions_value": 0
 }
