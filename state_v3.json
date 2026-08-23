@@ -1,30 +1,14 @@
 {
   "bot_id": "v3",
-  "capital_eur": 369.4639092323632,
-  "open_positions": {
-    "SOL-EUR": {
-      "strategy": "v4",
-      "units": 1.82478918,
-      "entry_px": 64.049,
-      "stop_px": 79.50659863376391,
-      "trail_high": 86.071,
-      "invest": 117.1101,
-      "entry_ts": "2026-08-07T13:37:21.563776+00:00",
-      "strength": 0,
-      "regime_at_entry": "neutraal",
-      "llm_beslissing": "KOOP",
-      "llm_confidence": 0.5,
-      "llm_nieuws_sentiment": "neutraal",
-      "llm_reden": "LLM niet beschikbaar"
-    }
-  },
-  "total_trades": 3,
-  "wins": 0,
-  "gross_win": 0.0,
+  "capital_eur": 513.1117587305232,
+  "open_positions": {},
+  "total_trades": 4,
+  "wins": 1,
+  "gross_win": 26.537707108339905,
   "gross_loss": 13.425948650619247,
-  "win_rate": 0.0,
-  "profit_factor": 0.0,
-  "total_return_pct": 3.7934,
+  "win_rate": 25.0,
+  "profit_factor": 1.9766,
+  "total_return_pct": 2.6224,
   "trades": [
     {
       "timestamp": "2026-07-14T14:12:08.710365+00:00",
@@ -142,6 +126,25 @@
       "llm_confidence": 0.5,
       "llm_nieuws_sentiment": "neutraal",
       "llm_reden": "LLM niet beschikbaar"
+    },
+    {
+      "timestamp": "2026-08-23T04:50:51.679672+00:00",
+      "ticker": "SOL-EUR",
+      "action": "SELL",
+      "price": 78.878,
+      "position_size_pct": 23.42,
+      "position_size_eur": 117.1101,
+      "entry_price": 64.049,
+      "exit_price": 78.878,
+      "pnl_pct": 22.6605,
+      "pnl_eur": 26.5377,
+      "exit_reason": "trail_stop",
+      "regime": "neutraal",
+      "strategy": "v4",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.5,
+      "llm_nieuws_sentiment": "neutraal",
+      "llm_reden": "LLM niet beschikbaar"
     }
   ],
   "signals": [
@@ -210,6 +213,6 @@
       "block_reason": ""
     }
   ],
-  "portfolio_total": 518.9671,
-  "open_positions_value": 149.5032
+  "portfolio_total": 513.1118,
+  "open_positions_value": 0
 }
