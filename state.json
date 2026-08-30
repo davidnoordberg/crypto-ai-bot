@@ -1,13 +1,29 @@
 {
-  "capital_eur": 492.56798299331945,
-  "open_positions": {},
+  "capital_eur": 443.3111846939875,
+  "open_positions": {
+    "ADA-EUR": {
+      "strategy": "v4",
+      "units": 280.04035948,
+      "entry_px": 0.17554,
+      "stop_px": 0.16105,
+      "trail_high": 0.17554,
+      "invest": 49.2568,
+      "entry_ts": "2026-08-30T15:30:19.667126+00:00",
+      "strength": 2,
+      "regime_at_entry": "neutraal",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.5,
+      "llm_nieuws_sentiment": "neutraal",
+      "llm_reden": "LLM niet beschikbaar"
+    }
+  },
   "total_trades": 8,
   "wins": 1,
   "gross_win": 4.784483980690106,
   "gross_loss": 12.21649097441764,
   "win_rate": 12.5,
   "profit_factor": 0.3916,
-  "total_return_pct": -1.4864,
+  "total_return_pct": -1.5061,
   "trades": [
     {
       "timestamp": "2026-06-22T02:13:25.318785+00:00",
@@ -280,6 +296,21 @@
       "llm_confidence": 0.5,
       "llm_nieuws_sentiment": "neutraal",
       "llm_reden": "LLM niet beschikbaar"
+    },
+    {
+      "timestamp": "2026-08-30T15:30:19.667126+00:00",
+      "ticker": "ADA-EUR",
+      "action": "BUY",
+      "price": 0.17554,
+      "position_size_pct": 10.0,
+      "position_size_eur": 49.2568,
+      "entry_price": 0.17554,
+      "regime": "neutraal",
+      "strategy": "v4",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.5,
+      "llm_nieuws_sentiment": "neutraal",
+      "llm_reden": "LLM niet beschikbaar"
     }
   ],
   "signals": [
@@ -410,8 +441,24 @@
       "llm_confidence": 0.5,
       "entry_blocked": false,
       "block_reason": ""
+    },
+    {
+      "timestamp": "2026-08-30T15:30:19.667126+00:00",
+      "ticker": "ADA-EUR",
+      "regime": "neutraal",
+      "rsi": 45.68,
+      "macd_hist": 0.000116,
+      "atr_ratio": 2.0636,
+      "volume_ratio": 1.8471,
+      "ma200_slope": 0.9828,
+      "trailing_stop": 0.0,
+      "signal_type": "v4",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.5,
+      "entry_blocked": false,
+      "block_reason": ""
     }
   ],
-  "portfolio_total": 492.568,
-  "open_positions_value": 0
+  "portfolio_total": 492.4695,
+  "open_positions_value": 49.1583
 }
