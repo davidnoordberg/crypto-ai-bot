@@ -1,16 +1,31 @@
 {
-  "capital_eur": 443.3111846939875,
+  "capital_eur": 398.98006622458877,
   "open_positions": {
     "ADA-EUR": {
       "strategy": "v4",
       "units": 280.04035948,
       "entry_px": 0.17554,
-      "stop_px": 0.16105,
-      "trail_high": 0.17554,
+      "stop_px": 0.16668019476863943,
+      "trail_high": 0.17729,
       "invest": 49.2568,
       "entry_ts": "2026-08-30T15:30:19.667126+00:00",
       "strength": 2,
       "regime_at_entry": "neutraal",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.5,
+      "llm_nieuws_sentiment": "neutraal",
+      "llm_reden": "LLM niet beschikbaar"
+    },
+    "ETH-EUR": {
+      "strategy": "v4",
+      "units": 0.02039612,
+      "entry_px": 2169.16,
+      "stop_px": 2064.926494,
+      "trail_high": 2169.16,
+      "invest": 44.3311,
+      "entry_ts": "2026-08-30T18:50:56.156057+00:00",
+      "strength": 3,
+      "regime_at_entry": "bull",
       "llm_beslissing": "KOOP",
       "llm_confidence": 0.5,
       "llm_nieuws_sentiment": "neutraal",
@@ -23,7 +38,7 @@
   "gross_loss": 12.21649097441764,
   "win_rate": 12.5,
   "profit_factor": 0.3916,
-  "total_return_pct": -1.5061,
+  "total_return_pct": -1.4258,
   "trades": [
     {
       "timestamp": "2026-06-22T02:13:25.318785+00:00",
@@ -311,6 +326,21 @@
       "llm_confidence": 0.5,
       "llm_nieuws_sentiment": "neutraal",
       "llm_reden": "LLM niet beschikbaar"
+    },
+    {
+      "timestamp": "2026-08-30T18:50:56.156057+00:00",
+      "ticker": "ETH-EUR",
+      "action": "BUY",
+      "price": 2169.16,
+      "position_size_pct": 10.0,
+      "position_size_eur": 44.3311,
+      "entry_price": 2169.16,
+      "regime": "bull",
+      "strategy": "v4",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.5,
+      "llm_nieuws_sentiment": "neutraal",
+      "llm_reden": "LLM niet beschikbaar"
     }
   ],
   "signals": [
@@ -457,8 +487,24 @@
       "llm_confidence": 0.5,
       "entry_blocked": false,
       "block_reason": ""
+    },
+    {
+      "timestamp": "2026-08-30T18:50:56.156057+00:00",
+      "ticker": "ETH-EUR",
+      "regime": "bull",
+      "rsi": 66.55,
+      "macd_hist": 1.871942,
+      "atr_ratio": 1.2013,
+      "volume_ratio": 2.8071,
+      "ma200_slope": 1.2292,
+      "trailing_stop": 0.0,
+      "signal_type": "v4",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.5,
+      "entry_blocked": false,
+      "block_reason": ""
     }
   ],
-  "portfolio_total": 492.4695,
-  "open_positions_value": 49.1583
+  "portfolio_total": 492.8709,
+  "open_positions_value": 93.8908
 }
