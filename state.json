@@ -1,21 +1,6 @@
 {
-  "capital_eur": 398.98006622458877,
+  "capital_eur": 445.52750665224,
   "open_positions": {
-    "ADA-EUR": {
-      "strategy": "v4",
-      "units": 280.04035948,
-      "entry_px": 0.17554,
-      "stop_px": 0.16668019476863943,
-      "trail_high": 0.17729,
-      "invest": 49.2568,
-      "entry_ts": "2026-08-30T15:30:19.667126+00:00",
-      "strength": 2,
-      "regime_at_entry": "neutraal",
-      "llm_beslissing": "KOOP",
-      "llm_confidence": 0.5,
-      "llm_nieuws_sentiment": "neutraal",
-      "llm_reden": "LLM niet beschikbaar"
-    },
     "ETH-EUR": {
       "strategy": "v4",
       "units": 0.02039612,
@@ -32,13 +17,13 @@
       "llm_reden": "LLM niet beschikbaar"
     }
   },
-  "total_trades": 8,
+  "total_trades": 9,
   "wins": 1,
   "gross_win": 4.784483980690106,
-  "gross_loss": 12.21649097441764,
-  "win_rate": 12.5,
-  "profit_factor": 0.3916,
-  "total_return_pct": -1.7431,
+  "gross_loss": 14.925848849885629,
+  "win_rate": 11.1111,
+  "profit_factor": 0.3206,
+  "total_return_pct": -2.3774,
   "trades": [
     {
       "timestamp": "2026-06-22T02:13:25.318785+00:00",
@@ -341,6 +326,25 @@
       "llm_confidence": 0.5,
       "llm_nieuws_sentiment": "neutraal",
       "llm_reden": "LLM niet beschikbaar"
+    },
+    {
+      "timestamp": "2026-08-31T01:43:18.909953+00:00",
+      "ticker": "ADA-EUR",
+      "action": "SELL",
+      "price": 0.16655,
+      "position_size_pct": 9.85,
+      "position_size_eur": 49.2568,
+      "entry_price": 0.17554,
+      "exit_price": 0.16655,
+      "pnl_pct": -5.5005,
+      "pnl_eur": -2.7094,
+      "exit_reason": "trail_stop",
+      "regime": "neutraal",
+      "strategy": "v4",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.5,
+      "llm_nieuws_sentiment": "neutraal",
+      "llm_reden": "LLM niet beschikbaar"
     }
   ],
   "signals": [
@@ -505,6 +509,6 @@
       "block_reason": ""
     }
   ],
-  "portfolio_total": 491.2845,
-  "open_positions_value": 92.3044
+  "portfolio_total": 488.1132,
+  "open_positions_value": 42.5857
 }
