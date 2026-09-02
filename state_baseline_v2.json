@@ -1,5 +1,5 @@
 {
-  "capital_eur": 402.2247850906975,
+  "capital_eur": 444.4631735056297,
   "open_positions": {
     "ADA-EUR": {
       "strategy": "v4",
@@ -13,28 +13,15 @@
       "regime_at_entry": "neutraal",
       "llm_beslissing": "KOOP",
       "llm_confidence": 0.3
-    },
-    "ETH-EUR": {
-      "strategy": "v4",
-      "units": 0.02058183,
-      "entry_px": 2167.07,
-      "stop_px": 2062.836494,
-      "trail_high": 2167.07,
-      "invest": 44.6916,
-      "entry_ts": "2026-08-30T19:16:22.838482+00:00",
-      "strength": 3,
-      "regime_at_entry": "bull",
-      "llm_beslissing": "KOOP",
-      "llm_confidence": 0.3
     }
   },
-  "total_trades": 8,
+  "total_trades": 9,
   "wins": 2,
   "gross_win": 2.9140649763712494,
-  "gross_loss": 6.340250092391365,
-  "win_rate": 25.0,
-  "profit_factor": 0.4596,
-  "total_return_pct": -1.4744,
+  "gross_loss": 8.793511215559171,
+  "win_rate": 22.2222,
+  "profit_factor": 0.3314,
+  "total_return_pct": -1.6715,
   "trades": [
     {
       "timestamp": "2026-07-08T03:35:28.682123+00:00",
@@ -301,6 +288,23 @@
       "strategy": "v4",
       "llm_beslissing": "KOOP",
       "llm_confidence": 0.3
+    },
+    {
+      "timestamp": "2026-09-02T12:43:45.120380+00:00",
+      "ticker": "ETH-EUR",
+      "action": "SELL",
+      "price": 2056.33,
+      "position_size_pct": 8.94,
+      "position_size_eur": 44.6916,
+      "entry_price": 2167.07,
+      "exit_price": 2056.33,
+      "pnl_pct": -5.4893,
+      "pnl_eur": -2.4533,
+      "exit_reason": "trail_stop",
+      "regime": "bull",
+      "strategy": "v4",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.3
     }
   ],
   "signals": [
@@ -445,6 +449,6 @@
       "block_reason": ""
     }
   ],
-  "portfolio_total": 492.6278,
-  "open_positions_value": 90.403
+  "portfolio_total": 491.6426,
+  "open_positions_value": 47.1794
 }
