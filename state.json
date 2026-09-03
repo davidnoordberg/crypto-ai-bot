@@ -1,13 +1,44 @@
 {
-  "capital_eur": 487.3990265143928,
-  "open_positions": {},
+  "capital_eur": 394.79321147665814,
+  "open_positions": {
+    "SOL-EUR": {
+      "strategy": "v4",
+      "units": 0.5403753,
+      "entry_px": 90.016,
+      "stop_px": 82.908283,
+      "trail_high": 90.016,
+      "invest": 48.7399,
+      "entry_ts": "2026-09-03T15:15:50.833798+00:00",
+      "strength": 3,
+      "regime_at_entry": "bull",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.5,
+      "llm_nieuws_sentiment": "neutraal",
+      "llm_reden": "LLM niet beschikbaar"
+    },
+    "ETH-EUR": {
+      "strategy": "v4",
+      "units": 0.02045308,
+      "entry_px": 2140.42,
+      "stop_px": 2007.602863,
+      "trail_high": 2140.42,
+      "invest": 43.8659,
+      "entry_ts": "2026-09-03T15:15:50.833798+00:00",
+      "strength": 3,
+      "regime_at_entry": "bull",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.5,
+      "llm_nieuws_sentiment": "neutraal",
+      "llm_reden": "LLM niet beschikbaar"
+    }
+  },
   "total_trades": 10,
   "wins": 1,
   "gross_win": 4.784483980690106,
   "gross_loss": 17.38543884693282,
   "win_rate": 10.0,
   "profit_factor": 0.2752,
-  "total_return_pct": -2.5202,
+  "total_return_pct": -2.5572,
   "trades": [
     {
       "timestamp": "2026-06-22T02:13:25.318785+00:00",
@@ -348,6 +379,36 @@
       "llm_confidence": 0.5,
       "llm_nieuws_sentiment": "neutraal",
       "llm_reden": "LLM niet beschikbaar"
+    },
+    {
+      "timestamp": "2026-09-03T15:15:50.833798+00:00",
+      "ticker": "SOL-EUR",
+      "action": "BUY",
+      "price": 90.016,
+      "position_size_pct": 10.0,
+      "position_size_eur": 48.7399,
+      "entry_price": 90.016,
+      "regime": "bull",
+      "strategy": "v4",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.5,
+      "llm_nieuws_sentiment": "neutraal",
+      "llm_reden": "LLM niet beschikbaar"
+    },
+    {
+      "timestamp": "2026-09-03T15:15:50.833798+00:00",
+      "ticker": "ETH-EUR",
+      "action": "BUY",
+      "price": 2140.42,
+      "position_size_pct": 10.0,
+      "position_size_eur": 43.8659,
+      "entry_price": 2140.42,
+      "regime": "bull",
+      "strategy": "v4",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.5,
+      "llm_nieuws_sentiment": "neutraal",
+      "llm_reden": "LLM niet beschikbaar"
     }
   ],
   "signals": [
@@ -510,8 +571,40 @@
       "llm_confidence": 0.5,
       "entry_blocked": false,
       "block_reason": ""
+    },
+    {
+      "timestamp": "2026-09-03T15:15:50.833798+00:00",
+      "ticker": "SOL-EUR",
+      "regime": "bull",
+      "rsi": 61.8,
+      "macd_hist": 0.20908,
+      "atr_ratio": 1.974,
+      "volume_ratio": 2.181,
+      "ma200_slope": 1.5644,
+      "trailing_stop": 0.0,
+      "signal_type": "v4",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.5,
+      "entry_blocked": false,
+      "block_reason": ""
+    },
+    {
+      "timestamp": "2026-09-03T15:15:50.833798+00:00",
+      "ticker": "ETH-EUR",
+      "regime": "bull",
+      "rsi": 62.56,
+      "macd_hist": 2.680366,
+      "atr_ratio": 1.5513,
+      "volume_ratio": 2.7877,
+      "ma200_slope": 1.2127,
+      "trailing_stop": 0.0,
+      "signal_type": "v4",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.5,
+      "entry_blocked": false,
+      "block_reason": ""
     }
   ],
-  "portfolio_total": 487.399,
-  "open_positions_value": 0
+  "portfolio_total": 487.2138,
+  "open_positions_value": 92.4206
 }
