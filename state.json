@@ -5,8 +5,8 @@
       "strategy": "v4",
       "units": 0.5403753,
       "entry_px": 90.016,
-      "stop_px": 86.44381958512703,
-      "trail_high": 90.689,
+      "stop_px": 86.67025594355465,
+      "trail_high": 91.298,
       "invest": 48.7399,
       "entry_ts": "2026-09-03T15:15:50.833798+00:00",
       "strength": 3,
@@ -38,7 +38,7 @@
   "gross_loss": 17.38543884693282,
   "win_rate": 10.0,
   "profit_factor": 0.2752,
-  "total_return_pct": -2.4403,
+  "total_return_pct": -2.4222,
   "trades": [
     {
       "timestamp": "2026-06-22T02:13:25.318785+00:00",
@@ -605,6 +605,6 @@
       "block_reason": ""
     }
   ],
-  "portfolio_total": 487.7986,
-  "open_positions_value": 93.0054
+  "portfolio_total": 487.889,
+  "open_positions_value": 93.0958
 }
