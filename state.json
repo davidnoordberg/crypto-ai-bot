@@ -1,21 +1,6 @@
 {
-  "capital_eur": 394.79321147665814,
+  "capital_eur": 441.58186728805276,
   "open_positions": {
-    "SOL-EUR": {
-      "strategy": "v4",
-      "units": 0.5403753,
-      "entry_px": 90.016,
-      "stop_px": 87.0572097488168,
-      "trail_high": 91.529,
-      "invest": 48.7399,
-      "entry_ts": "2026-09-03T15:15:50.833798+00:00",
-      "strength": 3,
-      "regime_at_entry": "bull",
-      "llm_beslissing": "KOOP",
-      "llm_confidence": 0.5,
-      "llm_nieuws_sentiment": "neutraal",
-      "llm_reden": "LLM niet beschikbaar"
-    },
     "ETH-EUR": {
       "strategy": "v4",
       "units": 0.02045308,
@@ -32,13 +17,13 @@
       "llm_reden": "LLM niet beschikbaar"
     }
   },
-  "total_trades": 10,
+  "total_trades": 11,
   "wins": 1,
   "gross_win": 4.784483980690106,
-  "gross_loss": 17.38543884693282,
-  "win_rate": 10.0,
-  "profit_factor": 0.2752,
-  "total_return_pct": -2.9056,
+  "gross_loss": 19.336685840338223,
+  "win_rate": 9.0909,
+  "profit_factor": 0.2474,
+  "total_return_pct": -3.0285,
   "trades": [
     {
       "timestamp": "2026-06-22T02:13:25.318785+00:00",
@@ -409,6 +394,25 @@
       "llm_confidence": 0.5,
       "llm_nieuws_sentiment": "neutraal",
       "llm_reden": "LLM niet beschikbaar"
+    },
+    {
+      "timestamp": "2026-09-10T01:33:50.806500+00:00",
+      "ticker": "SOL-EUR",
+      "action": "SELL",
+      "price": 86.759,
+      "position_size_pct": 9.75,
+      "position_size_eur": 48.7399,
+      "entry_price": 90.016,
+      "exit_price": 86.759,
+      "pnl_pct": -4.0034,
+      "pnl_eur": -1.9512,
+      "exit_reason": "trail_stop",
+      "regime": "bull",
+      "strategy": "v4",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.5,
+      "llm_nieuws_sentiment": "neutraal",
+      "llm_reden": "LLM niet beschikbaar"
     }
   ],
   "signals": [
@@ -605,6 +609,6 @@
       "block_reason": ""
     }
   ],
-  "portfolio_total": 485.472,
-  "open_positions_value": 90.6788
+  "portfolio_total": 484.8575,
+  "open_positions_value": 43.2756
 }
