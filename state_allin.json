@@ -1,14 +1,31 @@
 {
   "bot_id": "allin",
-  "capital_eur": 643.4950629337711,
-  "open_positions": {},
+  "capital_eur": 32.174753146688545,
+  "open_positions": {
+    "SOL-EUR": {
+      "strategy": "v4",
+      "units": 6.98523797,
+      "entry_px": 87.341,
+      "stop_px": 80.211169,
+      "trail_high": 87.341,
+      "invest": 611.3203,
+      "entry_ts": "2026-09-11T19:13:18.376044+00:00",
+      "regime_at_entry": "neutraal",
+      "confidence_at_entry": 0.225,
+      "competitor": "",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.5,
+      "llm_nieuws_sentiment": "neutraal",
+      "llm_reden": "LLM niet beschikbaar"
+    }
+  },
   "total_trades": 2,
   "wins": 1,
   "gross_win": 158.348836054718,
   "gross_loss": 14.853772984107373,
   "win_rate": 50.0,
   "profit_factor": 10.6605,
-  "total_return_pct": 28.699,
+  "total_return_pct": 28.4545,
   "trades": [
     {
       "timestamp": "2026-07-14T14:24:20.358110+00:00",
@@ -81,6 +98,23 @@
       "llm_beslissing": "KOOP",
       "llm_confidence": 0.5,
       "llm_reden": "LLM niet beschikbaar"
+    },
+    {
+      "timestamp": "2026-09-11T19:13:18.376044+00:00",
+      "ticker": "SOL-EUR",
+      "action": "BUY",
+      "price": 87.341,
+      "position_size_pct": 95.0,
+      "position_size_eur": 611.3203,
+      "entry_price": 87.341,
+      "regime": "neutraal",
+      "strategy": "v4",
+      "confidence_at_entry": 0.225,
+      "competitor": "",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.5,
+      "llm_nieuws_sentiment": "neutraal",
+      "llm_reden": "LLM niet beschikbaar"
     }
   ],
   "signals": [
@@ -131,8 +165,24 @@
       "block_reason": "",
       "llm_beslissing": "KOOP",
       "llm_confidence": 0.5
+    },
+    {
+      "timestamp": "2026-09-11T19:13:18.376044+00:00",
+      "ticker": "SOL-EUR",
+      "regime": "neutraal",
+      "rsi": 48.57,
+      "macd_hist": 0.033221,
+      "atr_ratio": 2.0408,
+      "volume_ratio": 1.0744,
+      "signal_type": "v4",
+      "conf_score": 0.225,
+      "is_winner": true,
+      "entry_blocked": false,
+      "block_reason": "",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.5
     }
   ],
-  "portfolio_total": 643.4951,
-  "open_positions_value": 0
+  "portfolio_total": 642.2724,
+  "open_positions_value": 610.0977
 }
