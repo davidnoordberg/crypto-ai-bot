@@ -1,16 +1,32 @@
 {
   "bot_id": "allin_v2",
-  "capital_eur": 596.4384466916067,
-  "open_positions": {},
+  "capital_eur": 149.10961167290168,
+  "open_positions": {
+    "SOL-EUR": {
+      "strategy": "v4",
+      "units": 4.2795918,
+      "entry_px": 104.317,
+      "stop_px": 95.840307,
+      "trail_high": 104.317,
+      "invest": 447.3288,
+      "entry_ts": "2026-09-25T14:04:02.917011+00:00",
+      "regime_at_entry": "bull",
+      "confidence_at_entry": 0.3925,
+      "competitor": "",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.3,
+      "llm_reden": "Rule-based fallback: alle LLM agents gefaald."
+    }
+  },
   "total_trades": 3,
   "wins": 1,
   "gross_win": 125.6708181114983,
   "gross_loss": 29.232370999570335,
   "win_rate": 33.3333,
   "profit_factor": 4.299,
-  "total_return_pct": 19.2877,
-  "portfolio_total": 596.4384,
-  "open_positions_value": 0,
+  "total_return_pct": 19.1088,
+  "portfolio_total": 595.5438,
+  "open_positions_value": 446.4342,
   "trades": [
     {
       "timestamp": "2026-07-14T14:24:18.943080+00:00",
@@ -116,6 +132,22 @@
       "llm_beslissing": "KOOP",
       "llm_confidence": 0.3,
       "llm_reden": "Rule-based fallback: alle LLM agents gefaald."
+    },
+    {
+      "timestamp": "2026-09-25T14:04:02.917011+00:00",
+      "ticker": "SOL-EUR",
+      "action": "BUY",
+      "price": 104.317,
+      "position_size_pct": 75.0,
+      "position_size_eur": 447.3288,
+      "entry_price": 104.317,
+      "regime": "bull",
+      "strategy": "v4",
+      "confidence_at_entry": 0.3925,
+      "competitor": "",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.3,
+      "llm_reden": "Rule-based fallback: alle LLM agents gefaald."
     }
   ],
   "signals": [
@@ -174,6 +206,21 @@
       "volume_ratio": 1.0744,
       "signal_type": "v4",
       "conf_score": 0.225,
+      "is_winner": true,
+      "entry_blocked": false,
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.3
+    },
+    {
+      "timestamp": "2026-09-25T14:04:02.917011+00:00",
+      "ticker": "SOL-EUR",
+      "regime": "bull",
+      "rsi": 60.29,
+      "macd_hist": 0.015467,
+      "atr_ratio": 2.0315,
+      "volume_ratio": 1.3207,
+      "signal_type": "v4",
+      "conf_score": 0.3925,
       "is_winner": true,
       "entry_blocked": false,
       "llm_beslissing": "KOOP",
