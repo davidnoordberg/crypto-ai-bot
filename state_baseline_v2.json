@@ -1,13 +1,27 @@
 {
-  "capital_eur": 490.8006033857948,
-  "open_positions": {},
+  "capital_eur": 441.7205430472153,
+  "open_positions": {
+    "SOL-EUR": {
+      "strategy": "v4",
+      "units": 0.46551449,
+      "entry_px": 105.221,
+      "stop_px": 96.766593,
+      "trail_high": 105.221,
+      "invest": 49.0801,
+      "entry_ts": "2026-09-25T13:36:49.476081+00:00",
+      "strength": 2,
+      "regime_at_entry": "bull",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.3
+    }
+  },
   "total_trades": 12,
   "wins": 2,
   "gross_win": 2.9140649763712494,
   "gross_loss": 12.113465583673777,
   "win_rate": 16.6667,
   "profit_factor": 0.2406,
-  "total_return_pct": -1.8399,
+  "total_return_pct": -1.8595,
   "trades": [
     {
       "timestamp": "2026-07-08T03:35:28.682123+00:00",
@@ -368,6 +382,19 @@
       "strategy": "v4",
       "llm_beslissing": "KOOP",
       "llm_confidence": 0.3
+    },
+    {
+      "timestamp": "2026-09-25T13:36:49.476081+00:00",
+      "ticker": "SOL-EUR",
+      "action": "BUY",
+      "price": 105.221,
+      "position_size_pct": 10.0,
+      "position_size_eur": 49.0801,
+      "entry_price": 105.221,
+      "regime": "bull",
+      "strategy": "v4",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.3
     }
   ],
   "signals": [
@@ -538,8 +565,22 @@
       "llm_confidence": 0.3,
       "entry_blocked": false,
       "block_reason": ""
+    },
+    {
+      "timestamp": "2026-09-25T13:36:49.476081+00:00",
+      "ticker": "SOL-EUR",
+      "regime": "bull",
+      "rsi": 64.02,
+      "macd_hist": 0.073159,
+      "atr_ratio": 2.0087,
+      "volume_ratio": 1.0911,
+      "signal_type": "v4",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.3,
+      "entry_blocked": false,
+      "block_reason": ""
     }
   ],
-  "portfolio_total": 490.8006,
-  "open_positions_value": 0
+  "portfolio_total": 490.7024,
+  "open_positions_value": 48.9819
 }
