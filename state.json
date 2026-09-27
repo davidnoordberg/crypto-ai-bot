@@ -23,7 +23,7 @@
   "gross_loss": 22.80246925596407,
   "win_rate": 7.6923,
   "profit_factor": 0.2098,
-  "total_return_pct": -2.9927,
+  "total_return_pct": -3.0142,
   "trades": [
     {
       "timestamp": "2026-06-22T02:13:25.318785+00:00",
@@ -709,6 +709,6 @@
       "block_reason": ""
     }
   ],
-  "portfolio_total": 485.0366,
-  "open_positions_value": 51.2528
+  "portfolio_total": 484.9292,
+  "open_positions_value": 51.1454
 }
