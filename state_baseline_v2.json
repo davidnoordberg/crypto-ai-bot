@@ -1,5 +1,5 @@
 {
-  "capital_eur": 397.54848874249376,
+  "capital_eur": 357.7936398682444,
   "open_positions": {
     "SOL-EUR": {
       "strategy": "v4",
@@ -18,11 +18,24 @@
       "strategy": "v4",
       "units": 193.99626032,
       "entry_px": 0.22724,
-      "stop_px": 0.207217,
-      "trail_high": 0.22724,
+      "stop_px": 0.21500424798486417,
+      "trail_high": 0.23257,
       "invest": 44.1721,
       "entry_ts": "2026-10-04T19:30:47.599952+00:00",
       "strength": 3,
+      "regime_at_entry": "bull",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.3
+    },
+    "ETH-EUR": {
+      "strategy": "v4",
+      "units": 0.01636866,
+      "entry_px": 2423.86,
+      "stop_px": 2343.012718,
+      "trail_high": 2423.86,
+      "invest": 39.7548,
+      "entry_ts": "2026-10-04T22:59:32.683899+00:00",
+      "strength": 2,
       "regime_at_entry": "bull",
       "llm_beslissing": "KOOP",
       "llm_confidence": 0.3
@@ -34,7 +47,7 @@
   "gross_loss": 12.113465583673777,
   "win_rate": 16.6667,
   "profit_factor": 0.2406,
-  "total_return_pct": -1.6265,
+  "total_return_pct": -1.4226,
   "trades": [
     {
       "timestamp": "2026-07-08T03:35:28.682123+00:00",
@@ -421,6 +434,19 @@
       "strategy": "v4",
       "llm_beslissing": "KOOP",
       "llm_confidence": 0.3
+    },
+    {
+      "timestamp": "2026-10-04T22:59:32.683899+00:00",
+      "ticker": "ETH-EUR",
+      "action": "BUY",
+      "price": 2423.86,
+      "position_size_pct": 10.0,
+      "position_size_eur": 39.7548,
+      "entry_price": 2423.86,
+      "regime": "bull",
+      "strategy": "v4",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.3
     }
   ],
   "signals": [
@@ -619,8 +645,22 @@
       "llm_confidence": 0.3,
       "entry_blocked": false,
       "block_reason": ""
+    },
+    {
+      "timestamp": "2026-10-04T22:59:32.683899+00:00",
+      "ticker": "ETH-EUR",
+      "regime": "bull",
+      "rsi": 62.16,
+      "macd_hist": 1.398635,
+      "atr_ratio": 0.8339,
+      "volume_ratio": 1.0223,
+      "signal_type": "v4",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.3,
+      "entry_blocked": false,
+      "block_reason": ""
     }
   ],
-  "portfolio_total": 491.8677,
-  "open_positions_value": 94.3192
+  "portfolio_total": 492.8869,
+  "open_positions_value": 135.0933
 }
