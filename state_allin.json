@@ -1,31 +1,14 @@
 {
   "bot_id": "allin",
-  "capital_eur": 31.092319269962445,
-  "open_positions": {
-    "SOL-EUR": {
-      "strategy": "v4",
-      "units": 5.65173997,
-      "entry_px": 104.317,
-      "stop_px": 104.4102093982444,
-      "trail_high": 108.349,
-      "invest": 590.7541,
-      "entry_ts": "2026-09-25T14:03:36.312697+00:00",
-      "regime_at_entry": "bull",
-      "confidence_at_entry": 0.3925,
-      "competitor": "",
-      "llm_beslissing": "KOOP",
-      "llm_confidence": 0.5,
-      "llm_nieuws_sentiment": "neutraal",
-      "llm_reden": "LLM niet beschikbaar"
-    }
-  },
-  "total_trades": 3,
+  "capital_eur": 618.2617578852085,
+  "open_positions": {},
+  "total_trades": 4,
   "wins": 1,
   "gross_win": 158.348836054718,
-  "gross_loss": 36.502450869318196,
-  "win_rate": 33.3333,
-  "profit_factor": 4.338,
-  "total_return_pct": 25.6036,
+  "gross_loss": 40.0870789045621,
+  "win_rate": 25.0,
+  "profit_factor": 3.9501,
+  "total_return_pct": 23.6524,
   "trades": [
     {
       "timestamp": "2026-07-14T14:24:20.358110+00:00",
@@ -151,6 +134,25 @@
       "llm_confidence": 0.5,
       "llm_nieuws_sentiment": "neutraal",
       "llm_reden": "LLM niet beschikbaar"
+    },
+    {
+      "timestamp": "2026-10-07T15:41:41.116064+00:00",
+      "ticker": "SOL-EUR",
+      "action": "SELL",
+      "price": 104.1,
+      "position_size_pct": 118.15,
+      "position_size_eur": 590.7541,
+      "entry_price": 104.317,
+      "exit_price": 104.1,
+      "pnl_pct": -0.6068,
+      "pnl_eur": -3.5846,
+      "exit_reason": "trail_stop",
+      "regime": "bull",
+      "strategy": "v4",
+      "confidence_at_entry": 0.3925,
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.5,
+      "llm_reden": "LLM niet beschikbaar"
     }
   ],
   "signals": [
@@ -235,6 +237,6 @@
       "llm_confidence": 0.5
     }
   ],
-  "portfolio_total": 628.0178,
-  "open_positions_value": 596.9255
+  "portfolio_total": 618.2618,
+  "open_positions_value": 0
 }
