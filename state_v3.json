@@ -1,14 +1,30 @@
 {
   "bot_id": "v3",
-  "capital_eur": 501.79323078797654,
-  "open_positions": {},
+  "capital_eur": 301.0759384727859,
+  "open_positions": {
+    "SOL-EUR": {
+      "strategy": "mr",
+      "units": 2.0624329,
+      "entry_px": 97.126,
+      "stop_px": 93.766776,
+      "trail_high": 97.126,
+      "invest": 200.7173,
+      "entry_ts": "2026-10-08T15:34:26.550078+00:00",
+      "strength": 0,
+      "regime_at_entry": "bear",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.5,
+      "llm_nieuws_sentiment": "neutraal",
+      "llm_reden": "LLM niet beschikbaar"
+    }
+  },
   "total_trades": 6,
   "wins": 1,
   "gross_win": 26.537707108339905,
   "gross_loss": 24.744476940132458,
   "win_rate": 16.6667,
   "profit_factor": 1.0725,
-  "total_return_pct": 0.3586,
+  "total_return_pct": 0.2784,
   "trades": [
     {
       "timestamp": "2026-07-14T14:12:08.710365+00:00",
@@ -213,6 +229,21 @@
       "llm_confidence": 0.5,
       "llm_nieuws_sentiment": "neutraal",
       "llm_reden": "LLM niet beschikbaar"
+    },
+    {
+      "timestamp": "2026-10-08T15:34:26.550078+00:00",
+      "ticker": "SOL-EUR",
+      "action": "BUY",
+      "price": 97.126,
+      "position_size_pct": 40.0,
+      "position_size_eur": 200.7173,
+      "entry_price": 97.126,
+      "regime": "bear",
+      "strategy": "mr",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.5,
+      "llm_nieuws_sentiment": "neutraal",
+      "llm_reden": "LLM niet beschikbaar"
     }
   ],
   "signals": [
@@ -311,8 +342,24 @@
       "llm_confidence": 0.5,
       "entry_blocked": false,
       "block_reason": ""
+    },
+    {
+      "timestamp": "2026-10-08T15:34:26.550078+00:00",
+      "ticker": "SOL-EUR",
+      "regime": "bear",
+      "rsi": 18.42,
+      "macd_hist": -0.835873,
+      "atr_ratio": 1.7293,
+      "volume_ratio": 3.5103,
+      "ma200_slope": 0.7511,
+      "trailing_stop": 0.0,
+      "signal_type": "mr",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.5,
+      "entry_blocked": false,
+      "block_reason": ""
     }
   ],
-  "portfolio_total": 501.7932,
-  "open_positions_value": 0
+  "portfolio_total": 501.3918,
+  "open_positions_value": 200.3159
 }
