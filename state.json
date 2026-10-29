@@ -1,13 +1,59 @@
 {
-  "capital_eur": 482.6737308924357,
-  "open_positions": {},
+  "capital_eur": 351.8691498205856,
+  "open_positions": {
+    "SOL-EUR": {
+      "strategy": "mr",
+      "units": 0.56035408,
+      "entry_px": 85.965,
+      "stop_px": 82.407769,
+      "trail_high": 85.965,
+      "invest": 48.2674,
+      "entry_ts": "2026-10-29T23:39:55.921775+00:00",
+      "strength": 0,
+      "regime_at_entry": "bear",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.5,
+      "llm_nieuws_sentiment": "neutraal",
+      "llm_reden": "LLM niet beschikbaar"
+    },
+    "AVAX-EUR": {
+      "strategy": "mr",
+      "units": 5.85134083,
+      "entry_px": 7.4092,
+      "stop_px": 7.008404,
+      "trail_high": 7.4092,
+      "invest": 43.4406,
+      "entry_ts": "2026-10-29T23:39:55.921775+00:00",
+      "strength": 0,
+      "regime_at_entry": "bear",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.5,
+      "llm_nieuws_sentiment": "neutraal",
+      "llm_reden": "LLM niet beschikbaar"
+    },
+    "ADA-EUR": {
+      "strategy": "mr",
+      "units": 228.28445505,
+      "entry_px": 0.17092,
+      "stop_px": 0.160926,
+      "trail_high": 0.17092,
+      "invest": 39.0966,
+      "entry_ts": "2026-10-29T23:39:55.921775+00:00",
+      "strength": 0,
+      "regime_at_entry": "bear",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.5,
+      "llm_nieuws_sentiment": "neutraal",
+      "llm_reden": "LLM niet beschikbaar"
+    }
+  },
   "total_trades": 14,
   "wins": 2,
   "gross_win": 5.476217794296346,
   "gross_loss": 22.80246925596407,
   "win_rate": 14.2857,
   "profit_factor": 0.2402,
-  "total_return_pct": -3.4653,
+  "total_return_pct": -3.5176,
   "trades": [
     {
       "timestamp": "2026-06-22T02:13:25.318785+00:00",
@@ -484,6 +530,51 @@
       "llm_confidence": 0.5,
       "llm_nieuws_sentiment": "neutraal",
       "llm_reden": "LLM niet beschikbaar"
+    },
+    {
+      "timestamp": "2026-10-29T23:39:55.921775+00:00",
+      "ticker": "SOL-EUR",
+      "action": "BUY",
+      "price": 85.965,
+      "position_size_pct": 10.0,
+      "position_size_eur": 48.2674,
+      "entry_price": 85.965,
+      "regime": "bear",
+      "strategy": "mr",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.5,
+      "llm_nieuws_sentiment": "neutraal",
+      "llm_reden": "LLM niet beschikbaar"
+    },
+    {
+      "timestamp": "2026-10-29T23:39:55.921775+00:00",
+      "ticker": "AVAX-EUR",
+      "action": "BUY",
+      "price": 7.4092,
+      "position_size_pct": 10.0,
+      "position_size_eur": 43.4406,
+      "entry_price": 7.4092,
+      "regime": "bear",
+      "strategy": "mr",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.5,
+      "llm_nieuws_sentiment": "neutraal",
+      "llm_reden": "LLM niet beschikbaar"
+    },
+    {
+      "timestamp": "2026-10-29T23:39:55.921775+00:00",
+      "ticker": "ADA-EUR",
+      "action": "BUY",
+      "price": 0.17092,
+      "position_size_pct": 10.0,
+      "position_size_eur": 39.0966,
+      "entry_price": 0.17092,
+      "regime": "bear",
+      "strategy": "mr",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.5,
+      "llm_nieuws_sentiment": "neutraal",
+      "llm_reden": "LLM niet beschikbaar"
     }
   ],
   "signals": [
@@ -710,8 +801,56 @@
       "llm_confidence": 0.5,
       "entry_blocked": false,
       "block_reason": ""
+    },
+    {
+      "timestamp": "2026-10-29T23:39:55.921775+00:00",
+      "ticker": "SOL-EUR",
+      "regime": "bear",
+      "rsi": 34.26,
+      "macd_hist": -0.311687,
+      "atr_ratio": 2.069,
+      "volume_ratio": 5.0947,
+      "ma200_slope": -0.7757,
+      "trailing_stop": 0.0,
+      "signal_type": "mr",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.5,
+      "entry_blocked": false,
+      "block_reason": ""
+    },
+    {
+      "timestamp": "2026-10-29T23:39:55.921775+00:00",
+      "ticker": "AVAX-EUR",
+      "regime": "bear",
+      "rsi": 33.48,
+      "macd_hist": -0.02876,
+      "atr_ratio": 2.7047,
+      "volume_ratio": 4.6439,
+      "ma200_slope": -0.7626,
+      "trailing_stop": 0.0,
+      "signal_type": "mr",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.5,
+      "entry_blocked": false,
+      "block_reason": ""
+    },
+    {
+      "timestamp": "2026-10-29T23:39:55.921775+00:00",
+      "ticker": "ADA-EUR",
+      "regime": "bear",
+      "rsi": 33.23,
+      "macd_hist": -0.000628,
+      "atr_ratio": 2.9236,
+      "volume_ratio": 4.7294,
+      "ma200_slope": -1.0229,
+      "trailing_stop": 0.0,
+      "signal_type": "mr",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.5,
+      "entry_blocked": false,
+      "block_reason": ""
     }
   ],
-  "portfolio_total": 482.6737,
-  "open_positions_value": 0
+  "portfolio_total": 482.4121,
+  "open_positions_value": 130.543
 }
