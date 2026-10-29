@@ -1,5 +1,5 @@
 {
-  "capital_eur": 355.5917181706215,
+  "capital_eur": 320.0325463535594,
   "open_positions": {
     "DOGE-EUR": {
       "strategy": "v4",
@@ -39,6 +39,19 @@
       "regime_at_entry": "neutraal",
       "llm_beslissing": "KOOP",
       "llm_confidence": 0.3
+    },
+    "ADA-EUR": {
+      "strategy": "mr",
+      "units": 208.01907077,
+      "entry_px": 0.1706,
+      "stop_px": 0.160606,
+      "trail_high": 0.1706,
+      "invest": 35.5592,
+      "entry_ts": "2026-10-29T20:59:45.423318+00:00",
+      "strength": 0,
+      "regime_at_entry": "bear",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.3
     }
   },
   "total_trades": 17,
@@ -47,7 +60,7 @@
   "gross_loss": 18.6136908348093,
   "win_rate": 23.5294,
   "profit_factor": 0.3435,
-  "total_return_pct": -2.4968,
+  "total_return_pct": -3.8948,
   "trades": [
     {
       "timestamp": "2026-07-08T03:35:28.682123+00:00",
@@ -597,6 +610,19 @@
       "strategy": "v4",
       "llm_beslissing": "KOOP",
       "llm_confidence": 0.3
+    },
+    {
+      "timestamp": "2026-10-29T20:59:45.423318+00:00",
+      "ticker": "ADA-EUR",
+      "action": "BUY",
+      "price": 0.1706,
+      "position_size_pct": 10.0,
+      "position_size_eur": 35.5592,
+      "entry_price": 0.1706,
+      "regime": "bear",
+      "strategy": "mr",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.3
     }
   ],
   "signals": [
@@ -879,8 +905,22 @@
       "llm_confidence": 0.3,
       "entry_blocked": false,
       "block_reason": ""
+    },
+    {
+      "timestamp": "2026-10-29T20:59:45.423318+00:00",
+      "ticker": "ADA-EUR",
+      "regime": "bear",
+      "rsi": 32.95,
+      "macd_hist": -0.000648,
+      "atr_ratio": 2.9291,
+      "volume_ratio": 2.7221,
+      "signal_type": "mr",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.3,
+      "entry_blocked": false,
+      "block_reason": ""
     }
   ],
-  "portfolio_total": 487.5158,
-  "open_positions_value": 131.924
+  "portfolio_total": 480.526,
+  "open_positions_value": 160.4934
 }
