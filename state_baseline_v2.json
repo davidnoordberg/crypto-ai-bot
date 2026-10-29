@@ -1,13 +1,53 @@
 {
-  "capital_eur": 487.78013466477574,
-  "open_positions": {},
+  "capital_eur": 355.5917181706215,
+  "open_positions": {
+    "DOGE-EUR": {
+      "strategy": "v4",
+      "units": 680.95032018,
+      "entry_px": 0.071489,
+      "stop_px": 0.067133,
+      "trail_high": 0.071489,
+      "invest": 48.778,
+      "entry_ts": "2026-10-29T15:09:23.603269+00:00",
+      "strength": 2,
+      "regime_at_entry": "neutraal",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.3
+    },
+    "SOL-EUR": {
+      "strategy": "v4",
+      "units": 0.47946346,
+      "entry_px": 91.378,
+      "stop_px": 85.667944,
+      "trail_high": 91.378,
+      "invest": 43.9002,
+      "entry_ts": "2026-10-29T15:09:23.603269+00:00",
+      "strength": 0,
+      "regime_at_entry": "neutraal",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.3
+    },
+    "ETH-EUR": {
+      "strategy": "v4",
+      "units": 0.01872592,
+      "entry_px": 2105.7,
+      "stop_px": 1984.47891,
+      "trail_high": 2105.7,
+      "invest": 39.5102,
+      "entry_ts": "2026-10-29T15:09:23.603269+00:00",
+      "strength": 0,
+      "regime_at_entry": "neutraal",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.3
+    }
+  },
   "total_trades": 17,
   "wins": 4,
   "gross_win": 6.393820558553223,
   "gross_loss": 18.6136908348093,
   "win_rate": 23.5294,
   "profit_factor": 0.3435,
-  "total_return_pct": -2.444,
+  "total_return_pct": -2.4968,
   "trades": [
     {
       "timestamp": "2026-07-08T03:35:28.682123+00:00",
@@ -518,6 +558,45 @@
       "strategy": "mr",
       "llm_beslissing": "KOOP",
       "llm_confidence": 0.3
+    },
+    {
+      "timestamp": "2026-10-29T15:09:23.603269+00:00",
+      "ticker": "DOGE-EUR",
+      "action": "BUY",
+      "price": 0.071489,
+      "position_size_pct": 10.0,
+      "position_size_eur": 48.778,
+      "entry_price": 0.071489,
+      "regime": "neutraal",
+      "strategy": "v4",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.3
+    },
+    {
+      "timestamp": "2026-10-29T15:09:23.603269+00:00",
+      "ticker": "SOL-EUR",
+      "action": "BUY",
+      "price": 91.378,
+      "position_size_pct": 10.0,
+      "position_size_eur": 43.9002,
+      "entry_price": 91.378,
+      "regime": "neutraal",
+      "strategy": "v4",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.3
+    },
+    {
+      "timestamp": "2026-10-29T15:09:23.603269+00:00",
+      "ticker": "ETH-EUR",
+      "action": "BUY",
+      "price": 2105.7,
+      "position_size_pct": 10.0,
+      "position_size_eur": 39.5102,
+      "entry_price": 2105.7,
+      "regime": "neutraal",
+      "strategy": "v4",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.3
     }
   ],
   "signals": [
@@ -758,8 +837,50 @@
       "llm_confidence": 0.3,
       "entry_blocked": false,
       "block_reason": ""
+    },
+    {
+      "timestamp": "2026-10-29T15:09:23.603269+00:00",
+      "ticker": "DOGE-EUR",
+      "regime": "neutraal",
+      "rsi": 57.47,
+      "macd_hist": 3.7e-05,
+      "atr_ratio": 1.5231,
+      "volume_ratio": 1.582,
+      "signal_type": "v4",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.3,
+      "entry_blocked": false,
+      "block_reason": ""
+    },
+    {
+      "timestamp": "2026-10-29T15:09:23.603269+00:00",
+      "ticker": "SOL-EUR",
+      "regime": "neutraal",
+      "rsi": 52.56,
+      "macd_hist": 0.026651,
+      "atr_ratio": 1.5622,
+      "volume_ratio": 1.0636,
+      "signal_type": "v4",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.3,
+      "entry_blocked": false,
+      "block_reason": ""
+    },
+    {
+      "timestamp": "2026-10-29T15:09:23.603269+00:00",
+      "ticker": "ETH-EUR",
+      "regime": "neutraal",
+      "rsi": 51.97,
+      "macd_hist": 0.645523,
+      "atr_ratio": 1.4392,
+      "volume_ratio": 1.4938,
+      "signal_type": "v4",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.3,
+      "entry_blocked": false,
+      "block_reason": ""
     }
   ],
-  "portfolio_total": 487.7801,
-  "open_positions_value": 0
+  "portfolio_total": 487.5158,
+  "open_positions_value": 131.924
 }
