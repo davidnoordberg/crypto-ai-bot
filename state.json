@@ -1,5 +1,5 @@
 {
-  "capital_eur": 351.8691498205856,
+  "capital_eur": 397.80140764016875,
   "open_positions": {
     "SOL-EUR": {
       "strategy": "mr",
@@ -8,21 +8,6 @@
       "stop_px": 82.407769,
       "trail_high": 85.965,
       "invest": 48.2674,
-      "entry_ts": "2026-10-29T23:39:55.921775+00:00",
-      "strength": 0,
-      "regime_at_entry": "bear",
-      "llm_beslissing": "KOOP",
-      "llm_confidence": 0.5,
-      "llm_nieuws_sentiment": "neutraal",
-      "llm_reden": "LLM niet beschikbaar"
-    },
-    "AVAX-EUR": {
-      "strategy": "mr",
-      "units": 5.85134083,
-      "entry_px": 7.4092,
-      "stop_px": 7.008404,
-      "trail_high": 7.4092,
-      "invest": 43.4406,
       "entry_ts": "2026-10-29T23:39:55.921775+00:00",
       "strength": 0,
       "regime_at_entry": "bear",
@@ -47,13 +32,13 @@
       "llm_reden": "LLM niet beschikbaar"
     }
   },
-  "total_trades": 14,
-  "wins": 2,
-  "gross_win": 5.476217794296346,
+  "total_trades": 15,
+  "wins": 3,
+  "gross_win": 7.967839936243449,
   "gross_loss": 22.80246925596407,
-  "win_rate": 14.2857,
-  "profit_factor": 0.2402,
-  "total_return_pct": -3.2769,
+  "win_rate": 20.0,
+  "profit_factor": 0.3494,
+  "total_return_pct": -2.9486,
   "trades": [
     {
       "timestamp": "2026-06-22T02:13:25.318785+00:00",
@@ -575,6 +560,25 @@
       "llm_confidence": 0.5,
       "llm_nieuws_sentiment": "neutraal",
       "llm_reden": "LLM niet beschikbaar"
+    },
+    {
+      "timestamp": "2026-11-01T10:50:14.448117+00:00",
+      "ticker": "AVAX-EUR",
+      "action": "SELL",
+      "price": 7.8656,
+      "position_size_pct": 8.69,
+      "position_size_eur": 43.4406,
+      "entry_price": 7.4092,
+      "exit_price": 7.8656,
+      "pnl_pct": 5.7357,
+      "pnl_eur": 2.4916,
+      "exit_reason": "mr_signal",
+      "regime": "bear",
+      "strategy": "mr",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.5,
+      "llm_nieuws_sentiment": "neutraal",
+      "llm_reden": "LLM niet beschikbaar"
     }
   ],
   "signals": [
@@ -851,6 +855,6 @@
       "block_reason": ""
     }
   ],
-  "portfolio_total": 483.6156,
-  "open_positions_value": 131.7465
+  "portfolio_total": 485.2568,
+  "open_positions_value": 87.4553
 }
