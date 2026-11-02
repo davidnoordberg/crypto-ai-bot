@@ -1,31 +1,14 @@
 {
   "bot_id": "allin",
-  "capital_eur": 30.913087894260457,
-  "open_positions": {
-    "DOGE-EUR": {
-      "strategy": "v4",
-      "units": 8189.99011696,
-      "entry_px": 0.071572,
-      "stop_px": 0.067216,
-      "trail_high": 0.071572,
-      "invest": 587.3487,
-      "entry_ts": "2026-10-29T15:24:29.159458+00:00",
-      "regime_at_entry": "neutraal",
-      "confidence_at_entry": 0.4543,
-      "competitor": "SOL",
-      "llm_beslissing": "KOOP",
-      "llm_confidence": 0.5,
-      "llm_nieuws_sentiment": "neutraal",
-      "llm_reden": "LLM niet beschikbaar"
-    }
-  },
-  "total_trades": 4,
+  "capital_eur": 569.5621695146459,
+  "open_positions": {},
+  "total_trades": 5,
   "wins": 1,
   "gross_win": 158.348836054718,
-  "gross_loss": 40.0870789045621,
-  "win_rate": 25.0,
-  "profit_factor": 3.9501,
-  "total_return_pct": 16.6705,
+  "gross_loss": 88.7866673352377,
+  "win_rate": 20.0,
+  "profit_factor": 1.7835,
+  "total_return_pct": 13.9124,
   "trades": [
     {
       "timestamp": "2026-07-14T14:24:20.358110+00:00",
@@ -187,6 +170,25 @@
       "llm_confidence": 0.5,
       "llm_nieuws_sentiment": "neutraal",
       "llm_reden": "LLM niet beschikbaar"
+    },
+    {
+      "timestamp": "2026-11-02T18:40:50.713490+00:00",
+      "ticker": "DOGE-EUR",
+      "action": "SELL",
+      "price": 0.065901,
+      "position_size_pct": 117.47,
+      "position_size_eur": 587.3487,
+      "entry_price": 0.071572,
+      "exit_price": 0.065901,
+      "pnl_pct": -8.2914,
+      "pnl_eur": -48.6996,
+      "exit_reason": "trail_stop",
+      "regime": "neutraal",
+      "strategy": "v4",
+      "confidence_at_entry": 0.4543,
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.5,
+      "llm_reden": "LLM niet beschikbaar"
     }
   ],
   "signals": [
@@ -303,6 +305,6 @@
       "llm_confidence": 0.0
     }
   ],
-  "portfolio_total": 583.3525,
-  "open_positions_value": 552.4394
+  "portfolio_total": 569.5622,
+  "open_positions_value": 0
 }
