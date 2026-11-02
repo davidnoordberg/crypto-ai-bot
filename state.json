@@ -1,21 +1,6 @@
 {
-  "capital_eur": 397.80140764016875,
+  "capital_eur": 443.5500528569118,
   "open_positions": {
-    "SOL-EUR": {
-      "strategy": "mr",
-      "units": 0.56035408,
-      "entry_px": 85.965,
-      "stop_px": 82.407769,
-      "trail_high": 85.965,
-      "invest": 48.2674,
-      "entry_ts": "2026-10-29T23:39:55.921775+00:00",
-      "strength": 0,
-      "regime_at_entry": "bear",
-      "llm_beslissing": "KOOP",
-      "llm_confidence": 0.5,
-      "llm_nieuws_sentiment": "neutraal",
-      "llm_reden": "LLM niet beschikbaar"
-    },
     "ADA-EUR": {
       "strategy": "mr",
       "units": 228.28445505,
@@ -32,13 +17,13 @@
       "llm_reden": "LLM niet beschikbaar"
     }
   },
-  "total_trades": 15,
+  "total_trades": 16,
   "wins": 3,
   "gross_win": 7.967839936243449,
-  "gross_loss": 22.80246925596407,
-  "win_rate": 20.0,
-  "profit_factor": 0.3494,
-  "total_return_pct": -3.3043,
+  "gross_loss": 25.321197326421036,
+  "win_rate": 18.75,
+  "profit_factor": 0.3147,
+  "total_return_pct": -3.611,
   "trades": [
     {
       "timestamp": "2026-06-22T02:13:25.318785+00:00",
@@ -579,6 +564,25 @@
       "llm_confidence": 0.5,
       "llm_nieuws_sentiment": "neutraal",
       "llm_reden": "LLM niet beschikbaar"
+    },
+    {
+      "timestamp": "2026-11-02T20:54:01.267386+00:00",
+      "ticker": "SOL-EUR",
+      "action": "SELL",
+      "price": 81.806,
+      "position_size_pct": 9.65,
+      "position_size_eur": 48.2674,
+      "entry_price": 85.965,
+      "exit_price": 81.806,
+      "pnl_pct": -5.2183,
+      "pnl_eur": -2.5187,
+      "exit_reason": "atr_stop",
+      "regime": "bear",
+      "strategy": "mr",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.5,
+      "llm_nieuws_sentiment": "neutraal",
+      "llm_reden": "LLM niet beschikbaar"
     }
   ],
   "signals": [
@@ -855,6 +859,6 @@
       "block_reason": ""
     }
   ],
-  "portfolio_total": 483.4783,
-  "open_positions_value": 85.6769
+  "portfolio_total": 481.9452,
+  "open_positions_value": 38.3952
 }
