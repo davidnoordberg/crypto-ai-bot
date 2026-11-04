@@ -1,12 +1,12 @@
 {
-  "capital_eur": 364.9488971305253,
+  "capital_eur": 401.15071396027616,
   "open_positions": {
     "ETH-EUR": {
       "strategy": "v4",
       "units": 0.01872592,
       "entry_px": 2105.7,
-      "stop_px": 1984.47891,
-      "trail_high": 2105.7,
+      "stop_px": 2045.1018380278088,
+      "trail_high": 2152.7,
       "invest": 39.5102,
       "entry_ts": "2026-10-29T15:09:23.603269+00:00",
       "strength": 0,
@@ -14,25 +14,12 @@
       "llm_beslissing": "KOOP",
       "llm_confidence": 0.3
     },
-    "ADA-EUR": {
-      "strategy": "mr",
-      "units": 208.01907077,
-      "entry_px": 0.1706,
-      "stop_px": 0.160606,
-      "trail_high": 0.1706,
-      "invest": 35.5592,
-      "entry_ts": "2026-10-29T20:59:45.423318+00:00",
-      "strength": 0,
-      "regime_at_entry": "bear",
-      "llm_beslissing": "KOOP",
-      "llm_confidence": 0.3
-    },
     "AVAX-EUR": {
       "strategy": "v4",
       "units": 5.29730711,
       "entry_px": 7.6395,
-      "stop_px": 7.23757733287291,
-      "trail_high": 7.7047,
+      "stop_px": 7.2945682091444075,
+      "trail_high": 7.8328,
       "invest": 40.5499,
       "entry_ts": "2026-11-03T19:24:41.141314+00:00",
       "strength": 0,
@@ -41,13 +28,13 @@
       "llm_confidence": 0.3
     }
   },
-  "total_trades": 19,
-  "wins": 4,
-  "gross_win": 6.393820558553223,
+  "total_trades": 20,
+  "wins": 5,
+  "gross_win": 7.03646551494208,
   "gross_loss": 25.825688486124132,
-  "win_rate": 21.0526,
-  "profit_factor": 0.2476,
-  "total_return_pct": -4.0417,
+  "win_rate": 25.0,
+  "profit_factor": 0.2725,
+  "total_return_pct": -3.4091,
   "trades": [
     {
       "timestamp": "2026-07-08T03:35:28.682123+00:00",
@@ -657,6 +644,23 @@
       "strategy": "v4",
       "llm_beslissing": "KOOP",
       "llm_confidence": 0.3
+    },
+    {
+      "timestamp": "2026-11-04T19:40:13.024088+00:00",
+      "ticker": "ADA-EUR",
+      "action": "SELL",
+      "price": 0.17438,
+      "position_size_pct": 7.11,
+      "position_size_eur": 35.5592,
+      "entry_price": 0.1706,
+      "exit_price": 0.17438,
+      "pnl_pct": 1.8073,
+      "pnl_eur": 0.6426,
+      "exit_reason": "mr_signal",
+      "regime": "bear",
+      "strategy": "mr",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.3
     }
   ],
   "signals": [
@@ -969,6 +973,6 @@
       "block_reason": ""
     }
   ],
-  "portfolio_total": 479.7915,
-  "open_positions_value": 114.8426
+  "portfolio_total": 482.9547,
+  "open_positions_value": 81.804
 }
