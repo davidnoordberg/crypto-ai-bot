@@ -1,19 +1,6 @@
 {
-  "capital_eur": 401.15071396027616,
+  "capital_eur": 438.28357888610657,
   "open_positions": {
-    "ETH-EUR": {
-      "strategy": "v4",
-      "units": 0.01872592,
-      "entry_px": 2105.7,
-      "stop_px": 2056.1317453405154,
-      "trail_high": 2158.91,
-      "invest": 39.5102,
-      "entry_ts": "2026-10-29T15:09:23.603269+00:00",
-      "strength": 0,
-      "regime_at_entry": "neutraal",
-      "llm_beslissing": "KOOP",
-      "llm_confidence": 0.3
-    },
     "AVAX-EUR": {
       "strategy": "v4",
       "units": 5.29730711,
@@ -28,13 +15,13 @@
       "llm_confidence": 0.3
     }
   },
-  "total_trades": 20,
+  "total_trades": 21,
   "wins": 5,
   "gross_win": 7.03646551494208,
-  "gross_loss": 25.825688486124132,
-  "win_rate": 25.0,
-  "profit_factor": 0.2725,
-  "total_return_pct": -3.494,
+  "gross_loss": 28.203013704293724,
+  "win_rate": 23.8095,
+  "profit_factor": 0.2495,
+  "total_return_pct": -4.5221,
   "trades": [
     {
       "timestamp": "2026-07-08T03:35:28.682123+00:00",
@@ -661,6 +648,23 @@
       "strategy": "mr",
       "llm_beslissing": "KOOP",
       "llm_confidence": 0.3
+    },
+    {
+      "timestamp": "2026-11-05T21:54:38.993964+00:00",
+      "ticker": "ETH-EUR",
+      "action": "SELL",
+      "price": 1986.94,
+      "position_size_pct": 7.9,
+      "position_size_eur": 39.5102,
+      "entry_price": 2105.7,
+      "exit_price": 1986.94,
+      "pnl_pct": -6.017,
+      "pnl_eur": -2.3773,
+      "exit_reason": "trail_stop",
+      "regime": "neutraal",
+      "strategy": "v4",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.3
     }
   ],
   "signals": [
@@ -973,6 +977,6 @@
       "block_reason": ""
     }
   ],
-  "portfolio_total": 482.5298,
-  "open_positions_value": 81.3791
+  "portfolio_total": 477.3894,
+  "open_positions_value": 39.1058
 }
