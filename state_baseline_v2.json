@@ -1,27 +1,13 @@
 {
-  "capital_eur": 438.28357888610657,
-  "open_positions": {
-    "AVAX-EUR": {
-      "strategy": "v4",
-      "units": 5.29730711,
-      "entry_px": 7.6395,
-      "stop_px": 7.2945682091444075,
-      "trail_high": 7.8328,
-      "invest": 40.5499,
-      "entry_ts": "2026-11-03T19:24:41.141314+00:00",
-      "strength": 0,
-      "regime_at_entry": "neutraal",
-      "llm_beslissing": "KOOP",
-      "llm_confidence": 0.3
-    }
-  },
-  "total_trades": 21,
+  "capital_eur": 475.86311731985955,
+  "open_positions": {},
+  "total_trades": 22,
   "wins": 5,
   "gross_win": 7.03646551494208,
-  "gross_loss": 28.203013704293724,
-  "win_rate": 23.8095,
-  "profit_factor": 0.2495,
-  "total_return_pct": -4.5544,
+  "gross_loss": 31.17335273738575,
+  "win_rate": 22.7273,
+  "profit_factor": 0.2257,
+  "total_return_pct": -4.8274,
   "trades": [
     {
       "timestamp": "2026-07-08T03:35:28.682123+00:00",
@@ -665,6 +651,23 @@
       "strategy": "v4",
       "llm_beslissing": "KOOP",
       "llm_confidence": 0.3
+    },
+    {
+      "timestamp": "2026-11-09T05:58:40.595395+00:00",
+      "ticker": "AVAX-EUR",
+      "action": "SELL",
+      "price": 7.1083,
+      "position_size_pct": 8.11,
+      "position_size_eur": 40.5499,
+      "entry_price": 7.6395,
+      "exit_price": 7.1083,
+      "pnl_pct": -7.3251,
+      "pnl_eur": -2.9703,
+      "exit_reason": "trail_stop",
+      "regime": "neutraal",
+      "strategy": "v4",
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.3
     }
   ],
   "signals": [
@@ -977,6 +980,6 @@
       "block_reason": ""
     }
   ],
-  "portfolio_total": 477.2278,
-  "open_positions_value": 38.9442
+  "portfolio_total": 475.8631,
+  "open_positions_value": 0
 }
