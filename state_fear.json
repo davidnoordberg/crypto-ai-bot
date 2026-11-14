@@ -1,17 +1,38 @@
 {
   "bot_id": "fear",
-  "capital_eur": 513.6570800864317,
-  "open_positions": {},
-  "cooldown_tickers": [
-    "BTC-EUR"
-  ],
+  "capital_eur": 251.6919692423516,
+  "open_positions": {
+    "BTC-EUR": {
+      "units": 0.00248407,
+      "entry_px": 61910.0,
+      "stop_px": 58989.912302,
+      "trail_high": 61910.0,
+      "invest": 154.0971,
+      "entry_ts": "2026-11-14T01:04:13.940173+00:00",
+      "entry_fng": 13,
+      "entry_rsi": 25.1,
+      "size_pct": 30.0
+    },
+    "SOL-EUR": {
+      "units": 1.53126112,
+      "entry_px": 70.303,
+      "stop_px": 65.180161,
+      "trail_high": 70.303,
+      "invest": 107.868,
+      "entry_ts": "2026-11-14T01:04:13.940173+00:00",
+      "entry_fng": 13,
+      "entry_rsi": 29.84,
+      "size_pct": 30.0
+    }
+  },
+  "cooldown_tickers": [],
   "total_trades": 6,
   "wins": 3,
   "gross_win": 22.561177290147146,
   "gross_loss": 8.903548131401823,
   "win_rate": 50.0,
   "profit_factor": 2.534,
-  "total_return_pct": 2.7314,
+  "total_return_pct": 2.6266,
   "trades": [
     {
       "timestamp": "2026-06-19T21:52:16.590526+00:00",
@@ -168,6 +189,28 @@
       "exit_reason": "rsi_exit:67",
       "entry_fng": 13,
       "exit_fng": 21
+    },
+    {
+      "timestamp": "2026-11-14T01:04:13.940173+00:00",
+      "ticker": "BTC-EUR",
+      "action": "BUY",
+      "price": 61910.0,
+      "position_size_pct": 30.0,
+      "position_size_eur": 154.0971,
+      "entry_price": 61910.0,
+      "entry_fng": 13,
+      "entry_rsi": 25.1
+    },
+    {
+      "timestamp": "2026-11-14T01:04:13.940173+00:00",
+      "ticker": "SOL-EUR",
+      "action": "BUY",
+      "price": 70.303,
+      "position_size_pct": 30.0,
+      "position_size_eur": 107.868,
+      "entry_price": 70.303,
+      "entry_fng": 13,
+      "entry_rsi": 29.84
     }
   ],
   "signals": [
@@ -230,8 +273,28 @@
       "invest": 125.3859,
       "size_pct": 30.0,
       "stop_px": 49294.466879
+    },
+    {
+      "timestamp": "2026-11-14T01:04:13.940173+00:00",
+      "ticker": "BTC-EUR",
+      "fng": 13,
+      "rsi": 25.1,
+      "atr": 973.362566,
+      "invest": 154.0971,
+      "size_pct": 30.0,
+      "stop_px": 58989.912302
+    },
+    {
+      "timestamp": "2026-11-14T01:04:13.940173+00:00",
+      "ticker": "SOL-EUR",
+      "fng": 13,
+      "rsi": 29.84,
+      "atr": 1.707613,
+      "invest": 107.868,
+      "size_pct": 30.0,
+      "stop_px": 65.180161
     }
   ],
-  "portfolio_total": 513.6571,
-  "open_positions_value": 0
+  "portfolio_total": 513.133,
+  "open_positions_value": 261.441
 }
