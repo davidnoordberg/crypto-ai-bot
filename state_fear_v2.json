@@ -1,19 +1,60 @@
 {
   "bot_id": "fear_v2",
-  "capital_eur": 502.30140353025615,
-  "open_positions": {},
-  "cooldown_tickers": [
-    "DOGE-EUR"
-  ],
+  "capital_eur": 172.28938141087787,
+  "open_positions": {
+    "BTC-EUR": {
+      "units": 0.00242818,
+      "entry_px": 61935.0,
+      "stop_px": 59014.912302,
+      "trail_high": 61935.0,
+      "invest": 150.6904,
+      "entry_ts": "2026-11-14T01:04:44.836382+00:00",
+      "entry_fng": 13,
+      "entry_rsi": 25.2,
+      "size_pct": 30.0,
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.3,
+      "llm_reden": "Rule-based fallback: alle LLM agents gefaald."
+    },
+    "ETH-EUR": {
+      "units": 0.06017074,
+      "entry_px": 1749.56,
+      "stop_px": 1644.912622,
+      "trail_high": 1749.56,
+      "invest": 105.4833,
+      "entry_ts": "2026-11-14T01:04:44.836382+00:00",
+      "entry_fng": 13,
+      "entry_rsi": 31.77,
+      "size_pct": 30.0,
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.3,
+      "llm_reden": "Rule-based fallback: alle LLM agents gefaald."
+    },
+    "SOL-EUR": {
+      "units": 1.04884256,
+      "entry_px": 70.259,
+      "stop_px": 65.136161,
+      "trail_high": 70.259,
+      "invest": 73.8383,
+      "entry_ts": "2026-11-14T01:04:44.836382+00:00",
+      "entry_fng": 13,
+      "entry_rsi": 29.72,
+      "size_pct": 30.0,
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.3,
+      "llm_reden": "Rule-based fallback: alle LLM agents gefaald."
+    }
+  },
+  "cooldown_tickers": [],
   "total_trades": 7,
   "wins": 3,
   "gross_win": 25.247717886851994,
   "gross_loss": 22.94621714201262,
   "win_rate": 42.8571,
   "profit_factor": 1.1003,
-  "total_return_pct": 0.4603,
-  "portfolio_total": 502.3014,
-  "open_positions_value": 0,
+  "total_return_pct": 0.3283,
+  "portfolio_total": 501.6417,
+  "open_positions_value": 329.3523,
   "trades": [
     {
       "timestamp": "2026-06-24T04:55:29.843779+00:00",
@@ -217,6 +258,48 @@
       "exit_reason": "rsi_exit:65",
       "entry_fng": 15,
       "exit_fng": 21
+    },
+    {
+      "timestamp": "2026-11-14T01:04:44.836382+00:00",
+      "ticker": "BTC-EUR",
+      "action": "BUY",
+      "price": 61935.0,
+      "position_size_pct": 30.0,
+      "position_size_eur": 150.6904,
+      "entry_price": 61935.0,
+      "entry_fng": 13,
+      "entry_rsi": 25.2,
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.3,
+      "llm_reden": "Rule-based fallback: alle LLM agents gefaald."
+    },
+    {
+      "timestamp": "2026-11-14T01:04:44.836382+00:00",
+      "ticker": "ETH-EUR",
+      "action": "BUY",
+      "price": 1749.56,
+      "position_size_pct": 30.0,
+      "position_size_eur": 105.4833,
+      "entry_price": 1749.56,
+      "entry_fng": 13,
+      "entry_rsi": 31.77,
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.3,
+      "llm_reden": "Rule-based fallback: alle LLM agents gefaald."
+    },
+    {
+      "timestamp": "2026-11-14T01:04:44.836382+00:00",
+      "ticker": "SOL-EUR",
+      "action": "BUY",
+      "price": 70.259,
+      "position_size_pct": 30.0,
+      "position_size_eur": 73.8383,
+      "entry_price": 70.259,
+      "entry_fng": 13,
+      "entry_rsi": 29.72,
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.3,
+      "llm_reden": "Rule-based fallback: alle LLM agents gefaald."
     }
   ],
   "signals": [
@@ -307,6 +390,45 @@
       "invest": 84.7463,
       "size_pct": 30.0,
       "stop_px": 0.057949,
+      "entry_blocked": false,
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.3
+    },
+    {
+      "timestamp": "2026-11-14T01:04:44.836382+00:00",
+      "ticker": "BTC-EUR",
+      "fng": 13,
+      "rsi": 25.2,
+      "atr": 973.362566,
+      "invest": 150.6904,
+      "size_pct": 30.0,
+      "stop_px": 59014.912302,
+      "entry_blocked": false,
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.3
+    },
+    {
+      "timestamp": "2026-11-14T01:04:44.836382+00:00",
+      "ticker": "ETH-EUR",
+      "fng": 13,
+      "rsi": 31.77,
+      "atr": 34.882459,
+      "invest": 105.4833,
+      "size_pct": 30.0,
+      "stop_px": 1644.912622,
+      "entry_blocked": false,
+      "llm_beslissing": "KOOP",
+      "llm_confidence": 0.3
+    },
+    {
+      "timestamp": "2026-11-14T01:04:44.836382+00:00",
+      "ticker": "SOL-EUR",
+      "fng": 13,
+      "rsi": 29.72,
+      "atr": 1.707613,
+      "invest": 73.8383,
+      "size_pct": 30.0,
+      "stop_px": 65.136161,
       "entry_blocked": false,
       "llm_beslissing": "KOOP",
       "llm_confidence": 0.3
