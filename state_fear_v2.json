@@ -5,8 +5,8 @@
     "DOGE-EUR": {
       "units": 2723.89973079,
       "entry_px": 0.052395,
-      "stop_px": 0.04796685060028935,
-      "trail_high": 0.053166,
+      "stop_px": 0.04875147832237155,
+      "trail_high": 0.05349,
       "invest": 143.0047,
       "entry_ts": "2026-11-15T00:23:00.046583+00:00",
       "entry_fng": 10,
@@ -19,8 +19,8 @@
     "BTC-EUR": {
       "units": 0.00170396,
       "entry_px": 58630.0,
-      "stop_px": 54755.28525272724,
-      "trail_high": 58849.0,
+      "stop_px": 55151.006163352555,
+      "trail_high": 58940.0,
       "invest": 100.1033,
       "entry_ts": "2026-11-15T07:14:41.312330+00:00",
       "entry_fng": 10,
@@ -33,8 +33,8 @@
     "ETH-EUR": {
       "units": 0.04287634,
       "entry_px": 1631.02,
-      "stop_px": 1496.1637288089576,
-      "trail_high": 1642.97,
+      "stop_px": 1514.3178070050003,
+      "trail_high": 1649.0,
       "invest": 70.0723,
       "entry_ts": "2026-11-15T07:14:41.312330+00:00",
       "entry_fng": 10,
@@ -52,9 +52,9 @@
   "gross_loss": 48.565447262237555,
   "win_rate": 30.0,
   "profit_factor": 0.5199,
-  "total_return_pct": -4.1916,
-  "portfolio_total": 479.0418,
-  "open_positions_value": 315.5397,
+  "total_return_pct": -3.9324,
+  "portfolio_total": 480.338,
+  "open_positions_value": 316.8359,
   "trades": [
     {
       "timestamp": "2026-06-24T04:55:29.843779+00:00",
