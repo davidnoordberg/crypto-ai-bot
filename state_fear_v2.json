@@ -33,8 +33,8 @@
     "ETH-EUR": {
       "units": 0.04287634,
       "entry_px": 1631.02,
-      "stop_px": 1529.512456269172,
-      "trail_high": 1657.08,
+      "stop_px": 1547.5940791596622,
+      "trail_high": 1658.97,
       "invest": 70.0723,
       "entry_ts": "2026-11-15T07:14:41.312330+00:00",
       "entry_fng": 10,
@@ -52,9 +52,9 @@
   "gross_loss": 48.565447262237555,
   "win_rate": 30.0,
   "profit_factor": 0.5199,
-  "total_return_pct": -3.8854,
-  "portfolio_total": 480.5729,
-  "open_positions_value": 317.0708,
+  "total_return_pct": -3.5381,
+  "portfolio_total": 482.3097,
+  "open_positions_value": 318.8076,
   "trades": [
     {
       "timestamp": "2026-06-24T04:55:29.843779+00:00",
