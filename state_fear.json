@@ -1,27 +1,29 @@
 {
   "bot_id": "fear",
-  "capital_eur": 345.6447894636062,
+  "capital_eur": 337.6703799635302,
   "open_positions": {
-    "ETH-EUR": {
-      "units": 0.09222534,
-      "entry_px": 1603.0,
-      "stop_px": 1547.5940791596622,
-      "trail_high": 1661.49,
-      "invest": 148.1335,
-      "entry_ts": "2026-11-15T00:22:16.004015+00:00",
-      "entry_fng": 10,
-      "entry_rsi": 21.09,
+    "BTC-EUR": {
+      "units": 0.00267446,
+      "entry_px": 54002.0,
+      "stop_px": 50786.168858,
+      "trail_high": 54002.0,
+      "invest": 144.7159,
+      "entry_ts": "2026-11-20T17:20:21.232927+00:00",
+      "entry_fng": 12,
+      "entry_rsi": 22.66,
       "size_pct": 30.0
     }
   },
-  "cooldown_tickers": [],
-  "total_trades": 8,
+  "cooldown_tickers": [
+    "ETH-EUR"
+  ],
+  "total_trades": 9,
   "wins": 3,
   "gross_win": 22.561177290147146,
-  "gross_loss": 28.782201130818926,
-  "win_rate": 37.5,
-  "profit_factor": 0.7839,
-  "total_return_pct": -1.5318,
+  "gross_loss": 40.174220523667735,
+  "win_rate": 33.3333,
+  "profit_factor": 0.5616,
+  "total_return_pct": -3.5807,
   "trades": [
     {
       "timestamp": "2026-06-19T21:52:16.590526+00:00",
@@ -241,6 +243,32 @@
       "entry_price": 1603.0,
       "entry_fng": 10,
       "entry_rsi": 21.09
+    },
+    {
+      "timestamp": "2026-11-20T17:20:21.232844+00:00",
+      "ticker": "ETH-EUR",
+      "action": "SELL",
+      "price": 1485.66,
+      "position_size_pct": 29.63,
+      "position_size_eur": 148.1335,
+      "entry_price": 1603.0,
+      "exit_price": 1485.66,
+      "pnl_pct": -7.6904,
+      "pnl_eur": -11.392,
+      "exit_reason": "trail_stop",
+      "entry_fng": 10,
+      "exit_fng": 12
+    },
+    {
+      "timestamp": "2026-11-20T17:20:21.232927+00:00",
+      "ticker": "BTC-EUR",
+      "action": "BUY",
+      "price": 54002.0,
+      "position_size_pct": 30.0,
+      "position_size_eur": 144.7159,
+      "entry_price": 54002.0,
+      "entry_fng": 12,
+      "entry_rsi": 22.66
     }
   ],
   "signals": [
@@ -333,8 +361,18 @@
       "invest": 148.1335,
       "size_pct": 30.0,
       "stop_px": 1477.551429
+    },
+    {
+      "timestamp": "2026-11-20T17:20:21.232927+00:00",
+      "ticker": "BTC-EUR",
+      "fng": 12,
+      "rsi": 22.66,
+      "atr": 1071.943714,
+      "invest": 144.7159,
+      "size_pct": 30.0,
+      "stop_px": 50786.168858
     }
   ],
-  "portfolio_total": 492.3412,
-  "open_positions_value": 146.6964
+  "portfolio_total": 482.0966,
+  "open_positions_value": 144.4262
 }
